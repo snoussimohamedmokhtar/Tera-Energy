@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tera Energy - Premium Drinks Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@400;700&family=Alumni+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        /* ========== COPY ALL CSS FROM index.html ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #f5f5dc;
+            --accent: #3b82f6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #334155;
+            --gold: #fbbf24;
+            --neon-glow: 0 0 10px rgba(37, 99, 235, 0.5), 0 0 20px rgba(37, 99, 235, 0.3);
+            --section-bg: rgba(245, 245, 220, 0.03);
+            --energy: #2563eb;
+            --water: #3b82f6;
+            --juice: #ef4444;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+
+        /* ========== HEADER & NAVIGATION ========== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2000;
+            padding: 8px 0;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            min-height: 60px;
+        }
+
+        /* ========== LOGO ========== */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 10;
+            flex-shrink: 0;
+            gap: 15px;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-image-container {
+            display: inline-block;
+            position: relative;
+            max-width: 70px;
+            height: 70px;
+            filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .logo-image-container:hover {
+            filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.6));
+        }
+
+        .logo-image {
+            height: 100%; 
+            width: auto;
+            max-width: 70px;
+            max-height: 70px;
+            display: block;
+            object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .logo-text-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-text {
+            font-family: 'Alumni Sans', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 2.4rem;
+            color: #ec1c22;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 
+                        0 0 10px rgba(236, 28, 34, 0.3);
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 40px;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        /* ========== DRINKS HERO SECTION ========== */
+        .drinks-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, 
+                        rgba(15, 23, 42, 0.95) 0%,
+                        rgba(37, 99, 235, 0.7) 50%,
+                        rgba(15, 23, 42, 0.95) 100%);
+            padding-top: 80px;
+        }
+
+        .drinks-hero-content {
+            max-width: 800px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            padding: 40px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 1s ease-out;
+        }
+
+        .drinks-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--primary), var(--juice), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(37, 99, 235, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .drinks-hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--juice));
+            border-radius: 2px;
+        }
+
+        .drinks-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--secondary);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .drinks-hero .btn {
+            font-size: 1.1rem;
+            padding: 15px 40px;
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .drinks-hero .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Hero background elements */
+        .drinks-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(239, 68, 68, 0.2) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .drinks-hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(37,99,235,0.1)"/><circle cx="50" cy="30" r="3" fill="rgba(59,130,246,0.1)"/><circle cx="80" cy="40" r="2" fill="rgba(239,68,68,0.1)"/><circle cx="40" cy="70" r="3" fill="rgba(37,99,235,0.1)"/><circle cx="70" cy="80" r="2" fill="rgba(59,130,246,0.1)"/></svg>');
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+        }
+
+        /* ========== FLIP CARDS ========== */
+        .flip-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .flip-card {
+            height: 500px;
+            perspective: 1500px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .flip-card-front {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.95));
+            border: 2px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .flip-card-front::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            transform: rotate(45deg);
+            transition: transform 0.6s ease;
+        }
+
+        .flip-card:hover .flip-card-front::before {
+            transform: rotate(45deg) translate(20%, 20%);
+        }
+
+        .product-image-container {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.5));
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .flip-card:hover .product-image {
+            transform: scale(1.15) rotate(5deg);
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.7));
+        }
+
+        .product-name {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 2;
+        }
+
+        .product-type {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .flip-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(145deg, rgba(20, 30, 48, 0.98), rgba(10, 15, 28, 0.98));
+            border: 2px solid var(--primary);
+            color: var(--light);
+            transform: rotateY(180deg);
+            text-align: left;
+            position: relative;
+            overflow-y: auto;
+            justify-content: flex-start;
+            padding-top: 40px;
+        }
+
+        .flip-card-back::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+        }
+
+        .flip-card-back h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .flip-card-back p {
+            margin-bottom: 25px;
+            line-height: 1.8;
+            color: var(--secondary);
+            font-size: 0.95rem;
+        }
+
+        .product-details {
+            margin-top: 20px;
+            background: rgba(37, 99, 235, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--gold);
+            width: 100%;
+        }
+
+        .product-details p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-details i {
+            color: var(--gold);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .back-flip-hint {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.7rem;
+        }
+
+        /* ========== CATEGORY SPECIFIC STYLES ========== */
+        .category-energy .flip-card-front {
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        .category-energy .flip-card-back {
+            border-color: var(--energy);
+        }
+
+        .category-energy .product-name {
+            color: var(--energy);
+        }
+
+        .category-water .flip-card-front {
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .category-water .flip-card-back {
+            border-color: var(--water);
+        }
+
+        .category-water .product-name {
+            color: var(--water);
+        }
+
+        .category-juice .flip-card-front {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .category-juice .flip-card-back {
+            border-color: var(--juice);
+        }
+
+        .category-juice .product-name {
+            color: var(--juice);
+        }
+
+        /* ========== CATEGORY SECTIONS ========== */
+        .category-section {
+            padding: 100px 0;
+        }
+
+        .category-section:nth-child(even) {
+            background-color: var(--section-bg);
+        }
+
+        .category-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .category-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .category-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .category-title p {
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 25px auto 0;
+            font-size: 1.1rem;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background-color: var(--darker);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(37, 99, 235, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+            animation: pulse 3s infinite;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo-image {
+            height: 80px;
+            width: auto;
+            max-width: 80px;
+            filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo-text {
+            font-family: 'Alumni Sans', sans-serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: 3rem;
+            color: #ec1c22;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6), 
+                        0 0 15px rgba(236, 28, 34, 0.4);
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .social-links {
+            display: flex;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            margin-left: 15px;
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 992px) {
+            .drinks-hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+            
+            .category-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                visibility: hidden;
+                gap: 20px;
+                z-index: 9;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .drinks-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .flip-cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .flip-card {
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .drinks-hero {
+                height: 60vh;
+            }
+            
+            .drinks-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .flip-card {
+                height: 400px;
+            }
+            
+            .product-image-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .product-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <div class="logo-image-container">
+                        <img src="logo.png" alt="Tera Energy Logo" class="logo-image">
+                    </div>
+                    <div class="logo-text-container">
+                        <h1 class="logo-text">TERA ENERGY</h1>
+                    </div>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#products">Flavors</a></li>
+                    <li><a href="index.html#logo-display">About Us</a></li>
+                    <li><a href="index.html#locations">Locations</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="drinks-hero">
+        <div class="container">
+            <div class="drinks-hero-content">
+                <h1>TERA DRINKS</h1>
+                <p>Refresh yourself with our premium energy drinks, mineral water, and natural juices. Every sip is an experience of royal quality.</p>
+                <a href="#energy-drinks" class="btn" style="background: linear-gradient(90deg, var(--energy), var(--juice));">Explore Drinks</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Energy Drinks Section -->
+    <section id="energy-drinks" class="category-section">
+        <div class="container">
+            <div class="category-title">
+                <h2>Energy Drinks</h2>
+                <p>Boost your energy with our premium energy formulas for sustained performance</p>
+            </div>
+            <div class="flip-cards-grid">
+                <!-- Energy Drink 1 -->
+                <div class="flip-card category-energy">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/flavors/tera-classic.png" alt="Tera Classic Energy" class="product-image">
+                            </div>
+                            <h3 class="product-name">Tera Classic</h3>
+                            <p class="product-type">Original Energy</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Tera Classic Energy</h3>
+                            <p>Our signature energy drink with a balanced blend of caffeine, taurine, and B-vitamins for sustained energy.</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> 80mg per 250ml</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Carbonated water, sugar, taurine, caffeine</p>
+                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 110 per can</p>
+                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Energy Drink 2 -->
+                <div class="flip-card category-energy">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/flavors/tera-mojito.png" alt="Tera Mojito" class="product-image">
+                            </div>
+                            <h3 class="product-name">Tera Mojito</h3>
+                            <p class="product-type">Mint & Lime</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Tera Mojito Edition</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Energy Drink 3 -->
+                <div class="flip-card category-energy">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-image">
+                            </div>
+                            <h3 class="product-name">Bitter Soda</h3>
+                            <p class="product-type">Cola Flavor</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Tera Bitter Soda</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mineral Water Section -->
+    <section id="mineral-water" class="category-section">
+        <div class="container">
+            <div class="category-title">
+                <h2>Mineral Water</h2>
+                <p>Pure, refreshing water from natural springs for optimal hydration</p>
+            </div>
+            <div class="flip-cards-grid">
+                <!-- Mineral Water 1 -->
+                <div class="flip-card category-water">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/flavors/tera-still-water.png" alt="Still Water" class="product-image">
+                            </div>
+                            <h3 class="product-name">Still Water</h3>
+                            <p class="product-type">Pure Hydration</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Still Mineral Water</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
+                                <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mineral Water 2 -->
+                <div class="flip-card category-water">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/flavors/tera-sparkling.png" alt="Sparkling Water" class="product-image">
+                            </div>
+                            <h3 class="product-name">Sparkling Water</h3>
+                            <p class="product-type">Bubbly Refreshment</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Sparkling Mineral Water</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
+                                <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mineral Water 3 -->
+                <div class="flip-card category-water">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/drinks/mineral-3.png" alt="Alpine Water" class="product-image">
+                            </div>
+                            <h3 class="product-name">Alpine Water</h3>
+                            <p class="product-type">Mountain Spring</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Alpine Spring Water</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
+                                <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Juices Section -->
+    <section id="juices" class="category-section">
+        <div class="container">
+            <div class="category-title">
+                <h2>Natural Juices</h2>
+                <p>100% natural fruit juices with no added sugar or preservatives</p>
+            </div>
+            <div class="flip-cards-grid">
+                <!-- Juice 1 -->
+                <div class="flip-card category-juice">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./other-products/juice-1.png" alt="Orange Juice" class="product-image">
+                            </div>
+                            <h3 class="product-name">Orange Juice</h3>
+                            <p class="product-type">100% Natural</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Fresh Orange Juice</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Juice 2 -->
+                <div class="flip-card category-juice">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./other-products/juice-2.png" alt="Tropical Juice" class="product-image">
+                            </div>
+                            <h3 class="product-name">Tropical Mix</h3>
+                            <p class="product-type">Exotic Blend</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Tropical Fruit Juice</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Juice 3 -->
+                <div class="flip-card category-juice">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="product-image-container">
+                                <img src="./assets/drinks/juice-3.png" alt="Apple Juice" class="product-image">
+                            </div>
+                            <h3 class="product-name">Apple Juice</h3>
+                            <p class="product-type">Crisp & Fresh</p>
+                            <div class="flip-hint">Hover to flip</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Pure Apple Juice</h3>
+                            <p>Description here</p>
+                            <div class="product-details">
+                                <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                            </div>
+                            <div class="back-flip-hint">Hover to flip back</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-logo-container">
+                        <img src="logo.png" alt="Tera Energy Logo" class="footer-logo-image">
+                        <div class="footer-logo-text-container">
+                            <h2 class="footer-logo-text">TERA ENERGY</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    // Calculate offset
+                    let offset = 80;
+                    if (window.innerWidth <= 768) {
+                        offset = 60;
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add click event to flip cards for mobile devices
+        const flipCards = document.querySelectorAll('.flip-card');
+        flipCards.forEach(card => {
+            card.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    this.querySelector('.flip-card-inner').classList.toggle('flipped');
+                }
+            });
+        });
+
+        // Add flipped class for mobile
+        const flipCardInners = document.querySelectorAll('.flip-card-inner');
+        flipCardInners.forEach(inner => {
+            inner.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.stopPropagation();
+                    this.classList.toggle('flipped');
+                }
+            });
+        });
+
+        // Add CSS for mobile flipped state
+        const style = document.createElement('style');
+        style.textContent = `
+            @media (max-width: 768px) {
+                .flip-card-inner.flipped {
+                    transform: rotateY(180deg) !important;
+                }
+                
+                .flip-card:hover .flip-card-inner {
+                    transform: none;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

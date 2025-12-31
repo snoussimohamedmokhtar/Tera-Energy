@@ -2567,23 +2567,31 @@
 
         /* Product Item Styling */
         .product-item {
-            flex: 0 0 220px;
-            background: linear-gradient(145deg, rgba(51, 65, 85, 0.9), rgba(30, 41, 59, 0.9));
+            display: inline-block;
+            width: 250px;
+            height: 280px;
             border-radius: 15px;
-            padding: 25px 20px;
-            border: 2px solid rgba(37, 99, 235, 0.15);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: center;
-            position: relative;
             overflow: hidden;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            text-decoration: none;
             cursor: pointer;
+            margin: 0 20px;
+        }
+
+        .products-ladder-container:hover .ladder-track {
+            animation-play-state: paused;
         }
 
         .product-item:hover {
-            transform: translateY(-10px) scale(1.05);
+            transform: scale(1.15) translateY(-10px);
             border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3), 0 0 30px rgba(37, 99, 235, 0.2);
-            z-index: 5;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(37, 99, 235, 0.4);
+            z-index: 10;
         }
 
         .product-item::before {
@@ -2604,35 +2612,36 @@
 
         .product-item img {
             width: 100%;
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-            transition: transform 0.4s ease;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
         }
 
         .product-item:hover img {
             transform: scale(1.1);
+            filter: brightness(1.2);
         }
 
         .product-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(15, 23, 42, 0.95));
             color: var(--light);
+            padding: 20px 15px 15px;
+            text-align: center;
             font-weight: 600;
-            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-top: 10px;
-            padding: 8px 15px;
-            background: rgba(37, 99, 235, 0.1);
-            border-radius: 20px;
-            border: 1px solid rgba(37, 99, 235, 0.2);
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
         .product-item:hover .product-label {
-            background: rgba(37, 99, 235, 0.2);
-            border-color: var(--primary);
-            color: var(--gold);
+            background: linear-gradient(transparent, rgba(37, 99, 235, 0.8));
+            padding-bottom: 20px;
+            font-size: 1rem;
         }
 
         /* CTA Bottom */
@@ -2758,6 +2767,24 @@
             .other-products-header .subtitle {
                 font-size: 0.95rem;
             }
+        }
+
+        /* Arrow indicator */
+        .product-item::after {
+            content: '→';
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            color: var(--gold);
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover::after {
+            opacity: 1;
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -3127,57 +3154,58 @@
                 <h2>More from Tera Energy</h2>
                 <p>Discover our complete range of premium snacks and beverages</p>
             </div>
-            
-            <div class="other-products-header">
-                <a href="other-products.html" class="btn btn-large">
-                    <i class="fas fa-chevron-right"></i> Explore Our Full Product Line
-                </a>
-                <p class="subtitle">Beyond energy drinks - Experience the entire Tera Energy kingdom</p>
-            </div>
-            
             <!-- Moving Ladder Container -->
             <div class="products-ladder-container">
                 <!-- Ladder Track 1 (Main - Moves Left) -->
                 <div class="ladder-track track-1">
                     <div class="ladder-content">
-                        <!-- Row of Product Images -->
-                        <div class="product-item">
+                        <!-- Biscuits & Snacks Category -->
+                        <a href="biscuits.html" class="product-item" data-category="biscuits">
                             <img src="./other-products/biscuits-1.png" alt="Tera Premium Biscuits">
                             <div class="product-label">Premium Biscuits</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/chocolate-1.png" alt="Tera Royal Chocolate">
-                            <div class="product-label">Tera Chocolate</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/cookies-1.png" alt="Tera Energy Cookies">
-                            <div class="product-label">Energy Cookies</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/snack-bar-1.png" alt="Tera Protein Bar">
-                            <div class="product-label">Protein Bars</div>
-                        </div>
-                        <div class="product-item">
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="chocolate">
+                            <img src="./other-products/chocolate-1.png" alt="Tera Chocolate">
+                            <div class="product-label">Chocolate Bars</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cookies">
+                            <img src="./other-products/cookies-1.png" alt="Tera Cookies">
+                            <div class="product-label">Cookies</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cream-buckets">
+                            <img src="./other-products/snack-bar-1.png" alt="Cinnamon Cream Chocolate">
+                            <div class="product-label">Cream Buckets</div>
+                        </a>
+                        
+                        <!-- Drinks Category -->
+                        <a href="drinks.html" class="product-item" data-category="juice">
                             <img src="./other-products/juice-1.png" alt="Tera Natural Juice">
                             <div class="product-label">Natural Juices</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/biscuits-2.png" alt="Tera Digestive Biscuits">
-                            <div class="product-label">Digestive Biscuits</div>
-                        </div>
-                        <!-- Duplicate for seamless scrolling -->
-                        <div class="product-item">
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="biscuits">
+                            <img src="./other-products/biscuits-2.png" alt="Tera Biscuits">
+                            <div class="product-label">Assorted Biscuits</div>
+                        </a>
+                        
+                        <!-- Duplicate for seamless scrolling (same links) -->
+                        <a href="biscuits.html" class="product-item" data-category="biscuits">
                             <img src="./other-products/biscuits-1.png" alt="Tera Premium Biscuits">
                             <div class="product-label">Premium Biscuits</div>
-                        </div>
-                        <div class="product-item">
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="chocolate">
                             <img src="./other-products/chocolate-1.png" alt="Tera Royal Chocolate">
-                            <div class="product-label">Tera Chocolate</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/cookies-1.png" alt="Tera Energy Cookies">
-                            <div class="product-label">Energy Cookies</div>
-                        </div>
+                            <div class="product-label">Chocolate Bars</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cookies">
+                            <img src="./other-products/cookies-1.png" alt="Tera Cookies">
+                            <div class="product-label">Cookies</div>
+                        </a>
                     </div>
                 </div>
                 
@@ -3185,39 +3213,46 @@
                 <div class="ladder-track track-2">
                     <div class="ladder-content">
                         <!-- Different products for variety -->
-                        <div class="product-item">
-                            <img src="./other-products/chocolate-2.png" alt="Tera Dark Chocolate">
-                            <div class="product-label">Dark Chocolate</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/cookies-2.png" alt="Tera Oat Cookies">
-                            <div class="product-label">Oat Cookies</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/snack-bar-2.png" alt="Tera Energy Bar">
-                            <div class="product-label">Energy Bars</div>
-                        </div>
-                        <div class="product-item">
+                        <a href="biscuits.html" class="product-item" data-category="chocolate">
+                            <img src="./other-products/chocolate-2.png" alt="Milk Chocolate">
+                            <div class="product-label">Milk Chocolate</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cookies">
+                            <img src="./other-products/cookies-2.png" alt="Tera Cookies">
+                            <div class="product-label">Special Cookies</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cream-buckets">
+                            <img src="./other-products/snack-bar-2.png" alt="Coconut Cream Chocolate">
+                            <div class="product-label">Flavored Creams</div>
+                        </a>
+                        
+                        <a href="drinks.html" class="product-item" data-category="juice">
                             <img src="./other-products/juice-2.png" alt="Tera Tropical Juice">
                             <div class="product-label">Tropical Juices</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/biscuits-3.png" alt="Tera Butter Biscuits">
-                            <div class="product-label">Butter Biscuits</div>
-                        </div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="biscuits">
+                            <img src="./other-products/biscuits-3.png" alt="Hazelnut Cream Biscuits">
+                            <div class="product-label">Cream Biscuits</div>
+                        </a>
+                        
                         <!-- Duplicate for seamless scrolling -->
-                        <div class="product-item">
-                            <img src="./other-products/chocolate-2.png" alt="Tera Dark Chocolate">
-                            <div class="product-label">Dark Chocolate</div>
-                        </div>
-                        <div class="product-item">
-                            <img src="./other-products/cookies-2.png" alt="Tera Oat Cookies">
-                            <div class="product-label">Oat Cookies</div>
-                        </div>
-                        <div class="product-item">
+                        <a href="biscuits.html" class="product-item" data-category="chocolate">
+                            <img src="./other-products/chocolate-2.png" alt="Milk Chocolate">
+                            <div class="product-label">Chocolate</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cookies">
+                            <img src="./other-products/cookies-2.png" alt="Tera Cookies">
+                            <div class="product-label">Cookies</div>
+                        </a>
+                        
+                        <a href="biscuits.html" class="product-item" data-category="cream-buckets">
                             <img src="./other-products/snack-bar-2.png" alt="Tera Energy Bar">
                             <div class="product-label">Energy Bars</div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
