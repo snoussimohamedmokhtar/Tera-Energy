@@ -28,6 +28,7 @@
             --energy: #2563eb;
             --water: #3b82f6;
             --juice: #ef4444;
+            --cola: #8b4513;
         }
 
         body {
@@ -348,16 +349,107 @@
             opacity: 0.3;
         }
 
-        /* ========== FLIP CARDS ========== */
-        .flip-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+        /* ========== CAROUSEL STYLES FOR EACH SECTION ========== */
+        .carousel-container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
         }
 
+        .products-carousel {
+            display: flex;
+            gap: 30px;
+            overflow: hidden;
+            scroll-behavior: smooth;
+            padding: 20px 10px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .products-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .products-carousel .flip-card {
+            flex: 0 0 calc(33.333% - 20px);
+            min-width: 0;
+            opacity: 1;
+            transform: none;
+            height: 450px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .carousel-nav:hover {
+            background: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+        }
+
+        .carousel-nav.prev {
+            left: 0;
+        }
+
+        .carousel-nav.next {
+            right: 0;
+        }
+
+        .carousel-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .carousel-nav:disabled:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.3);
+            border: 2px solid rgba(37, 99, 235, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* ========== FLIP CARDS ========== */
         .flip-card {
-            height: 500px;
+            height: 450px;
             perspective: 1500px;
             cursor: pointer;
         }
@@ -419,9 +511,9 @@
         }
 
         .product-image-container {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 30px;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 25px;
             position: relative;
             z-index: 2;
         }
@@ -440,7 +532,7 @@
         }
 
         .product-name {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--primary);
             margin-bottom: 10px;
             font-weight: 800;
@@ -451,7 +543,7 @@
 
         .product-type {
             color: var(--gold);
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -460,7 +552,7 @@
 
         .flip-hint {
             position: absolute;
-            bottom: 20px;
+            bottom: 15px;
             left: 0;
             right: 0;
             color: rgba(255, 255, 255, 0.5);
@@ -477,7 +569,7 @@
             position: relative;
             overflow-y: auto;
             justify-content: flex-start;
-            padding-top: 40px;
+            padding-top: 35px;
         }
 
         .flip-card-back::before {
@@ -491,46 +583,46 @@
         }
 
         .flip-card-back h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             width: 100%;
         }
 
         .flip-card-back p {
-            margin-bottom: 25px;
-            line-height: 1.8;
+            margin-bottom: 20px;
+            line-height: 1.7;
             color: var(--secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .product-details {
-            margin-top: 20px;
+            margin-top: 15px;
             background: rgba(37, 99, 235, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             border-left: 3px solid var(--gold);
             width: 100%;
         }
 
         .product-details p {
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
         }
 
         .product-details i {
             color: var(--gold);
-            margin-right: 10px;
+            margin-right: 8px;
             width: 20px;
         }
 
         .back-flip-hint {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
+            bottom: 10px;
+            right: 10px;
             color: rgba(255, 255, 255, 0.3);
             font-size: 0.7rem;
         }
@@ -570,6 +662,18 @@
 
         .category-juice .product-name {
             color: var(--juice);
+        }
+
+        .category-cola .flip-card-front {
+            border-color: rgba(139, 69, 19, 0.3);
+        }
+
+        .category-cola .flip-card-back {
+            border-color: var(--cola);
+        }
+
+        .category-cola .product-name {
+            color: var(--cola);
         }
 
         /* ========== CATEGORY SECTIONS ========== */
@@ -742,9 +846,15 @@
         }
 
         /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1200px) {
+            .products-carousel .flip-card {
+                flex: 0 0 calc(50% - 15px);
+            }
+        }
+
         @media (max-width: 992px) {
             .drinks-hero h1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             
             .section-title h2 {
@@ -798,32 +908,25 @@
             }
             
             .drinks-hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             
             .section-title h2 {
                 font-size: 2rem;
             }
             
-            .flip-cards-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
+            .products-carousel .flip-card {
+                flex: 0 0 calc(100% - 0px);
             }
             
-            .flip-card {
-                height: 450px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .drinks-hero {
-                height: 60vh;
+            .carousel-container {
+                padding: 0 40px;
             }
             
-            .drinks-hero h1 {
-                font-size: 2.2rem;
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
             
             .flip-card {
@@ -836,7 +939,34 @@
             }
             
             .product-name {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .drinks-hero {
+                min-height: 80vh;
+            }
+            
+            .drinks-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .flip-card {
+                height: 380px;
+            }
+            
+            .product-image-container {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .product-name {
+                font-size: 1.3rem;
+            }
+            
+            .carousel-container {
+                padding: 0 30px;
             }
         }
     </style>
@@ -886,81 +1016,210 @@
                 <h2>Energy Drinks</h2>
                 <p>Boost your energy with our premium energy formulas for sustained performance</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Energy Drink 1 -->
-                <div class="flip-card category-energy">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/flavors/tera-classic.png" alt="Tera Classic Energy" class="product-image">
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-energy">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-energy">
+                    <!-- Energy Drink 1 -->
+                    <div class="flip-card category-energy">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-classic.png" alt="Tera Classic Energy" class="product-image">
+                                </div>
+                                <h3 class="product-name">Tera Classic</h3>
+                                <p class="product-type">Original Energy</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <h3 class="product-name">Tera Classic</h3>
-                            <p class="product-type">Original Energy</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Tera Classic Energy</h3>
+                                <p>Our signature energy drink with a balanced blend of caffeine, taurine, and B-vitamins for sustained energy.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> 80mg per 250ml</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Carbonated water, sugar, taurine, caffeine</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 110 per can</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Tera Classic Energy</h3>
-                            <p>Our signature energy drink with a balanced blend of caffeine, taurine, and B-vitamins for sustained energy.</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> 80mg per 250ml</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Carbonated water, sugar, taurine, caffeine</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 110 per can</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                    </div>
+                    
+                    <!-- Energy Drink 2 -->
+                    <div class="flip-card category-energy">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-mojito.png" alt="Tera Mojito" class="product-image">
+                                </div>
+                                <h3 class="product-name">Tera Mojito</h3>
+                                <p class="product-type">Mint & Lime</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Tera Mojito Edition</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Energy Drink 3 -->
+                    <div class="flip-card category-energy">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/energy-3.png" alt="Tera Turbo" class="product-image">
+                                </div>
+                                <h3 class="product-name">Tera Turbo</h3>
+                                <p class="product-type">Extra Strength</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Tera Turbo Energy</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Energy Drink 2 -->
-                <div class="flip-card category-energy">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/flavors/tera-mojito.png" alt="Tera Mojito" class="product-image">
+                <button class="carousel-nav next" id="next-energy">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-energy"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cola & Soda Section -->
+    <section id="cola-soda" class="category-section">
+        <div class="container">
+            <div class="category-title">
+                <h2>Cola & Soda</h2>
+                <p>Refreshing cola and soda beverages with unique flavors</p>
+            </div>
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-cola">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-cola">
+                    <!-- Bitter Soda -->
+                    <div class="flip-card category-cola">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-image">
+                                </div>
+                                <h3 class="product-name">Bitter Soda</h3>
+                                <p class="product-type">Bitter Cola</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <h3 class="product-name">Tera Mojito</h3>
-                            <p class="product-type">Mint & Lime</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Bitter Soda</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-tint"></i> <strong>Type:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Tera Mojito Edition</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                    </div>
+                    
+                    <!-- Cola Classic -->
+                    <div class="flip-card category-cola">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-cola-classic.png" alt="Cola Classic" class="product-image">
+                                </div>
+                                <h3 class="product-name">Cola Classic</h3>
+                                <p class="product-type">Original Cola</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Cola Classic</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-tint"></i> <strong>Type:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cola Grenadine -->
+                    <div class="flip-card category-cola">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-cola-grenadine.png" alt="Cola Grenadine" class="product-image">
+                                </div>
+                                <h3 class="product-name">Cola Grenadine</h3>
+                                <p class="product-type">Pomegranate</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Cola Grenadine</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-tint"></i> <strong>Type:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cola Menthol -->
+                    <div class="flip-card category-cola">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-cola-menthol.png" alt="Cola Menthol" class="product-image">
+                                </div>
+                                <h3 class="product-name">Cola Menthol</h3>
+                                <p class="product-type">Mint Flavor</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Cola Menthol</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-tint"></i> <strong>Type:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Energy Drink 3 -->
-                <div class="flip-card category-energy">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-image">
-                            </div>
-                            <h3 class="product-name">Bitter Soda</h3>
-                            <p class="product-type">Cola Flavor</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Tera Bitter Soda</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-bolt"></i> <strong>Caffeine:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-cola">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-cola"></div>
             </div>
         </div>
     </section>
@@ -972,81 +1231,65 @@
                 <h2>Mineral Water</h2>
                 <p>Pure, refreshing water from natural springs for optimal hydration</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Mineral Water 1 -->
-                <div class="flip-card category-water">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/flavors/tera-still-water.png" alt="Still Water" class="product-image">
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-water">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-water">
+                    <!-- Mineral Water 1 -->
+                    <div class="flip-card category-water">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-still-water.png" alt="Still Water" class="product-image">
+                                </div>
+                                <h3 class="product-name">Still Water</h3>
+                                <p class="product-type">Pure Hydration</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <h3 class="product-name">Still Water</h3>
-                            <p class="product-type">Pure Hydration</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Still Mineral Water</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
+                                    <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Still Mineral Water</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
-                                <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
+                    </div>
+                    
+                    <!-- Mineral Water 2 -->
+                    <div class="flip-card category-water">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-sparkling.png" alt="Sparkling Water" class="product-image">
+                                </div>
+                                <h3 class="product-name">Sparkling Water</h3>
+                                <p class="product-type">Bubbly Refreshment</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Sparkling Mineral Water</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
+                                    <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Mineral Water 2 -->
-                <div class="flip-card category-water">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/flavors/tera-sparkling.png" alt="Sparkling Water" class="product-image">
-                            </div>
-                            <h3 class="product-name">Sparkling Water</h3>
-                            <p class="product-type">Bubbly Refreshment</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Sparkling Mineral Water</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
-                                <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Mineral Water 3 -->
-                <div class="flip-card category-water">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/drinks/mineral-3.png" alt="Alpine Water" class="product-image">
-                            </div>
-                            <h3 class="product-name">Alpine Water</h3>
-                            <p class="product-type">Mountain Spring</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Alpine Spring Water</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-tint"></i> <strong>Source:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Minerals:</strong> Description here</p>
-                                <p><i class="fas fa-temperature-low"></i> <strong>pH Level:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Packaging:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-water">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-water"></div>
             </div>
         </div>
     </section>
@@ -1058,81 +1301,215 @@
                 <h2>Natural Juices</h2>
                 <p>100% natural fruit juices with no added sugar or preservatives</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Juice 1 -->
-                <div class="flip-card category-juice">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/juice-1.png" alt="Orange Juice" class="product-image">
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-juice">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-juice">
+                    <!-- Juice 1 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/juice-1.png" alt="Orange Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Orange Juice</h3>
+                                <p class="product-type">100% Natural</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <h3 class="product-name">Orange Juice</h3>
-                            <p class="product-type">100% Natural</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Fresh Orange Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Fresh Orange Juice</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                    </div>
+                    
+                    <!-- Juice 2 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/juice-2.png" alt="Tropical Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Tropical Mix</h3>
+                                <p class="product-type">Exotic Blend</p>
+                                <div class="flip-hint">Hover to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Tropical Fruit Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Juice 3 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/drinks/juice-3.png" alt="Apple Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Apple Juice</h3>
+                                <p class="product-type">Crisp & Fresh</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Pure Apple Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Juice 4 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/drinks/juice-4.png" alt="Pineapple Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Pineapple Juice</h3>
+                                <p class="product-type">Tropical Sweet</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Pineapple Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Juice 5 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/drinks/juice-5.png" alt="Grape Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Grape Juice</h3>
+                                <p class="product-type">Rich & Fruity</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Grape Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Juice 6 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/drinks/juice-6.png" alt="Mango Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Mango Juice</h3>
+                                <p class="product-type">Tropical King</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Mango Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Juice 7 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/drinks/juice-7.png" alt="Mixed Berry Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Mixed Berry</h3>
+                                <p class="product-type">Berry Blend</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Mixed Berry Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Juice 8 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/drinks/juice-8.png" alt="Peach Juice" class="product-image">
+                                </div>
+                                <h3 class="product-name">Peach Juice</h3>
+                                <p class="product-type">Sweet & Smooth</p>
+                                <div class="flip-hint">Hover to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Peach Juice</h3>
+                                <p>Description here</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
+                                    <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                                </div>
+                                <div class="back-flip-hint">Hover to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Juice 2 -->
-                <div class="flip-card category-juice">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/juice-2.png" alt="Tropical Juice" class="product-image">
-                            </div>
-                            <h3 class="product-name">Tropical Mix</h3>
-                            <p class="product-type">Exotic Blend</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Tropical Fruit Juice</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Juice 3 -->
-                <div class="flip-card category-juice">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./assets/drinks/juice-3.png" alt="Apple Juice" class="product-image">
-                            </div>
-                            <h3 class="product-name">Apple Juice</h3>
-                            <p class="product-type">Crisp & Fresh</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Pure Apple Juice</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-apple-alt"></i> <strong>Fruit Content:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-vitamin-c"></i> <strong>Vitamin C:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-juice">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-juice"></div>
             </div>
         </div>
     </section>
@@ -1202,23 +1579,152 @@
             });
         });
 
+        // Initialize all carousels
+        function initCarousel(carouselId, prevBtnId, nextBtnId, indicatorsId) {
+            const carousel = document.getElementById(carouselId);
+            const prevBtn = document.getElementById(prevBtnId);
+            const nextBtn = document.getElementById(nextBtnId);
+            const indicatorsContainer = document.getElementById(indicatorsId);
+            const cards = carousel.querySelectorAll('.flip-card');
+            
+            if (!carousel || cards.length === 0) return;
+            
+            // Calculate how many cards to show based on screen width
+            function getCardsPerView() {
+                if (window.innerWidth <= 768) return 1;
+                if (window.innerWidth <= 992) return 2;
+                return 3;
+            }
+            
+            let currentIndex = 0;
+            let cardsPerView = getCardsPerView();
+            const totalCards = cards.length;
+            const totalPages = Math.ceil(totalCards / cardsPerView);
+            
+            // Create indicators
+            function createIndicators() {
+                indicatorsContainer.innerHTML = '';
+                for (let i = 0; i < totalPages; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
+                    indicator.dataset.index = i;
+                    indicator.addEventListener('click', () => goToPage(i));
+                    indicatorsContainer.appendChild(indicator);
+                }
+            }
+            
+            // Update indicators
+            function updateIndicators() {
+                const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // Calculate scroll amount
+            function getScrollAmount() {
+                const card = cards[0];
+                const cardWidth = card.offsetWidth;
+                const gap = 30;
+                return (cardWidth + gap) * cardsPerView;
+            }
+            
+            // Go to specific page
+            function goToPage(pageIndex) {
+                currentIndex = Math.max(0, Math.min(pageIndex, totalPages - 1));
+                
+                const scrollAmount = getScrollAmount() * currentIndex;
+                carousel.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+                
+                updateIndicators();
+                updateNavButtons();
+            }
+            
+            // Update navigation buttons state
+            function updateNavButtons() {
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === totalPages - 1;
+            }
+            
+            // Next page
+            function nextPage() {
+                if (currentIndex < totalPages - 1) {
+                    goToPage(currentIndex + 1);
+                }
+            }
+            
+            // Previous page
+            function prevPage() {
+                if (currentIndex > 0) {
+                    goToPage(currentIndex - 1);
+                }
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevPage);
+            nextBtn.addEventListener('click', nextPage);
+            
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    cardsPerView = getCardsPerView();
+                    createIndicators();
+                    goToPage(0);
+                }, 150);
+            });
+            
+            // Initialize
+            createIndicators();
+            updateNavButtons();
+            
+            // Auto-scroll detection for infinite scroll feel
+            carousel.addEventListener('scroll', () => {
+                const scrollLeft = carousel.scrollLeft;
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                
+                // Calculate approximate page index
+                const approxPage = Math.round((scrollLeft / maxScroll) * (totalPages - 1));
+                
+                if (approxPage !== currentIndex) {
+                    currentIndex = approxPage;
+                    updateIndicators();
+                    updateNavButtons();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (document.activeElement.closest(`#${carouselId}`)) {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        prevPage();
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        nextPage();
+                    }
+                }
+            });
+        }
+
+        // Initialize all carousels when page loads
+        window.addEventListener('load', () => {
+            initCarousel('carousel-energy', 'prev-energy', 'next-energy', 'indicators-energy');
+            initCarousel('carousel-cola', 'prev-cola', 'next-cola', 'indicators-cola');
+            initCarousel('carousel-water', 'prev-water', 'next-water', 'indicators-water');
+            initCarousel('carousel-juice', 'prev-juice', 'next-juice', 'indicators-juice');
+        });
+
         // Add click event to flip cards for mobile devices
         const flipCards = document.querySelectorAll('.flip-card');
         flipCards.forEach(card => {
             card.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
                     this.querySelector('.flip-card-inner').classList.toggle('flipped');
-                }
-            });
-        });
-
-        // Add flipped class for mobile
-        const flipCardInners = document.querySelectorAll('.flip-card-inner');
-        flipCardInners.forEach(inner => {
-            inner.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.stopPropagation();
-                    this.classList.toggle('flipped');
                 }
             });
         });
