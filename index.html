@@ -2861,6 +2861,52 @@
         .location-card:hover { transform: none; }
         }
 
+        /* ===============================
+        FIX: Navbar logo size on mobile
+        Paste at the END of your <style>
+        =============================== */
+
+        @media (max-width: 768px) {
+        header { padding: 10px 0; }
+
+        .navbar {
+            min-height: 72px;
+            align-items: center;
+        }
+
+        /* make room for logo + burger */
+        .logo {
+            gap: 12px;
+            align-items: center;
+        }
+
+        /* control size from the container (more reliable) */
+        .logo-image-container {
+            height: 56px;
+            max-width: 56px;
+        }
+
+        .logo-image {
+            height: 56px !important;
+            max-height: none !important;  /* 🔥 removes the 50px clamp */
+            width: auto;
+            display: block;
+        }
+
+        /* nicer text size */
+        .logo-text {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        }
+
+        @media (max-width: 480px) {
+        .logo-image-container { height: 48px; max-width: 48px; }
+        .logo-image { height: 48px !important; }
+        .logo-text { font-size: 1.55rem; }
+        }
+
     </style>
 </head>
 <body>
