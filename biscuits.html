@@ -350,17 +350,11 @@
         }
 
         /* ========== FLIP CARDS ========== */
-        .flip-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
         .flip-card {
-            height: 500px;
+            height: 450px;
             perspective: 1500px;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .flip-card-inner {
@@ -420,9 +414,9 @@
         }
 
         .product-image-container {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 30px;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 25px;
             position: relative;
             z-index: 2;
         }
@@ -441,7 +435,7 @@
         }
 
         .product-name {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: var(--primary);
             margin-bottom: 10px;
             font-weight: 800;
@@ -452,7 +446,7 @@
 
         .product-type {
             color: var(--gold);
-            font-size: 1.1rem;
+            font-size: 1rem;
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -461,7 +455,7 @@
 
         .flip-hint {
             position: absolute;
-            bottom: 20px;
+            bottom: 15px;
             left: 0;
             right: 0;
             color: rgba(255, 255, 255, 0.5);
@@ -478,7 +472,7 @@
             position: relative;
             overflow-y: auto;
             justify-content: flex-start;
-            padding-top: 40px;
+            padding-top: 35px;
         }
 
         .flip-card-back::before {
@@ -492,48 +486,146 @@
         }
 
         .flip-card-back h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             width: 100%;
         }
 
         .flip-card-back p {
-            margin-bottom: 25px;
-            line-height: 1.8;
+            margin-bottom: 20px;
+            line-height: 1.7;
             color: var(--secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .product-details {
-            margin-top: 20px;
+            margin-top: 15px;
             background: rgba(37, 99, 235, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             border-left: 3px solid var(--gold);
             width: 100%;
         }
 
         .product-details p {
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
         }
 
         .product-details i {
             color: var(--gold);
-            margin-right: 10px;
+            margin-right: 8px;
             width: 20px;
         }
 
         .back-flip-hint {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
+            bottom: 10px;
+            right: 10px;
             color: rgba(255, 255, 255, 0.3);
             font-size: 0.7rem;
+        }
+
+        /* ========== CAROUSEL STYLES FOR EACH SECTION ========== */
+        .carousel-container {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        .products-carousel {
+            display: flex;
+            gap: 30px;
+            overflow: hidden;
+            scroll-behavior: smooth;
+            padding: 20px 10px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .products-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .products-carousel .flip-card {
+            flex: 0 0 calc(33.333% - 20px);
+            min-width: 0;
+            opacity: 1;
+            transform: none;
+            height: 450px;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .carousel-nav:hover {
+            background: var(--accent);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
+        }
+
+        .carousel-nav.prev {
+            left: 0;
+        }
+
+        .carousel-nav.next {
+            right: 0;
+        }
+
+        .carousel-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .carousel-nav:disabled:hover {
+            background: var(--primary);
+            transform: translateY(-50%) scale(1);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, 0.3);
+            border: 2px solid rgba(37, 99, 235, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.2);
         }
 
         /* ========== CATEGORY SPECIFIC STYLES ========== */
@@ -755,9 +847,15 @@
         }
 
         /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1200px) {
+            .products-carousel .flip-card {
+                flex: 0 0 calc(50% - 15px);
+            }
+        }
+
         @media (max-width: 992px) {
             .biscuits-hero h1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             
             .section-title h2 {
@@ -811,32 +909,25 @@
             }
             
             .biscuits-hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
             
             .section-title h2 {
                 font-size: 2rem;
             }
             
-            .flip-cards-grid {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-                margin-left: auto;
-                margin-right: auto;
+            .products-carousel .flip-card {
+                flex: 0 0 calc(100% - 0px);
             }
             
-            .flip-card {
-                height: 450px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .biscuits-hero {
-                height: 60vh;
+            .carousel-container {
+                padding: 0 40px;
             }
             
-            .biscuits-hero h1 {
-                font-size: 2.2rem;
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
             
             .flip-card {
@@ -849,7 +940,34 @@
             }
             
             .product-name {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .biscuits-hero {
+                min-height: 80vh;
+            }
+            
+            .biscuits-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .flip-card {
+                height: 380px;
+            }
+            
+            .product-image-container {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .product-name {
+                font-size: 1.3rem;
+            }
+            
+            .carousel-container {
+                padding: 0 30px;
             }
         }
     </style>
@@ -881,7 +999,7 @@
         </div>
     </header>
 
-        <!-- Hero Section -->
+    <!-- Hero Section -->
     <section class="biscuits-hero">
         <div class="container">
             <div class="biscuits-hero-content">
@@ -899,81 +1017,291 @@
                 <h2>Chocolate Bars</h2>
                 <p>Rich, creamy chocolate bars crafted with premium cocoa for the ultimate indulgence</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Chocolate 1 -->
-                <div class="flip-card category-chocolate">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/chocolate-1.png" alt="Dark Chocolate Bar" class="product-image">
+            
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-chocolate">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-chocolate">
+                    <!-- Chocolate 1 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-1.png" alt="Dark Chocolate Bar" class="product-image">
+                                </div>
+                                <h3 class="product-name">Dark Chocolate</h3>
+                                <p class="product-type">70% Cocoa</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <h3 class="product-name">Dark Chocolate</h3>
-                            <p class="product-type">70% Cocoa</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Dark Chocolate Bar</h3>
+                                <p>Premium dark chocolate made with 70% cocoa from Ghana. Perfect balance of bitterness and sweetness.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cocoa mass, sugar, cocoa butter, vanilla</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 550 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Dark Chocolate Bar</h3>
-                            <p>Premium dark chocolate made with 70% cocoa from Ghana. Perfect balance of bitterness and sweetness.</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cocoa mass, sugar, cocoa butter, vanilla</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 550 per bar</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                    </div>
+                    
+                    <!-- Chocolate 2 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-2.png" alt="Milk Chocolate Bar" class="product-image">
+                                </div>
+                                <h3 class="product-name">Milk Chocolate</h3>
+                                <p class="product-type">Creamy & Smooth</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Milk Chocolate Bar</h3>
+                                <p>Silky smooth milk chocolate with rich cocoa and fresh cream blend. Perfectly sweet and creamy texture.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Milk chocolate, sugar, cocoa butter, milk solids</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 580 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 3 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-3.png" alt="Hazelnut Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Hazelnut Chocolate</h3>
+                                <p class="product-type">Crunchy & Nutty</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Hazelnut Chocolate</h3>
+                                <p>Rich milk chocolate filled with crunchy roasted hazelnut pieces. A perfect balance of smooth and crunchy.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 120g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Milk chocolate, hazelnuts, sugar, cocoa butter</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 620 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 10 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 4 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-1.png" alt="White Chocolate Bar" class="product-image">
+                                </div>
+                                <h3 class="product-name">White Chocolate</h3>
+                                <p class="product-type">Creamy Vanilla</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>White Chocolate Bar</h3>
+                                <p>Smooth white chocolate with Madagascar vanilla beans. Luxuriously creamy with a hint of vanilla.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cocoa butter, milk solids, sugar, vanilla</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 600 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 5 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-2.png" alt="Sea Salt Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Sea Salt Chocolate</h3>
+                                <p class="product-type">Dark & Salty</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Sea Salt Chocolate</h3>
+                                <p>Dark chocolate with a sprinkle of sea salt crystals. The perfect sweet and salty combination.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Dark chocolate, sea salt, cocoa mass, sugar</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 540 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 6 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-3.png" alt="Almond Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Almond Chocolate</h3>
+                                <p class="product-type">Nutty Crunch</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Almond Chocolate</h3>
+                                <p>Milk chocolate loaded with whole roasted almonds. Crunchy texture with smooth chocolate coating.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 110g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Milk chocolate, almonds, sugar, cocoa butter</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 590 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 10 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 7 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-1.png" alt="Orange Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Orange Chocolate</h3>
+                                <p class="product-type">Citrus Zest</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Orange Chocolate</h3>
+                                <p>Dark chocolate infused with natural orange oil and real orange zest pieces. Refreshing citrus flavor.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Dark chocolate, orange oil, orange zest, sugar</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 530 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 8 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-2.png" alt="Mint Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Mint Chocolate</h3>
+                                <p class="product-type">Refreshing Mint</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Mint Chocolate</h3>
+                                <p>Dark chocolate with cool mint cream filling. Refreshing and indulgent combination.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Dark chocolate, mint extract, cocoa mass, sugar</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 550 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 9 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-3.png" alt="Caramel Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Caramel Chocolate</h3>
+                                <p class="product-type">Gooey Caramel</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Caramel Chocolate</h3>
+                                <p>Milk chocolate with liquid caramel filling. Sweet, gooey caramel surrounded by smooth chocolate.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 110g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Milk chocolate, caramel, sugar, milk solids</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 610 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 9 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 10 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-1.png" alt="Coffee Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Coffee Chocolate</h3>
+                                <p class="product-type">Coffee Infused</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Coffee Chocolate</h3>
+                                <p>Dark chocolate infused with premium Arabica coffee beans. Rich coffee flavor with dark chocolate notes.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Dark chocolate, coffee extract, cocoa mass</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 540 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 12 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chocolate 11 -->
+                    <div class="flip-card category-chocolate">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/chocolate-2.png" alt="Strawberry Chocolate" class="product-image">
+                                </div>
+                                <h3 class="product-name">Strawberry Chocolate</h3>
+                                <p class="product-type">Berry Sweet</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Strawberry Chocolate</h3>
+                                <p>White chocolate with freeze-dried strawberry pieces. Sweet and tangy berry flavor.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 100g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> White chocolate, strawberries, cocoa butter</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 580 per bar</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 10 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Chocolate 2 -->
-                <div class="flip-card category-chocolate">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/chocolate-2.png" alt="Milk Chocolate Bar" class="product-image">
-                            </div>
-                            <h3 class="product-name">Milk Chocolate</h3>
-                            <p class="product-type">Creamy & Smooth</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Milk Chocolate Bar</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Chocolate 3 -->
-                <div class="flip-card category-chocolate">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/chocolate-3.png" alt="Hazelnut Chocolate" class="product-image">
-                            </div>
-                            <h3 class="product-name">Hazelnut Chocolate</h3>
-                            <p class="product-type">Crunchy & Nutty</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Hazelnut Chocolate</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-chocolate">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-chocolate"></div>
             </div>
         </div>
     </section>
@@ -985,81 +1313,142 @@
                 <h2>Premium Biscuits</h2>
                 <p>Crunchy, buttery biscuits in various flavors and textures</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Biscuit 1 -->
-                <div class="flip-card category-biscuits">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/biscuits-1.png" alt="Butter Biscuits" class="product-image">
+            
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-biscuits">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-biscuits">
+                    <!-- Biscuit 1 -->
+                    <div class="flip-card category-biscuits">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/biscuits-1.png" alt="Butter Biscuits" class="product-image">
+                                </div>
+                                <h3 class="product-name">Butter Biscuits</h3>
+                                <p class="product-type">Classic & Buttery</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <h3 class="product-name">Butter Biscuits</h3>
-                            <p class="product-type">Classic & Buttery</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Butter Biscuits</h3>
+                                <p>Rich, buttery biscuits made with premium butter and wheat flour. Perfect with tea or coffee.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 250g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Wheat flour, butter, sugar, salt</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 480 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 6 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Butter Biscuits</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                    </div>
+                    
+                    <!-- Biscuit 2 -->
+                    <div class="flip-card category-biscuits">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/biscuits-2.png" alt="Assorted Biscuits" class="product-image">
+                                </div>
+                                <h3 class="product-name">Assorted Biscuits</h3>
+                                <p class="product-type">Variety Pack</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Assorted Biscuits</h3>
+                                <p>A delightful mix of different biscuit varieties including butter, digestive, and cream-filled biscuits.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 300g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Mixed flours, butter, sugar, flavorings</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 500 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 5 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Biscuit 3 -->
+                    <div class="flip-card category-biscuits">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/biscuits-3.png" alt="Hazelnut Cream Biscuits" class="product-image">
+                                </div>
+                                <h3 class="product-name">Cream Biscuits</h3>
+                                <p class="product-type">Hazelnut Filling</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Hazelnut Cream Biscuits</h3>
+                                <p>Crisp biscuits filled with rich hazelnut cream. Perfect balance of crunch and smooth filling.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 200g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Biscuit, hazelnut cream, sugar, cocoa</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 520 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 4 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add more biscuits as needed -->
+                    <!-- Biscuit 4 -->
+                    <div class="flip-card category-biscuits">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/biscuits-1.png" alt="Chocolate Biscuits" class="product-image">
+                                </div>
+                                <h3 class="product-name">Chocolate Biscuits</h3>
+                                <p class="product-type">Chocolate Coated</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Chocolate Biscuits</h3>
+                                <p>Buttery biscuits coated with premium milk chocolate. A perfect sweet treat for any time.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 200g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Biscuit, milk chocolate, butter, flour</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 540 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 5 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Biscuit 5 -->
+                    <div class="flip-card category-biscuits">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/biscuits-2.png" alt="Digestive Biscuits" class="product-image">
+                                </div>
+                                <h3 class="product-name">Digestive Biscuits</h3>
+                                <p class="product-type">Whole Wheat</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Digestive Biscuits</h3>
+                                <p>Healthy whole wheat biscuits with a hint of sweetness. Perfect for a light snack.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 250g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Whole wheat flour, sugar, butter, baking soda</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 460 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 6 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Biscuit 2 -->
-                <div class="flip-card category-biscuits">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/biscuits-2.png" alt="Assorted Biscuits" class="product-image">
-                            </div>
-                            <h3 class="product-name">Assorted Biscuits</h3>
-                            <p class="product-type">Variety Pack</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Assorted Biscuits</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Biscuit 3 -->
-                <div class="flip-card category-biscuits">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/biscuits-3.png" alt="Hazelnut Cream Biscuits" class="product-image">
-                            </div>
-                            <h3 class="product-name">Cream Biscuits</h3>
-                            <p class="product-type">Hazelnut Filling</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Hazelnut Cream Biscuits</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-biscuits">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-biscuits"></div>
             </div>
         </div>
     </section>
@@ -1071,81 +1460,141 @@
                 <h2>Delicious Cookies</h2>
                 <p>Soft, chewy cookies with various add-ins and flavors</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Cookie 1 -->
-                <div class="flip-card category-cookies">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/cookies-1.png" alt="Chocolate Chip Cookies" class="product-image">
+            
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-cookies">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-cookies">
+                    <!-- Cookie 1 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/cookies-1.png" alt="Chocolate Chip Cookies" class="product-image">
+                                </div>
+                                <h3 class="product-name">Chocolate Chip</h3>
+                                <p class="product-type">Loaded with Chips</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <h3 class="product-name">Chocolate Chip</h3>
-                            <p class="product-type">Loaded with Chips</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Chocolate Chip Cookies</h3>
+                                <p>Soft, chewy cookies loaded with chocolate chips. Perfect balance of sweetness and texture.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 200g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Flour, chocolate chips, butter, sugar, eggs</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 520 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 3 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Chocolate Chip Cookies</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                    </div>
+                    
+                    <!-- Cookie 2 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/cookies-2.png" alt="Special Cookies" class="product-image">
+                                </div>
+                                <h3 class="product-name">Special Cookies</h3>
+                                <p class="product-type">Premium Mix</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Special Cookies</h3>
+                                <p>Premium cookies with a mix of nuts, dried fruits, and chocolate chunks. Gourmet quality.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 250g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Flour, nuts, dried fruits, chocolate, butter</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 540 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 4 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cookie 3 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/cookies-3.png" alt="Oatmeal Cookies" class="product-image">
+                                </div>
+                                <h3 class="product-name">Oatmeal Cookies</h3>
+                                <p class="product-type">Healthy & Crunchy</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Oatmeal Cookies</h3>
+                                <p>Healthy oatmeal cookies with raisins and cinnamon. Wholesome and satisfying.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 200g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Oats, raisins, cinnamon, honey, butter</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 480 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 3 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cookie 4 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/cookies-1.png" alt="Double Chocolate Cookies" class="product-image">
+                                </div>
+                                <h3 class="product-name">Double Chocolate</h3>
+                                <p class="product-type">Chocolate Lover</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Double Chocolate Cookies</h3>
+                                <p>Chocolate cookies with chocolate chips for ultimate chocolate indulgence.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 200g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cocoa powder, chocolate chips, butter, flour</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 550 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 3 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cookie 5 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/cookies-2.png" alt="Peanut Butter Cookies" class="product-image">
+                                </div>
+                                <h3 class="product-name">Peanut Butter</h3>
+                                <p class="product-type">Nutty & Rich</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Peanut Butter Cookies</h3>
+                                <p>Rich peanut butter cookies with a soft, chewy texture. Perfect for peanut butter lovers.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 200g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Peanut butter, flour, sugar, eggs, butter</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 530 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 3 months</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Cookie 2 -->
-                <div class="flip-card category-cookies">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/cookies-2.png" alt="Special Cookies" class="product-image">
-                            </div>
-                            <h3 class="product-name">Special Cookies</h3>
-                            <p class="product-type">Premium Mix</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Special Cookies</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cookie 3 -->
-                <div class="flip-card category-cookies">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/cookies-3.png" alt="Oatmeal Cookies" class="product-image">
-                            </div>
-                            <h3 class="product-name">Oatmeal Cookies</h3>
-                            <p class="product-type">Healthy & Crunchy</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Oatmeal Cookies</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-cookies">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-cookies"></div>
             </div>
         </div>
     </section>
@@ -1157,81 +1606,141 @@
                 <h2>Cream Buckets</h2>
                 <p>Rich, creamy delights in various flavors</p>
             </div>
-            <div class="flip-cards-grid">
-                <!-- Cream 1 -->
-                <div class="flip-card category-cream">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/snack-bar-1.png" alt="Cinnamon Cream" class="product-image">
+            
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-cream">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-cream">
+                    <!-- Cream 1 -->
+                    <div class="flip-card category-cream">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/snack-bar-1.png" alt="Cinnamon Cream" class="product-image">
+                                </div>
+                                <h3 class="product-name">Cinnamon Cream</h3>
+                                <p class="product-type">Spiced Delight</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <h3 class="product-name">Cinnamon Cream</h3>
-                            <p class="product-type">Spiced Delight</p>
-                            <div class="flip-hint">Hover to flip</div>
+                            <div class="flip-card-back">
+                                <h3>Cinnamon Cream Bucket</h3>
+                                <p>Sweet cream with warm cinnamon spice. Perfect for spreading or as a dip.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 500g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cream, cinnamon, sugar, stabilizers</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 320 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 2 months (refrigerated)</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
-                        <div class="flip-card-back">
-                            <h3>Cinnamon Cream Bucket</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
+                    </div>
+                    
+                    <!-- Cream 2 -->
+                    <div class="flip-card category-cream">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/snack-bar-2.png" alt="Coconut Cream" class="product-image">
+                                </div>
+                                <h3 class="product-name">Coconut Cream</h3>
+                                <p class="product-type">Tropical Flavor</p>
+                                <div class="flip-hint">Click to flip</div>
                             </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
+                            <div class="flip-card-back">
+                                <h3>Coconut Cream Bucket</h3>
+                                <p>Creamy coconut-flavored spread with real coconut extract. Tropical delight.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 500g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cream, coconut extract, sugar, stabilizers</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 310 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 2 months (refrigerated)</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cream 3 -->
+                    <div class="flip-card category-cream">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/snack-bar-3.png" alt="Chocolate Cream" class="product-image">
+                                </div>
+                                <h3 class="product-name">Chocolate Cream</h3>
+                                <p class="product-type">Rich & Velvety</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Chocolate Cream Bucket</h3>
+                                <p>Rich chocolate cream perfect for desserts, spreading, or dipping.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 500g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cream, cocoa powder, sugar, stabilizers</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 340 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 2 months (refrigerated)</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cream 4 -->
+                    <div class="flip-card category-cream">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/snack-bar-1.png" alt="Vanilla Cream" class="product-image">
+                                </div>
+                                <h3 class="product-name">Vanilla Cream</h3>
+                                <p class="product-type">Classic Vanilla</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Vanilla Cream Bucket</h3>
+                                <p>Smooth vanilla cream made with Madagascar vanilla beans.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 500g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cream, vanilla extract, sugar, stabilizers</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 300 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 2 months (refrigerated)</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Cream 5 -->
+                    <div class="flip-card category-cream">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./other-products/snack-bar-2.png" alt="Strawberry Cream" class="product-image">
+                                </div>
+                                <h3 class="product-name">Strawberry Cream</h3>
+                                <p class="product-type">Berry Fresh</p>
+                                <div class="flip-hint">Click to flip</div>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Strawberry Cream Bucket</h3>
+                                <p>Fresh strawberry flavored cream with natural berry essence.</p>
+                                <div class="product-details">
+                                    <p><i class="fas fa-weight"></i> <strong>Weight:</strong> 500g</p>
+                                    <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Cream, strawberry flavor, sugar, stabilizers</p>
+                                    <p><i class="fas fa-fire"></i> <strong>Calories:</strong> 310 per 100g</p>
+                                    <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> 2 months (refrigerated)</p>
+                                </div>
+                                <div class="back-flip-hint">Click to flip back</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Cream 2 -->
-                <div class="flip-card category-cream">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/snack-bar-2.png" alt="Coconut Cream" class="product-image">
-                            </div>
-                            <h3 class="product-name">Coconut Cream</h3>
-                            <p class="product-type">Tropical Flavor</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Coconut Cream Bucket</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cream 3 -->
-                <div class="flip-card category-cream">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="product-image-container">
-                                <img src="./other-products/snack-bar-3.png" alt="Chocolate Cream" class="product-image">
-                            </div>
-                            <h3 class="product-name">Chocolate Cream</h3>
-                            <p class="product-type">Rich & Velvety</p>
-                            <div class="flip-hint">Hover to flip</div>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3>Chocolate Cream Bucket</h3>
-                            <p>Description here</p>
-                            <div class="product-details">
-                                <p><i class="fas fa-weight"></i> <strong>Weight:</strong> Description here</p>
-                                <p><i class="fas fa-leaf"></i> <strong>Ingredients:</strong> Description here</p>
-                                <p><i class="fas fa-fire"></i> <strong>Calories:</strong> Description here</p>
-                                <p><i class="fas fa-box"></i> <strong>Shelf Life:</strong> Description here</p>
-                            </div>
-                            <div class="back-flip-hint">Hover to flip back</div>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav next" id="next-cream">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-cream"></div>
             </div>
         </div>
     </section>
@@ -1265,7 +1774,7 @@
         // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
@@ -1301,23 +1810,140 @@
             });
         });
 
+        // Initialize all carousels
+        function initCarousel(carouselId, prevBtnId, nextBtnId, indicatorsId) {
+            const carousel = document.getElementById(carouselId);
+            const prevBtn = document.getElementById(prevBtnId);
+            const nextBtn = document.getElementById(nextBtnId);
+            const indicatorsContainer = document.getElementById(indicatorsId);
+            const cards = carousel.querySelectorAll('.flip-card');
+            
+            if (!carousel || cards.length === 0) return;
+            
+            // Calculate how many cards to show based on screen width
+            function getCardsPerView() {
+                if (window.innerWidth <= 768) return 1;
+                if (window.innerWidth <= 992) return 2;
+                return 3;
+            }
+            
+            let currentIndex = 0;
+            let cardsPerView = getCardsPerView();
+            const totalCards = cards.length;
+            const totalPages = Math.ceil(totalCards / cardsPerView);
+            
+            // Create indicators
+            function createIndicators() {
+                indicatorsContainer.innerHTML = '';
+                for (let i = 0; i < totalPages; i++) {
+                    const indicator = document.createElement('div');
+                    indicator.className = `carousel-indicator ${i === 0 ? 'active' : ''}`;
+                    indicator.dataset.index = i;
+                    indicator.addEventListener('click', () => goToPage(i));
+                    indicatorsContainer.appendChild(indicator);
+                }
+            }
+            
+            // Update indicators
+            function updateIndicators() {
+                const indicators = indicatorsContainer.querySelectorAll('.carousel-indicator');
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // Calculate scroll amount
+            function getScrollAmount() {
+                const card = cards[0];
+                const cardWidth = card.offsetWidth;
+                const gap = 30;
+                return (cardWidth + gap) * cardsPerView;
+            }
+            
+            // Go to specific page
+            function goToPage(pageIndex) {
+                currentIndex = Math.max(0, Math.min(pageIndex, totalPages - 1));
+                
+                const scrollAmount = getScrollAmount() * currentIndex;
+                carousel.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+                
+                updateIndicators();
+                updateNavButtons();
+            }
+            
+            // Update navigation buttons state
+            function updateNavButtons() {
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === totalPages - 1;
+            }
+            
+            // Next page
+            function nextPage() {
+                if (currentIndex < totalPages - 1) {
+                    goToPage(currentIndex + 1);
+                }
+            }
+            
+            // Previous page
+            function prevPage() {
+                if (currentIndex > 0) {
+                    goToPage(currentIndex - 1);
+                }
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevPage);
+            nextBtn.addEventListener('click', nextPage);
+            
+            // Handle window resize
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    cardsPerView = getCardsPerView();
+                    createIndicators();
+                    goToPage(0);
+                }, 150);
+            });
+            
+            // Initialize
+            createIndicators();
+            updateNavButtons();
+            
+            // Auto-scroll detection for infinite scroll feel
+            carousel.addEventListener('scroll', () => {
+                const scrollLeft = carousel.scrollLeft;
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                
+                // Calculate approximate page index
+                const approxPage = Math.round((scrollLeft / maxScroll) * (totalPages - 1));
+                
+                if (approxPage !== currentIndex) {
+                    currentIndex = approxPage;
+                    updateIndicators();
+                    updateNavButtons();
+                }
+            });
+        }
+
+        // Initialize all carousels when page loads
+        window.addEventListener('load', () => {
+            // Initialize all carousels
+            initCarousel('carousel-chocolate', 'prev-chocolate', 'next-chocolate', 'indicators-chocolate');
+            initCarousel('carousel-biscuits', 'prev-biscuits', 'next-biscuits', 'indicators-biscuits');
+            initCarousel('carousel-cookies', 'prev-cookies', 'next-cookies', 'indicators-cookies');
+            initCarousel('carousel-cream', 'prev-cream', 'next-cream', 'indicators-cream');
+        });
+
         // Add click event to flip cards for mobile devices
         const flipCards = document.querySelectorAll('.flip-card');
         flipCards.forEach(card => {
             card.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
                     this.querySelector('.flip-card-inner').classList.toggle('flipped');
-                }
-            });
-        });
-
-        // Add flipped class for mobile
-        const flipCardInners = document.querySelectorAll('.flip-card-inner');
-        flipCardInners.forEach(inner => {
-            inner.addEventListener('click', function(e) {
-                if (window.innerWidth <= 768) {
-                    e.stopPropagation();
-                    this.classList.toggle('flipped');
                 }
             });
         });
