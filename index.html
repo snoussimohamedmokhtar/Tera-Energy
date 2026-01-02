@@ -2786,6 +2786,81 @@
             opacity: 1;
             transform: translateX(0);
         }
+
+        /* ===============================
+        MOBILE POLISH PACK (index.html)
+        Paste at the END of your <style>
+        =============================== */
+
+        @media (max-width: 768px) {
+        /* Overall spacing */
+        section { padding: 70px 0; }
+        .section-title { margin-bottom: 40px; }
+        .section-title h2 { font-size: 2rem; letter-spacing: 2px; }
+
+        /* ✅ Make product carousel swipeable + snap */
+        .carousel-container { padding: 0 14px; }
+        .carousel-nav { display: none; } /* mobile should swipe */
+        .products-carousel {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scroll-padding: 14px;
+            padding: 12px 6px 18px;
+            gap: 16px;
+        }
+
+        /* ✅ Show 1 card + a “peek” of the next one */
+        .products-carousel .product-card {
+            flex: 0 0 88%;
+            scroll-snap-align: center;
+            height: auto;
+            min-height: 420px;
+        }
+
+        .product-card__edition-wrapper { padding: 18px 16px 12px; }
+        .product-card__edition-line h3 { font-size: 1.1rem; }
+        .product-card__edition-line:last-child h3 { font-size: 1.05rem; }
+        .product-card__can-container { padding: 14px; }
+        .product-card__can-image { max-height: 220px; }
+        .carousel-indicators { margin-top: 18px; }
+
+        /* ✅ Locations section looks WAY better on phones */
+        .locations-grid { grid-template-columns: 1fr; gap: 18px; }
+        .location-card { padding: 22px 18px; }
+        .location-header { margin-bottom: 18px; gap: 12px; }
+        .location-header i { font-size: 2rem; margin-right: 0; }
+        .location-header h3 { font-size: 1.4rem; }
+
+        /* fix icon alignment when lines wrap */
+        .location-details p { font-size: 0.95rem; line-height: 1.45; align-items: flex-start; }
+        .location-details i { margin-top: 3px; }
+
+        /* make CTA button full width on mobile */
+        .location-card .btn {
+            width: 100%;
+            text-align: center;
+            padding: 14px 18px;
+        }
+
+        /* Contact spacing (small polish) */
+        .contact-form { padding: 22px; }
+        .contact-item { padding: 12px; }
+        }
+
+        @media (max-width: 480px) {
+        .products-carousel .product-card { flex-basis: 92%; min-height: 400px; }
+        .product-card__can-image { max-height: 205px; }
+        }
+
+        /* ✅ Kill “sticky hover” on touch devices */
+        @media (hover: none) and (pointer: coarse) {
+        .product-card-link:hover { transform: none; }
+        .product-card-link:hover .product-card { transform: none; box-shadow: none; }
+        .location-card:hover { transform: none; }
+        }
+
     </style>
 </head>
 <body>
@@ -2803,7 +2878,7 @@
                     </div>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#home">Home</a></li>
                     <li><a href="drinks.html">Drinks</a></li>
                     <li><a href="biscuits.html">Snacks</a></li>
                     <li><a href="index.html#logo-display">About Us</a></li>
@@ -3431,38 +3506,92 @@
         // Initialize mobile menu handling
         window.addEventListener('load', handleMobileMenuInTransparent);
 
-        // Smooth Scrolling with navbar height offset
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    // Close mobile menu if open
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    
-                    // Force navbar to be visible when clicking internal links
-                    const header = document.querySelector('header');
-                    header.classList.remove('navbar-hidden');
-                    header.classList.add('navbar-force-visible');
-                    
-                    // Calculate offset based on navbar state
-                    let offset = 80;
-                    if (window.innerWidth <= 768) {
-                        offset = 60;
-                    }
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - offset,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        // ===== Smooth scrolling (handles "#section" AND "index.html#section") =====
+        function normalizePath(path) {
+        return (path || "").replace(/\/+$/, "");
+        }
+
+        function closeMobileMenu() {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+
+        const header = document.querySelector('header');
+        if (header) header.classList.remove('navbar-mobile-open');
+        }
+
+        function getHeaderOffset() {
+        const header = document.querySelector('header');
+        if (!header) return 0;
+
+        // Ensure header isn't hidden so height is correct
+        header.classList.remove('navbar-hidden');
+
+        return header.getBoundingClientRect().height + 10; // +10px breathing room
+        }
+
+        function smoothScrollToHash(hash) {
+        if (!hash || hash === '#') return false;
+
+        const target = document.querySelector(hash);
+        if (!target) return false;
+
+        // Force navbar visible when navigating
+        const header = document.querySelector('header');
+        if (header) {
+            header.classList.remove('navbar-hidden');
+            header.classList.add('navbar-force-visible');
+        }
+
+        const offset = getHeaderOffset();
+        const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        window.scrollTo({
+            top: y,
+            behavior: prefersReducedMotion ? 'auto' : 'smooth'
         });
+
+        return true;
+        }
+
+        // Intercept clicks for any link that contains a "#"
+        document.querySelectorAll('a[href*="#"]').forEach(link => {
+        link.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+
+            const url = new URL(href, window.location.href);
+
+            const samePage =
+            url.origin === window.location.origin &&
+            normalizePath(url.pathname) === normalizePath(window.location.pathname);
+
+            // If it's a different page (ex: from drinks.html to index.html#contact), let the browser navigate.
+            if (!samePage) return;
+
+            // Same page: do smooth scrolling with offset
+            const didScroll = smoothScrollToHash(url.hash);
+            if (didScroll) {
+            e.preventDefault();
+            closeMobileMenu();
+
+            // Update URL hash without triggering the default jump
+            history.pushState(null, '', url.hash);
+            }
+        });
+        });
+
+        // If you LAND on a page with a hash (ex: you came from drinks.html to index.html#contact)
+        window.addEventListener('load', () => {
+        if (window.location.hash) {
+            // Small delay helps ensure layout/fonts are ready
+            setTimeout(() => {
+            smoothScrollToHash(window.location.hash);
+            }, 50);
+        }
+        });
+
 
         // Contact Form Submission
         const contactForm = document.getElementById('contactForm');
