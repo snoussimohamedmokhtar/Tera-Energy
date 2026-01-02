@@ -4215,18 +4215,30 @@
             
             // Auto-scroll detection for infinite scroll feel
             carousel.addEventListener('scroll', () => {
-                const scrollLeft = carousel.scrollLeft;
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-                
-                // Calculate approximate page index
-                const approxPage = Math.round((scrollLeft / maxScroll) * (totalPages - 1));
-                
-                if (approxPage !== currentIndex) {
-                    currentIndex = approxPage;
+            const scrollLeft = carousel.scrollLeft;
+            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+
+            // ✅ Guard against division by zero (mobile + few cards)
+            if (maxScroll <= 0) {
+                if (currentIndex !== 0) {
+                    currentIndex = 0;
                     updateIndicators();
                     updateNavButtons();
                 }
+                return;
+            }
+
+            const approxPage = Math.round(
+                (scrollLeft / maxScroll) * (totalPages - 1)
+            );
+
+            if (approxPage !== currentIndex) {
+                currentIndex = approxPage;
+                updateIndicators();
+                updateNavButtons();
+            }
             });
+
             
             // Keyboard navigation
             document.addEventListener('keydown', (e) => {
