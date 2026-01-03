@@ -2908,6 +2908,116 @@
         .logo-text { font-size: 1.55rem; }
         }
 
+        /* ===============================
+        MOBILE MAKEOVER: Other Products Ladder
+        Paste at END of <style>
+        =============================== */
+
+        @media (max-width: 768px) {
+        /* Section spacing + header polish */
+        .other-products-section {
+            padding: 70px 0;
+        }
+
+        .other-products-section .section-title h2 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .other-products-section .section-title p {
+            margin-top: 10px;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        /* Remove the "edge fade" overlay (looks muddy on phones) */
+        .ladder-track::before {
+            display: none;
+        }
+
+        /* Make each track a swipeable row */
+        .ladder-track {
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            padding: 10px 8px 18px;
+            margin-bottom: 18px;
+        }
+
+        /* Stop the infinite animation on mobile (swipe instead) */
+        .track-1.ready .ladder-content,
+        .track-2.ready .ladder-content {
+            animation: none !important;
+        }
+
+        /* Make the content behave like a normal row */
+        .ladder-content {
+            width: auto !important;
+            gap: 14px;
+            padding: 10px 6px;
+            transform: none !important;
+        }
+
+        /* Premium mobile cards */
+        .product-item {
+            flex: 0 0 72%;
+            width: auto;
+            height: 220px;
+            border-radius: 16px;
+            border: 1px solid rgba(37, 99, 235, 0.25);
+            background: rgba(15, 23, 42, 0.85);
+            scroll-snap-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+        }
+
+        .product-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(1.05);
+        }
+
+        /* Better label readability */
+        .product-label {
+            font-size: 0.95rem;
+            padding: 16px 14px 14px;
+            letter-spacing: 1px;
+            background: linear-gradient(transparent, rgba(15, 23, 42, 0.95));
+        }
+
+        /* Kill hover zoom chaos on touch */
+        .product-item:hover {
+            transform: none;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+        }
+
+        .product-item:hover img {
+            transform: none;
+            filter: none;
+        }
+
+        .product-item::after {
+            display: none; /* arrow indicator not needed on mobile */
+        }
+
+        /* Hide duplicates if JS cloned (prevents very long swipe rows) */
+        .product-item[data-clone="1"] {
+            display: none !important;
+        }
+        }
+
+        /* Smaller phones */
+        @media (max-width: 480px) {
+        .product-item {
+            flex-basis: 84%;
+            height: 210px;
+        }
+        .product-label {
+            font-size: 0.9rem;
+        }
+        }
+
     </style>
 </head>
 <body>
@@ -4295,6 +4405,7 @@
         window.addEventListener('load', initCarousel);
 
         function initSeamlessLadders() {
+        if (window.innerWidth <= 768) return;
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         document.querySelectorAll('.ladder-track').forEach(track => {
