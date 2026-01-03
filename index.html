@@ -2532,38 +2532,41 @@
             padding: 20px 0;
         }
 
-        /* Animation for Track 1 (moves left) */
-        .track-1 .ladder-content {
-            animation: moveLeft 40s linear infinite;
-        }
+        /* ===============================
+        LADDER: animate ONLY after JS builds A + A
+        =============================== */
 
-        /* Animation for Track 2 (moves right) */
+        /* 1) Default: NO animation until .ready is added by JS */
+        .track-1 .ladder-content,
         .track-2 .ladder-content {
-            animation: moveRight 35s linear infinite;
+        animation: none;
         }
 
-        /* Pause animation on hover */
+        /* 2) Start animation only when JS adds .ready */
+        .track-1.ready .ladder-content {
+        animation: moveLeft 40s linear infinite;
+        }
+
+        .track-2.ready .ladder-content {
+        animation: moveRight 35s linear infinite;
+        }
+
+        /* 3) Pause animation on hover */
         .ladder-track:hover .ladder-content {
-            animation-play-state: paused;
+        animation-play-state: paused;
         }
 
         @keyframes moveLeft {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+        from { transform: translate3d(0, 0, 0); }
+        to   { transform: translate3d(-50%, 0, 0); }
         }
 
         @keyframes moveRight {
-            0% {
-                transform: translateX(-50%);
-            }
-            100% {
-                transform: translateX(0);
-            }
+        from { transform: translate3d(-50%, 0, 0); }
+        to   { transform: translate3d(0, 0, 0); }
         }
+
+
 
         /* Product Item Styling */
         .product-item {
@@ -2578,7 +2581,8 @@
             border: 2px solid rgba(37, 99, 235, 0.3);
             text-decoration: none;
             cursor: pointer;
-            margin: 0 20px;
+            margin: 0;
+            flex: 0 0 auto;
         }
 
         .products-ladder-container:hover .ladder-track {
@@ -2733,13 +2737,10 @@
                 gap: 20px;
             }
             
-            .track-1 .ladder-content {
-                animation: moveLeft 30s linear infinite;
-            }
-            
-            .track-2 .ladder-content {
-                animation: moveRight 25s linear infinite;
-            }
+            .track-1.ready .ladder-content { animation: moveLeft 40s linear infinite; }
+            .track-2.ready .ladder-content { animation: moveRight 35s linear infinite; }
+
+            .ladder-content { will-change: transform; }
             
             .cta-bottom {
                 padding: 30px 20px;
@@ -3335,19 +3336,19 @@
                     
                     <div class="gallery-grid">
                         <div class="gallery-item">
-                            <img src="./assets/about us/lab 1.jpg" alt="Tera Energy Main Laboratory">
+                            <img src="./assets/about us/lab 1.WebP" alt="Tera Energy Main Laboratory">
                             <span>Main Research Lab</span>
                         </div>
                         <div class="gallery-item">
-                            <img src="./assets/about us/lab 2.jpg" alt="Quality Control Department">
+                            <img src="./assets/about us/lab 2.WebP" alt="Quality Control Department">
                             <span>Quality Control</span>
                         </div>
                         <div class="gallery-item">
-                            <img src="./assets/about us/lab 3.jpg" alt="Brewing Process">
+                            <img src="./assets/about us/lab 3.WebP" alt="Brewing Process">
                             <span>Formula Brewing</span>
                         </div>
                         <div class="gallery-item">
-                            <img src="./assets/about us/lab 4.jpg" alt="Product Testing">
+                            <img src="./assets/about us/lab 4.WebP" alt="Product Testing">
                             <span>Product Testing</span>
                         </div>
                     </div>
@@ -4292,6 +4293,79 @@
 
         // Initialize carousel when page loads
         window.addEventListener('load', initCarousel);
+
+        function initSeamlessLadders() {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        document.querySelectorAll('.ladder-track').forEach(track => {
+            const content = track.querySelector('.ladder-content');
+            if (!content) return;
+
+            // If re-running (resize), remove "ready" so it doesn't animate mid-rebuild
+            track.classList.remove('ready');
+
+            const children = Array.from(content.children);
+
+            // Detect the "base set" A:
+            // We walk items until we hit the first repeated "signature".
+            const seen = new Set();
+            const base = [];
+
+            for (const el of children) {
+            const img = el.querySelector('img');
+            const label = el.querySelector('.product-label')?.textContent.trim() || '';
+            const sig = [
+                el.tagName,
+                el.getAttribute('href') || '',
+                el.dataset.category || '',
+                img?.getAttribute('src') || '',
+                label
+            ].join('|');
+
+            if (seen.has(sig)) break;
+            seen.add(sig);
+            base.push(el);
+            }
+
+            // Fallback: if no repeat detected, treat all as base
+            const baseSet = base.length ? base : children;
+
+            // Rebuild content = A
+            content.innerHTML = '';
+            baseSet.forEach(el => content.appendChild(el));
+
+            // Clone once to make A + A (perfect 50/50)
+            baseSet.forEach(el => {
+            const clone = el.cloneNode(true);
+            clone.dataset.clone = '1';
+            clone.setAttribute('aria-hidden', 'true'); // avoid double screen-reader spam
+            clone.tabIndex = -1;                       // avoid double tab stops
+            content.appendChild(clone);
+            });
+
+            // Set the starting position so the first frame is clean
+            if (track.classList.contains('track-2')) {
+            content.style.transform = 'translate3d(-50%,0,0)';
+            } else {
+            content.style.transform = 'translate3d(0,0,0)';
+            }
+
+            // Start animation AFTER rebuild (prevents the visible reset)
+            if (!reduceMotion) {
+            requestAnimationFrame(() => track.classList.add('ready'));
+            }
+        });
+        }
+
+        window.addEventListener('load', initSeamlessLadders);
+
+        // Optional: rebuild on resize (keeps it perfect if layout changes)
+        let ladderResizeTimer = null;
+        window.addEventListener('resize', () => {
+        clearTimeout(ladderResizeTimer);
+        ladderResizeTimer = setTimeout(initSeamlessLadders, 150);
+        });
+
     </script>
 </body>
 </html>
