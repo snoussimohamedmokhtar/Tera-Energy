@@ -3869,250 +3869,240 @@
         // Enhanced Wave effect for product cards (hover)
         const waveOverlay = document.getElementById('waveOverlay');
         const productsSection = document.querySelector('.products');
+
         let currentHoverCard = null;
         let bubbleInterval = null;
 
-        // Create realistic bubbles
+        // NEW: timers + token to prevent stale timeouts from killing new waves
+        let waveToken = 0;
+        let recedeTimer = null;
+        let activateTimer = null;
+
+        function clearWaveTimers() {
+        if (recedeTimer) {
+            clearTimeout(recedeTimer);
+            recedeTimer = null;
+        }
+        if (activateTimer) {
+            clearTimeout(activateTimer);
+            activateTimer = null;
+        }
+        }
+
+        // Create realistic bubbles (unchanged)
         function createBubbles(count = 25) {
-            const waveContainer = waveOverlay.querySelector('.wave-container');
-            if (!waveContainer) return;
-            
-            // Clear existing bubbles that have finished animation
-            document.querySelectorAll('.wave-bubble').forEach(bubble => {
-                if (parseFloat(bubble.style.opacity) === 0 || !bubble.parentNode) {
-                    bubble.remove();
-                }
-            });
-            
-            for (let i = 0; i < count; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('wave-bubble');
-                
-                // Random bubble properties
-                const size = Math.random() * 20 + 8;
-                const posX = Math.random() * 100;
-                const delay = Math.random() * 2;
-                const duration = Math.random() * 3 + 1.5;
-                const startBottom = Math.random() * 30 + 5; // Start 5-35% from bottom
-                const animationType = Math.floor(Math.random() * 3);
-                
-                // Set bubble styles
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.left = `${posX}%`;
-                bubble.style.bottom = `${startBottom}%`;
-                bubble.style.opacity = Math.random() * 0.5 + 0.3;
-                
-                // Choose random animation type
-                const animations = ['bubbleRise', 'bubbleRiseSlow', 'bubbleRiseFast'];
-                const animationName = animations[animationType];
-                
-                bubble.style.animation = `${animationName} ${duration}s ease-in ${delay}s forwards`;
-                
-                // Add slight horizontal movement for some bubbles
-                if (Math.random() > 0.7) {
-                    const horizontalMove = (Math.random() - 0.5) * 40;
-                    bubble.style.animation += `, ${animationName}Horizontal ${duration}s ease-in-out ${delay}s forwards`;
-                    
-                    // Add horizontal keyframes dynamically
-                    if (!document.querySelector('#horizontalBubbleAnimation')) {
-                        const style = document.createElement('style');
-                        style.id = 'horizontalBubbleAnimation';
-                        style.textContent = `
-                            @keyframes bubbleRiseHorizontal {
-                                0%, 100% { transform: translateX(0); }
-                                50% { transform: translateX(${horizontalMove}px); }
-                            }
-                        `;
-                        document.head.appendChild(style);
-                    }
-                }
-                
-                // Remove bubble after animation completes
-                setTimeout(() => {
-                    if (bubble.parentNode) {
-                        // Fade out before removing
-                        bubble.style.transition = 'opacity 0.5s ease';
-                        bubble.style.opacity = '0';
-                        
-                        setTimeout(() => {
-                            if (bubble.parentNode) {
-                                bubble.remove();
-                            }
-                        }, 500);
-                    }
-                }, (delay + duration) * 1000);
-                
-                waveContainer.appendChild(bubble);
-            }
-        }
+        const waveContainer = waveOverlay.querySelector('.wave-container');
+        if (!waveContainer) return;
 
-        // Stop all wave animations
-        function stopWaveEffect() {
-            waveOverlay.classList.remove('active', 'receding', 
-                'classic-wave', 'mojito-wave', 'bitter-soda-wave', 
-                'cola-grenadine-wave', 'cola-classic-wave', 
-                'cola-menthol-wave', 'still-water-wave', 'sparkling-wave');
-            waveOverlay.style.height = '0';
-            
-            if (bubbleInterval) {
-                clearInterval(bubbleInterval);
-                bubbleInterval = null;
-            }
-            
-            // Remove all bubbles
-            document.querySelectorAll('.wave-bubble').forEach(bubble => bubble.remove());
-            
-            currentHoverCard = null;
-        }
+        for (let i = 0; i < count; i++) {
+            const bubble = document.createElement('div');
+            bubble.classList.add('wave-bubble');
 
-        // Start wave effect
-        function startWaveEffect(card, flavorType) {
-            // If already showing this card's wave, do nothing
-            if (currentHoverCard === card && waveOverlay.classList.contains('active')) {
-                return;
-            }
-            
-            // Stop current wave
-            stopWaveEffect();
-            
-            // Set new card
-            currentHoverCard = card;
-            
-            // Set wave color based on card type
-            let waveClass = '';
-            
-            switch(flavorType) {
-                case 'classic':
-                    waveClass = 'classic-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(30, 64, 175, 0.12) 100%)';
-                    break;
-                case 'mojito':
-                    waveClass = 'mojito-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(124, 58, 237, 0.12) 100%)';
-                    break;
-                case 'bitter-soda':
-                    waveClass = 'bitter-soda-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(139, 0, 0, 0.12) 100%)';
-                    break;
-                case 'cola-grenadine':
-                    waveClass = 'cola-grenadine-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(220, 20, 60, 0.12) 100%)';
-                    break;
-                case 'cola-classic':
-                    waveClass = 'cola-classic-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(204, 0, 0, 0.12) 100%)';
-                    break;
-                case 'cola-menthol':
-                    waveClass = 'cola-menthol-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(0, 250, 154, 0.12) 100%)';
-                    break;
-                case 'still-water':
-                    waveClass = 'still-water-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(30, 64, 175, 0.12) 100%)';
-                    break;
-                case 'sparkling':
-                    waveClass = 'sparkling-wave';
-                    productsSection.style.background = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(30, 64, 175, 0.12) 100%)';
-                    break;
-                default:
-                    waveClass = 'classic-wave';
-            }
-            
-            waveOverlay.className = `wave-overlay ${waveClass}`;
-            
-            // Start fill animation
+            const size = Math.random() * 20 + 8;
+            const posX = Math.random() * 100;
+            const delay = Math.random() * 2;
+            const duration = Math.random() * 3 + 1.5;
+            const startBottom = Math.random() * 30 + 5;
+            const animationType = Math.floor(Math.random() * 3);
+
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${posX}%`;
+            bubble.style.bottom = `${startBottom}%`;
+            bubble.style.opacity = Math.random() * 0.5 + 0.3;
+
+            const animations = ['bubbleRise', 'bubbleRiseSlow', 'bubbleRiseFast'];
+            bubble.style.animation = `${animations[animationType]} ${duration}s ease-in ${delay}s forwards`;
+
             setTimeout(() => {
-                waveOverlay.classList.add('active');
-            }, 10);
-            
-            // Create initial bubbles
-            createBubbles(40);
-            
-            // Create bubbles continuously
-            if (bubbleInterval) {
-                clearInterval(bubbleInterval);
+            if (bubble.parentNode) {
+                bubble.style.transition = 'opacity 0.5s ease';
+                bubble.style.opacity = '0';
+                setTimeout(() => bubble.remove(), 500);
             }
-            bubbleInterval = setInterval(() => createBubbles(8), 600);
+            }, (delay + duration) * 1000);
+
+            waveContainer.appendChild(bubble);
+        }
         }
 
-        // Handle card hover
+        function stopWaveEffect() {
+        clearWaveTimers();
+
+        waveOverlay.classList.remove(
+            'active', 'receding',
+            'classic-wave', 'mojito-wave', 'bitter-soda-wave',
+            'cola-grenadine-wave', 'cola-classic-wave',
+            'cola-menthol-wave', 'still-water-wave', 'sparkling-wave'
+        );
+
+        waveOverlay.style.height = '0';
+
+        if (bubbleInterval) {
+            clearInterval(bubbleInterval);
+            bubbleInterval = null;
+        }
+
+        document.querySelectorAll('.wave-bubble').forEach(b => b.remove());
+        currentHoverCard = null;
+        }
+
+        function startWaveEffect(card, flavorType) {
+        // NEW: invalidate all previous timeouts immediately
+        waveToken++;
+        const myToken = waveToken;
+
+        clearWaveTimers();
+
+        // If already active on same card, do nothing
+        if (currentHoverCard === card && waveOverlay.classList.contains('active')) return;
+
+        // Stop current wave safely
+        stopWaveEffect();
+
+        // set new current card
+        currentHoverCard = card;
+
+        // remove receding if it was mid-animation
+        waveOverlay.classList.remove('receding');
+
+        // Choose wave class + background
+        let waveClass = 'classic-wave';
+        let bg = '';
+
+        switch (flavorType) {
+            case 'classic':
+            waveClass = 'classic-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(30, 64, 175, 0.12) 100%)';
+            break;
+            case 'mojito':
+            waveClass = 'mojito-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(124, 58, 237, 0.12) 100%)';
+            break;
+            case 'bitter-soda':
+            waveClass = 'bitter-soda-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(139, 0, 0, 0.12) 100%)';
+            break;
+            case 'cola-grenadine':
+            waveClass = 'cola-grenadine-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(220, 20, 60, 0.12) 100%)';
+            break;
+            case 'cola-classic':
+            waveClass = 'cola-classic-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(204, 0, 0, 0.12) 100%)';
+            break;
+            case 'cola-menthol':
+            waveClass = 'cola-menthol-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(0, 250, 154, 0.12) 100%)';
+            break;
+            case 'still-water':
+            waveClass = 'still-water-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(30, 64, 175, 0.12) 100%)';
+            break;
+            case 'sparkling':
+            waveClass = 'sparkling-wave';
+            bg = 'linear-gradient(to bottom, rgba(15, 23, 42, 0.9) 50%, rgba(30, 64, 175, 0.12) 100%)';
+            break;
+        }
+
+        productsSection.style.background = bg;
+        waveOverlay.className = `wave-overlay ${waveClass}`;
+
+        // Activate on next frame (cleaner than setTimeout(10))
+        activateTimer = setTimeout(() => {
+            // NEW: if another hover started, do nothing
+            if (waveToken !== myToken) return;
+            waveOverlay.classList.add('active');
+        }, 0);
+
+        // bubbles
+        createBubbles(40);
+        bubbleInterval = setInterval(() => {
+            if (waveToken !== myToken) return;
+            createBubbles(8);
+        }, 600);
+        }
+
+        // Hover handlers ✅ FIXED (token guards the recede timer)
         const productCardLinks = document.querySelectorAll('.product-card-link');
 
         productCardLinks.forEach(link => {
-            const card = link.querySelector('.product-card');
-            let hoverTimeout;
-            let leaveTimeout;
-            
-            link.addEventListener('mouseenter', function(e) {
-                clearTimeout(hoverTimeout);
-                clearTimeout(leaveTimeout);
-                
-                hoverTimeout = setTimeout(() => {
-                    // Get the flavor from data-flavor attribute
-                    const flavor = this.getAttribute('data-flavor');
-                    
-                    // Start wave effect with the correct flavor
-                    startWaveEffect(card, flavor);
-                    
-                    // Highlight hovered card
-                    card.style.transform = 'translateY(-20px) scale(1.05)';
-                    card.style.boxShadow = '0 30px 50px rgba(37, 99, 235, 0.5), 0 0 40px rgba(37, 99, 235, 0.4)';
-                    card.style.zIndex = '10';
-                    
-                    // Also apply transform to the link for visual effect
-                    this.style.transform = 'translateY(-10px)';
-                }, 100);
-            });
-            
-            link.addEventListener('mouseleave', function(e) {
-                clearTimeout(hoverTimeout);
-                
-                // Reset card style immediately
-                card.style.transform = '';
-                card.style.boxShadow = '';
-                card.style.zIndex = '';
-                this.style.transform = '';
-                
-                leaveTimeout = setTimeout(() => {
-                    if (currentHoverCard === card) {
-                        // Start receding animation
-                        waveOverlay.classList.remove('active');
-                        waveOverlay.classList.add('receding');
-                        
-                        // Clear background after receding animation
-                        setTimeout(() => {
-                            productsSection.style.background = '';
-                            stopWaveEffect();
-                        }, 1400); // Slightly longer than animation duration
-                    }
-                }, 100);
-            });
+        const card = link.querySelector('.product-card');
+        let hoverTimeout = null;
+        let leaveTimeout = null;
+
+        link.addEventListener('mouseenter', function () {
+            clearTimeout(hoverTimeout);
+            clearTimeout(leaveTimeout);
+
+            // IMPORTANT: cancel any pending recede timers when entering another card
+            clearWaveTimers();
+
+            hoverTimeout = setTimeout(() => {
+            const flavor = this.getAttribute('data-flavor');
+            startWaveEffect(card, flavor);
+
+            card.style.transform = 'translateY(-20px) scale(1.05)';
+            card.style.boxShadow = '0 30px 50px rgba(37, 99, 235, 0.5), 0 0 40px rgba(37, 99, 235, 0.4)';
+            card.style.zIndex = '10';
+            this.style.transform = 'translateY(-10px)';
+            }, 60); // slightly faster feels better
         });
 
-        // Handle section mouse leave
-        productsSection.addEventListener('mouseleave', function() {
-            if (waveOverlay.classList.contains('active')) {
+        link.addEventListener('mouseleave', function () {
+            clearTimeout(hoverTimeout);
+
+            // reset visuals immediately
+            card.style.transform = '';
+            card.style.boxShadow = '';
+            card.style.zIndex = '';
+            this.style.transform = '';
+
+            leaveTimeout = setTimeout(() => {
+            // capture token at the moment we decide to recede
+            const myToken = waveToken;
+
+            if (currentHoverCard === card && waveOverlay.classList.contains('active')) {
                 waveOverlay.classList.remove('active');
                 waveOverlay.classList.add('receding');
-                
-                setTimeout(() => {
-                    productsSection.style.background = '';
-                    stopWaveEffect();
+
+                // NEW: re-check token BEFORE killing the wave
+                recedeTimer = setTimeout(() => {
+                if (waveToken !== myToken) return; // another card started since
+                productsSection.style.background = '';
+                stopWaveEffect();
                 }, 1400);
             }
+            }, 80);
+        });
         });
 
-        // Reset all cards when section is left
-        productsSection.addEventListener('mouseleave', function() {
-            productCardLinks.forEach(link => {
-                const card = link.querySelector('.product-card');
-                card.style.transform = '';
-                card.style.boxShadow = '';
-                card.style.zIndex = '';
-                link.style.transform = '';
-            });
+        // When leaving the whole products section
+        productsSection.addEventListener('mouseleave', () => {
+        const myToken = waveToken;
+
+        if (waveOverlay.classList.contains('active')) {
+            waveOverlay.classList.remove('active');
+            waveOverlay.classList.add('receding');
+
+            clearWaveTimers();
+            recedeTimer = setTimeout(() => {
+            if (waveToken !== myToken) return;
+            productsSection.style.background = '';
+            stopWaveEffect();
+            }, 1400);
+        }
+
+        // reset all cards
+        productCardLinks.forEach(link => {
+            const card = link.querySelector('.product-card');
+            card.style.transform = '';
+            card.style.boxShadow = '';
+            card.style.zIndex = '';
+            link.style.transform = '';
         });
+        });
+
 
         // Hero Background Slideshow
         function initSlideshow() {
