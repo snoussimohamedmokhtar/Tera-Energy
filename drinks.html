@@ -1483,6 +1483,64 @@
             </div>
         </div>
     </section>
+    <!-- Ice Tea Section -->
+    <section id="ice-tea" class="category-section">
+        <div class="container">
+            <div class="category-title">
+                <h2>Ice Tea</h2>
+                <p>Chilled tea refreshment with smooth flavor and royal quality</p>
+            </div>
+
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-ice-tea">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <div class="products-carousel" id="carousel-ice-tea">
+                    <!-- Ice Tea 1 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-ice-tea-lemon.png" alt="Ice Tea Lemon" class="product-image">
+                                </div>
+                                <h3 class="product-name">Ice Tea Lemon</h3>
+                                <p class="product-type">Citrus Refresh</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Ice Tea Lemon</h3>
+                                <p>Refreshing iced tea with a bright lemon twist. Smooth, chilled, and perfectly balanced for any moment.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ice Tea 2 -->
+                    <div class="flip-card category-juice">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/flavors/tera-ice-tea-peach.png" alt="Ice Tea Peach" class="product-image">
+                                </div>
+                                <h3 class="product-name">Ice Tea Peach</h3>
+                                <p class="product-type">Soft & Sweet</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Ice Tea Peach</h3>
+                                <p>Delicate peach flavor blended into smooth iced tea. A sweet, refreshing sip with royal softness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-nav next" id="next-ice-tea">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <div class="carousel-indicators" id="indicators-ice-tea"></div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Footer -->
     <footer>
@@ -1504,7 +1562,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
+                <p>&copy; 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
             </div>
         </div>
     </footer>
@@ -1696,6 +1754,7 @@
             initCarousel('carousel-cola', 'prev-cola', 'next-cola', 'indicators-cola');
             initCarousel('carousel-water', 'prev-water', 'next-water', 'indicators-water');
             initCarousel('carousel-juice', 'prev-juice', 'next-juice', 'indicators-juice');
+            initCarousel('carousel-ice-tea', 'prev-ice-tea', 'next-ice-tea', 'indicators-ice-tea');
         });
 
         // Add click event to flip cards for mobile devices
