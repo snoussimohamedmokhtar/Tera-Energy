@@ -1396,12 +1396,12 @@
         </div>
     </section>
 
-    <!-- Cookies Section -->
+    <!-- bags Section -->
     <section id="cookies" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Delicious Cookies</h2>
-                <p>Soft, chewy cookies with various add-ins and flavors</p>
+                <h2>Biscuits Bags</h2>
+                <p>Crunshy, chewy Biscuits with various add-ins and flavors</p>
             </div>
             
             <div class="carousel-container">
@@ -1409,7 +1409,7 @@
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="products-carousel" id="carousel-cookies">
-                    <!-- Cookie 1 -->
+                    <!-- bag 1 -->
                     <div class="flip-card category-cookies">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
@@ -1425,6 +1425,39 @@
                             </div>
                         </div>
                     </div>
+                    <!-- bag 2 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/biscuits/biscuits.png" alt="Chocolate Biscuits Bag" class="product-image">
+                                </div>
+                                <h3 class="product-name">Chocolate Biscuits</h3>
+                                <p class="product-type">Bag of 24 pieces</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Chocolate Biscuits</h3>
+                                <p>Crispy chocolate biscuits packed in a family-size bag of 24 pieces. Rich cocoa taste with a satisfying crunch.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cookie 3 -->
+                    <div class="flip-card category-cookies">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/biscuits/chocolates.png" alt="Chocolate & Peanut Biscuits" class="product-image">
+                                </div>
+                                <h3 class="product-name">Chocolate & Peanut</h3>
+                                <p class="product-type">Bag of 24 pieces</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3>Chocolate & Peanut</h3>
+                                <p>Crunchy biscuits combined with rich chocolate and roasted peanuts. A bold, nutty flavor in a 24-piece bag.</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <button class="carousel-nav next" id="next-cookies">
                     <i class="fas fa-chevron-right"></i>
@@ -1660,6 +1693,13 @@
             let cardsPerView = getCardsPerView();
             const totalCards = cards.length;
             const totalPages = Math.ceil(totalCards / cardsPerView);
+
+            if (totalPages <= 1) {
+                prevBtn.style.display = "none";
+                nextBtn.style.display = "none";
+                indicatorsContainer.style.display = "none";
+            }
+
             
             // Create indicators
             function createIndicators() {

@@ -1198,19 +1198,19 @@
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="products-carousel" id="carousel-cola">
-                    <!-- Bitter Soda -->
+                    <!-- Cola Menthol -->
                     <div class="flip-card category-cola">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
-                                    <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-image">
+                                    <img src="./assets/flavors/tera-cola-menthol.png" alt="Cola Menthol" class="product-image">
                                 </div>
-                                <h3 class="product-name">Bitter Soda</h3>
-                                <p class="product-type">Bitter Cola</p>
+                                <h3 class="product-name">Cola Menthol</h3>
+                                <p class="product-type">Mint Flavor</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Bitter Soda</h3>
-                                <p>Unique bitter-sweet cola flavor with herbal notes. Sophisticated soda experience for refined palates.</p>
+                                <h3>Cola Menthol</h3>
+                                <p>Cooling menthol cola with refreshing finish. Minty freshness meets classic cola taste.</p>
                             </div>
                         </div>
                     </div>
@@ -1249,19 +1249,19 @@
                         </div>
                     </div>
                     
-                    <!-- Cola Menthol -->
+                    <!-- Bitter Soda -->
                     <div class="flip-card category-cola">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
-                                    <img src="./assets/flavors/tera-cola-menthol.png" alt="Cola Menthol" class="product-image">
+                                    <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cola Menthol</h3>
-                                <p class="product-type">Mint Flavor</p>
+                                <h3 class="product-name">Bitter Soda</h3>
+                                <p class="product-type">Bitter Cola</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cola Menthol</h3>
-                                <p>Cooling menthol cola with refreshing finish. Minty freshness meets classic cola taste.</p>
+                                <h3>Bitter Soda</h3>
+                                <p>Unique bitter-sweet cola flavor with herbal notes. Sophisticated soda experience for refined palates.</p>
                             </div>
                         </div>
                     </div>
@@ -1502,7 +1502,7 @@
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
-                                    <img src="./assets/flavors/tera-ice-tea-lemon.png" alt="Ice Tea Lemon" class="product-image">
+                                    <img src="./assets/flavors/tera-ice-tea-lemon.WebP" alt="Ice Tea Lemon" class="product-image">
                                 </div>
                                 <h3 class="product-name">Ice Tea Lemon</h3>
                                 <p class="product-type">Citrus Refresh</p>
@@ -1519,7 +1519,7 @@
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
-                                    <img src="./assets/flavors/tera-ice-tea-peach.png" alt="Ice Tea Peach" class="product-image">
+                                    <img src="./assets/flavors/tera-ice-tea-peach.WebP" alt="Ice Tea Peach" class="product-image">
                                 </div>
                                 <h3 class="product-name">Ice Tea Peach</h3>
                                 <p class="product-type">Soft & Sweet</p>
@@ -1628,6 +1628,12 @@
             let cardsPerView = getCardsPerView();
             const totalCards = cards.length;
             const totalPages = Math.ceil(totalCards / cardsPerView);
+
+            if (totalPages <= 1) {
+                prevBtn.style.display = "none";
+                nextBtn.style.display = "none";
+                indicatorsContainer.style.display = "none";
+            }
             
             // Create indicators
             function createIndicators() {
