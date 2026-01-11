@@ -1208,6 +1208,91 @@
             }
         }
 
+        /* ========== LANGUAGE SWITCHER ========== */
+        .language-switcher {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .language-btn {
+            background: none;
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .language-btn:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .flag-img {
+            width: 32px;
+            height: 24px;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .language-btn:hover .flag-img {
+            transform: scale(1.1);
+        }
+
+        .language-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .language-btn:hover + .language-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: -35px;
+        }
+
+        /* For mobile menu */
+        @media (max-width: 768px) {
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 20px;
+                order: 3;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .nav-links.active .language-switcher {
+                display: flex;
+            }
+            
+            .language-btn {
+                width: 60px;
+                height: 45px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1225,19 +1310,28 @@
                     </div>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" data-translate="home">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropbtn">Products <i class="fas fa-chevron-down"></i></a>
+                        <a href="#" class="dropbtn" data-translate="products">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="drinks.html">Drinks</a>
-                            <a href="biscuits.html">Snacks</a>
+                            <a href="drinks.html" data-translate="drinks">Drinks</a>
+                            <a href="biscuits.html" data-translate="snacks">Snacks</a>
                         </div>
                     </li>
-                    <li><a href="retailers.html">Retailers</a></li>
-                    <li><a href="index.html#logo-display">About Us</a></li>
-                    <li><a href="index.html#locations">Locations</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="retailers.html" data-translate="retailers">Retailers</a></li>
+                    <li><a href="index.html#logo-display" data-translate="about-us">About Us</a></li>
+                    <li><a href="index.html#locations" data-translate="locations">Locations</a></li>
+                    <li><a href="index.html#contact" data-translate="contact">Contact</a></li>
                 </ul>
+                <!-- Language Switcher -->
+                <div id="language-switcher" class="language-switcher">
+                    <button id="language-btn" class="language-btn">
+                        <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
+                    </button>
+                    <div class="language-tooltip" id="language-tooltip">
+                        <span id="current-language">English</span>
+                    </div>
+                </div>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -1249,9 +1343,9 @@
     <section class="biscuits-hero">
         <div class="container">
             <div class="biscuits-hero-content">
-                <h1>TERA BISCUITS & SNACKS</h1>
-                <p>Indulge in our exquisite collection of chocolates, biscuits, cookies, and creamy delights. Made with the finest ingredients for a royal experience.</p>
-                <a href="#chocolate" class="btn" style="background: linear-gradient(90deg, var(--chocolate), var(--gold));">Explore Collection</a>
+                <h1 data-translate="biscuits-hero-title">TERA BISCUITS & SNACKS</h1>
+                <p data-translate="biscuits-hero-description">Indulge in our exquisite collection of chocolates, biscuits, cookies, and creamy delights. Made with the finest ingredients for a royal experience.</p>
+                <a href="#chocolate" class="btn" style="background: linear-gradient(90deg, var(--chocolate), var(--gold));" data-translate="biscuits-hero-button">Explore Collection</a>
             </div>
         </div>
     </section>
@@ -1260,8 +1354,8 @@
     <section id="chocolate" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Chocolate Bars</h2>
-                <p>Rich, creamy chocolate bars crafted with premium cocoa for the ultimate indulgence</p>
+                <h2 data-translate="biscuits-chocolate-title">Chocolate Bars</h2>
+                <p data-translate="biscuits-chocolate-description">Rich, creamy chocolate bars crafted with premium cocoa for the ultimate indulgence</p>
             </div>
             
             <div class="carousel-container">
@@ -1276,12 +1370,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/chocolate-biscuit-pieces.png" alt="Biscuit Pieces Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Biscuit Pieces Chocolate</h3>
-                                <p class="product-type">100% Crunchy</p>
+                                <h3 class="product-name" data-translate="product-biscuit-pieces-chocolate">Biscuit Pieces Chocolate</h3>
+                                <p class="product-type" data-translate="product-biscuit-pieces-chocolate-type">100% Crunchy</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Biscuit Pieces Chocolate</h3>
-                                <p>A smooth milk chocolate bar generously loaded with crunchy, golden biscuit pieces. It offers a perfect play of creamy sweetness against a satisfying, cookie-like crunch in every bite.</p>
+                                <h3 data-translate="product-biscuit-pieces-chocolate">Biscuit Pieces Chocolate</h3>
+                                <p data-translate="product-biscuit-pieces-chocolate-desc">A smooth milk chocolate bar generously loaded with crunchy, golden biscuit pieces. It offers a perfect play of creamy sweetness against a satisfying, cookie-like crunch in every bite.</p>
                             </div>
                         </div>
                     </div>
@@ -1293,12 +1387,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/chocolate-cinnamon-cream.png" alt="Cinnamon Cream Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cinnamon Cream Chocolate</h3>
-                                <p class="product-type">Creamy & Spiced</p>
+                                <h3 class="product-name" data-translate="product-cinnamon-cream-chocolate">Cinnamon Cream Chocolate</h3>
+                                <p class="product-type" data-translate="product-cinnamon-cream-chocolate-type">Creamy & Spiced</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cinnamon Cream Chocolate</h3>
-                                <p>A decadent bar featuring a layer of warm, spiced cinnamon cream enrobed in rich chocolate. It delivers a cozy, bakery-inspired flavor that is both sweet and gently aromatic.</p>
+                                <h3 data-translate="product-cinnamon-cream-chocolate">Cinnamon Cream Chocolate</h3>
+                                <p data-translate="product-cinnamon-cream-chocolate-desc">A decadent bar featuring a layer of warm, spiced cinnamon cream enrobed in rich chocolate. It delivers a cozy, bakery-inspired flavor that is both sweet and gently aromatic.</p>
                             </div>
                         </div>
                     </div>
@@ -1310,12 +1404,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/chocolate-coconut-cream.png" alt="Coconut Cream Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Coconut Cream Chocolate</h3>
-                                <p class="product-type">Tropical Delight</p>
+                                <h3 class="product-name" data-translate="product-coconut-cream-chocolate">Coconut Cream Chocolate</h3>
+                                <p class="product-type" data-translate="product-coconut-cream-chocolate-type">Tropical Delight</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Coconut Cream Chocolate</h3>
-                                <p>Luscious milk chocolate with a smooth coconut cream filling. This tropical-inspired bar offers a perfect balance of creamy chocolate and exotic coconut flavor.</p>
+                                <h3 data-translate="product-coconut-cream-chocolate">Coconut Cream Chocolate</h3>
+                                <p data-translate="product-coconut-cream-chocolate-desc">Luscious milk chocolate with a smooth coconut cream filling. This tropical-inspired bar offers a perfect balance of creamy chocolate and exotic coconut flavor.</p>
                             </div>
                         </div>
                     </div>
@@ -1327,12 +1421,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/chocolate-milk-cocoa-crispy.png" alt="Milk Cocoa Crispy Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Milk Cocoa Crispy</h3>
-                                <p class="product-type">Crispy & Creamy</p>
+                                <h3 class="product-name" data-translate="product-milk-cocoa-crispy">Milk Cocoa Crispy</h3>
+                                <p class="product-type" data-translate="product-milk-cocoa-crispy-type">Crispy & Creamy</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Milk Cocoa Crispy Chocolate</h3>
-                                <p>Premium milk chocolate combined with crispy cocoa rice pieces. A delightful texture experience with a rich chocolate flavor that satisfies your crunch cravings.</p>
+                                <h3 data-translate="product-milk-cocoa-crispy">Milk Cocoa Crispy Chocolate</h3>
+                                <p data-translate="product-milk-cocoa-crispy-desc">Premium milk chocolate combined with crispy cocoa rice pieces. A delightful texture experience with a rich chocolate flavor that satisfies your crunch cravings.</p>
                             </div>
                         </div>
                     </div>
@@ -1344,12 +1438,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/chocolate-milk-coffee.png" alt="Milk Coffee Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Milk Coffee Chocolate</h3>
-                                <p class="product-type">Coffee Infused</p>
+                                <h3 class="product-name" data-translate="product-milk-coffee-chocolate">Milk Coffee Chocolate</h3>
+                                <p class="product-type" data-translate="product-milk-coffee-chocolate-type">Coffee Infused</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Milk Coffee Chocolate</h3>
-                                <p>A perfect morning treat! Smooth milk chocolate infused with premium Arabica coffee. The rich coffee flavor complements the creamy chocolate for an energizing experience.</p>
+                                <h3 data-translate="product-milk-coffee-chocolate">Milk Coffee Chocolate</h3>
+                                <p data-translate="product-milk-coffee-chocolate-desc">A perfect morning treat! Smooth milk chocolate infused with premium Arabica coffee. The rich coffee flavor complements the creamy chocolate for an energizing experience.</p>
                             </div>
                         </div>
                     </div>
@@ -1361,12 +1455,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/chocolate-milk-cream.png" alt="Milk Cream Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Milk Cream Chocolate</h3>
-                                <p class="product-type">Extra Creamy</p>
+                                <h3 class="product-name" data-translate="product-milk-cream-chocolate">Milk Cream Chocolate</h3>
+                                <p class="product-type" data-translate="product-milk-cream-chocolate-type">Extra Creamy</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Milk Cream Chocolate</h3>
-                                <p>Ultra-creamy milk chocolate with an extra smooth texture. This bar melts luxuriously in your mouth, delivering pure chocolate satisfaction with every bite.</p>
+                                <h3 data-translate="product-milk-cream-chocolate">Milk Cream Chocolate</h3>
+                                <p data-translate="product-milk-cream-chocolate-desc">Ultra-creamy milk chocolate with an extra smooth texture. This bar melts luxuriously in your mouth, delivering pure chocolate satisfaction with every bite.</p>
                             </div>
                         </div>
                     </div>
@@ -1378,12 +1472,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/peanut-creamy.png" alt="Peanut Creamy Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Peanut Creamy Chocolate</h3>
-                                <p class="product-type">Creamy Peanut</p>
+                                <h3 class="product-name" data-translate="product-peanut-creamy-chocolate">Peanut Creamy Chocolate</h3>
+                                <p class="product-type" data-translate="product-peanut-creamy-chocolate-type">Creamy Peanut</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Peanut Creamy Chocolate</h3>
-                                <p>Rich milk chocolate with a smooth, creamy peanut filling. The perfect combination of nutty goodness and sweet chocolate that peanut lovers will adore.</p>
+                                <h3 data-translate="product-peanut-creamy-chocolate">Peanut Creamy Chocolate</h3>
+                                <p data-translate="product-peanut-creamy-chocolate-desc">Rich milk chocolate with a smooth, creamy peanut filling. The perfect combination of nutty goodness and sweet chocolate that peanut lovers will adore.</p>
                             </div>
                         </div>
                     </div>
@@ -1395,12 +1489,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/peanut-milk.png" alt="Peanut Milk Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Peanut Milk Chocolate</h3>
-                                <p class="product-type">Crunchy Peanut</p>
+                                <h3 class="product-name" data-translate="product-peanut-milk-chocolate">Peanut Milk Chocolate</h3>
+                                <p class="product-type" data-translate="product-peanut-milk-chocolate-type">Crunchy Peanut</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Peanut Milk Chocolate</h3>
-                                <p>Creamy milk chocolate packed with whole roasted peanuts. Every bite offers a satisfying crunch and the classic combination of chocolate and peanuts.</p>
+                                <h3 data-translate="product-peanut-milk-chocolate">Peanut Milk Chocolate</h3>
+                                <p data-translate="product-peanut-milk-chocolate-desc">Creamy milk chocolate packed with whole roasted peanuts. Every bite offers a satisfying crunch and the classic combination of chocolate and peanuts.</p>
                             </div>
                         </div>
                     </div>
@@ -1412,12 +1506,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/sesame-creamy.png" alt="Sesame Creamy Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Sesame Creamy Chocolate</h3>
-                                <p class="product-type">Sesame Delight</p>
+                                <h3 class="product-name" data-translate="product-sesame-creamy-chocolate">Sesame Creamy Chocolate</h3>
+                                <p class="product-type" data-translate="product-sesame-creamy-chocolate-type">Sesame Delight</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Sesame Creamy Chocolate</h3>
-                                <p>A unique blend of smooth chocolate with creamy sesame paste filling. This Middle Eastern-inspired treat offers a nutty, slightly sweet flavor that's truly distinctive.</p>
+                                <h3 data-translate="product-sesame-creamy-chocolate">Sesame Creamy Chocolate</h3>
+                                <p data-translate="product-sesame-creamy-chocolate-desc">A unique blend of smooth chocolate with creamy sesame paste filling. This Middle Eastern-inspired treat offers a nutty, slightly sweet flavor that's truly distinctive.</p>
                             </div>
                         </div>
                     </div>
@@ -1429,12 +1523,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/sesame-milk.png" alt="Sesame Milk Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Sesame Milk Chocolate</h3>
-                                <p class="product-type">Sesame Crunch</p>
+                                <h3 class="product-name" data-translate="product-sesame-milk-chocolate">Sesame Milk Chocolate</h3>
+                                <p class="product-type" data-translate="product-sesame-milk-chocolate-type">Sesame Crunch</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Sesame Milk Chocolate</h3>
-                                <p>Milk chocolate generously mixed with toasted sesame seeds. The nutty sesame flavor pairs beautifully with sweet chocolate for a sophisticated taste experience.</p>
+                                <h3 data-translate="product-sesame-milk-chocolate">Sesame Milk Chocolate</h3>
+                                <p data-translate="product-sesame-milk-chocolate-desc">Milk chocolate generously mixed with toasted sesame seeds. The nutty sesame flavor pairs beautifully with sweet chocolate for a sophisticated taste experience.</p>
                             </div>
                         </div>
                     </div>
@@ -1446,12 +1540,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates/vanilla-biscuit-pieces.png" alt="Vanilla Biscuit Pieces Chocolate Bar" class="product-image">
                                 </div>
-                                <h3 class="product-name">Vanilla Biscuit Chocolate</h3>
-                                <p class="product-type">Vanilla Crunch</p>
+                                <h3 class="product-name" data-translate="product-vanilla-biscuit-chocolate">Vanilla Biscuit Chocolate</h3>
+                                <p class="product-type" data-translate="product-vanilla-biscuit-chocolate-type">Vanilla Crunch</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Vanilla Biscuit Pieces Chocolate</h3>
-                                <p>Delicate vanilla-infused milk chocolate filled with crunchy biscuit pieces. The sweet vanilla aroma enhances the classic chocolate and biscuit combination.</p>
+                                <h3 data-translate="product-vanilla-biscuit-chocolate">Vanilla Biscuit Pieces Chocolate</h3>
+                                <p data-translate="product-vanilla-biscuit-chocolate-desc">Delicate vanilla-infused milk chocolate filled with crunchy biscuit pieces. The sweet vanilla aroma enhances the classic chocolate and biscuit combination.</p>
                             </div>
                         </div>
                     </div>
@@ -1468,8 +1562,8 @@
     <section id="biscuits" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Premium Biscuits</h2>
-                <p>Crunchy, buttery biscuits in various flavors and textures</p>
+                <h2 data-translate="biscuits-biscuits-title">Premium Biscuits</h2>
+                <p data-translate="biscuits-biscuits-description">Crunchy, buttery biscuits in various flavors and textures</p>
             </div>
             
             <div class="carousel-container">
@@ -1484,12 +1578,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/biscuits/coco-biscuits-vanilla-cream.png" alt="Coco Biscuits Vanilla Cream" class="product-image">
                                 </div>
-                                <h3 class="product-name">Coco Vanilla Cream</h3>
-                                <p class="product-type">Coconut & Vanilla</p>
+                                <h3 class="product-name" data-translate="product-coco-vanilla-cream">Coco Vanilla Cream</h3>
+                                <p class="product-type" data-translate="product-coco-vanilla-cream-type">Coconut & Vanilla</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Coco Biscuits Vanilla Cream</h3>
-                                <p>Delicate coconut biscuits sandwiching a smooth, aromatic vanilla cream filling. A tropical twist on classic cream biscuits with a perfect balance of coconut flavor and sweet vanilla.</p>
+                                <h3 data-translate="product-coco-vanilla-cream">Coco Biscuits Vanilla Cream</h3>
+                                <p data-translate="product-coco-vanilla-cream-desc">Delicate coconut biscuits sandwiching a smooth, aromatic vanilla cream filling. A tropical twist on classic cream biscuits with a perfect balance of coconut flavor and sweet vanilla.</p>
                             </div>
                         </div>
                     </div>
@@ -1501,12 +1595,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/biscuits/vanilla-biscuits-covered-milk-chocolate.png" alt="Vanilla Biscuits Covered Milk Chocolate" class="product-image">
                                 </div>
-                                <h3 class="product-name">Chocolate Vanilla Biscuits</h3>
-                                <p class="product-type">Chocolate Covered</p>
+                                <h3 class="product-name" data-translate="product-chocolate-vanilla-biscuits">Chocolate Vanilla Biscuits</h3>
+                                <p class="product-type" data-translate="product-chocolate-vanilla-biscuits-type">Chocolate Covered</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Vanilla Biscuits Covered Milk Chocolate</h3>
-                                <p>Classic vanilla biscuits completely enrobed in rich, creamy milk chocolate. The crisp biscuit base provides the perfect crunch against the smooth chocolate coating for an indulgent treat.</p>
+                                <h3 data-translate="product-chocolate-vanilla-biscuits">Vanilla Biscuits Covered Milk Chocolate</h3>
+                                <p data-translate="product-chocolate-vanilla-biscuits-desc">Classic vanilla biscuits completely enrobed in rich, creamy milk chocolate. The crisp biscuit base provides the perfect crunch against the smooth chocolate coating for an indulgent treat.</p>
                             </div>
                         </div>
                     </div>
@@ -1523,8 +1617,8 @@
     <section id="cookies" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Biscuits Bags</h2>
-                <p>Crunshy, chewy Biscuits with various add-ins and flavors</p>
+                <h2 data-translate="biscuits-cookies-title">Biscuits Bags</h2>
+                <p data-translate="biscuits-cookies-description">Crunchy, chewy Biscuits with various add-ins and flavors</p>
             </div>
             
             <div class="carousel-container">
@@ -1539,12 +1633,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/cookies.png" alt="Chocolate Chip Cookies" class="product-image">
                                 </div>
-                                <h3 class="product-name">Chocolate Cookies</h3>
-                                <p class="product-type">Loaded with 24 pieces</p>
+                                <h3 class="product-name" data-translate="product-chocolate-cookies">Chocolate Cookies</h3>
+                                <p class="product-type" data-translate="product-chocolate-cookies-type">Loaded with 24 pieces</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Chocolate Chip Cookies</h3>
-                                <p>Soft, chewy cookies loaded with cocoa chocolate. Perfect balance of sweetness and texture.</p>
+                                <h3 data-translate="product-chocolate-cookies">Chocolate Chip Cookies</h3>
+                                <p data-translate="product-chocolate-cookies-desc">Soft, chewy cookies loaded with cocoa chocolate. Perfect balance of sweetness and texture.</p>
                             </div>
                         </div>
                     </div>
@@ -1555,12 +1649,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/biscuits.png" alt="Chocolate Biscuits Bag" class="product-image">
                                 </div>
-                                <h3 class="product-name">Chocolate Biscuits</h3>
-                                <p class="product-type">Bag of 24 pieces</p>
+                                <h3 class="product-name" data-translate="product-chocolate-biscuits-bag">Chocolate Biscuits</h3>
+                                <p class="product-type" data-translate="product-chocolate-biscuits-bag-type">Bag of 24 pieces</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Chocolate Biscuits</h3>
-                                <p>Crispy chocolate biscuits packed in a family-size bag of 24 pieces. Rich cocoa taste with a satisfying crunch.</p>
+                                <h3 data-translate="product-chocolate-biscuits-bag">Chocolate Biscuits</h3>
+                                <p data-translate="product-chocolate-biscuits-bag-desc">Crispy chocolate biscuits packed in a family-size bag of 24 pieces. Rich cocoa taste with a satisfying crunch.</p>
                             </div>
                         </div>
                     </div>
@@ -1571,12 +1665,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/chocolates.png" alt="Chocolate & Peanut Biscuits" class="product-image">
                                 </div>
-                                <h3 class="product-name">Chocolate & Peanut</h3>
-                                <p class="product-type">Bag of 24 pieces</p>
+                                <h3 class="product-name" data-translate="product-chocolate-peanut-biscuits">Chocolate & Peanut</h3>
+                                <p class="product-type" data-translate="product-chocolate-peanut-biscuits-type">Bag of 24 pieces</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Chocolate & Peanut</h3>
-                                <p>Crunchy biscuits combined with rich chocolate and roasted peanuts. A bold, nutty flavor in a 24-piece bag.</p>
+                                <h3 data-translate="product-chocolate-peanut-biscuits">Chocolate & Peanut</h3>
+                                <p data-translate="product-chocolate-peanut-biscuits-desc">Crunchy biscuits combined with rich chocolate and roasted peanuts. A bold, nutty flavor in a 24-piece bag.</p>
                             </div>
                         </div>
                     </div>
@@ -1594,8 +1688,8 @@
     <section id="cream" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Cream & Crushed Biscuits Buckets</h2>
-                <p>Rich, creamy delights and crunchy biscuit mixes in convenient buckets</p>
+                <h2 data-translate="biscuits-cream-title">Cream & Crushed Biscuits Buckets</h2>
+                <p data-translate="biscuits-cream-description">Rich, creamy delights and crunchy biscuit mixes in convenient buckets</p>
             </div>
             
             <div class="carousel-container">
@@ -1610,12 +1704,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/bueno-cream.png" alt="Bueno Cream Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Bueno Cream</h3>
-                                <p class="product-type">Hazelnut Chocolate</p>
+                                <h3 class="product-name" data-translate="product-bueno-cream">Bueno Cream</h3>
+                                <p class="product-type" data-translate="product-bueno-cream-type">Hazelnut Chocolate</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Bueno Cream Bucket</h3>
-                                <p>A luxurious cream inspired by the famous chocolate bar, featuring rich hazelnut-chocolate flavor. Perfect for spreading on toast, filling pastries, or enjoying by the spoonful.</p>
+                                <h3 data-translate="product-bueno-cream">Bueno Cream Bucket</h3>
+                                <p data-translate="product-bueno-cream-desc">A luxurious cream inspired by the famous chocolate bar, featuring rich hazelnut-chocolate flavor. Perfect for spreading on toast, filling pastries, or enjoying by the spoonful.</p>
                             </div>
                         </div>
                     </div>
@@ -1627,12 +1721,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/cinnamon-biscuit-cream.png" alt="Cinnamon Biscuit Cream Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cinnamon Biscuit Cream</h3>
-                                <p class="product-type">Spiced Cream</p>
+                                <h3 class="product-name" data-translate="product-cinnamon-biscuit-cream">Cinnamon Biscuit Cream</h3>
+                                <p class="product-type" data-translate="product-cinnamon-biscuit-cream-type">Spiced Cream</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cinnamon Biscuit Cream Bucket</h3>
-                                <p>Creamy spread infused with warm cinnamon and tiny biscuit pieces. The perfect balance of smooth cream and cozy spice for a comforting treat any time of day.</p>
+                                <h3 data-translate="product-cinnamon-biscuit-cream">Cinnamon Biscuit Cream Bucket</h3>
+                                <p data-translate="product-cinnamon-biscuit-cream-desc">Creamy spread infused with warm cinnamon and tiny biscuit pieces. The perfect balance of smooth cream and cozy spice for a comforting treat any time of day.</p>
                             </div>
                         </div>
                     </div>
@@ -1644,12 +1738,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/coconut-wafer-cream.png" alt="Coconut Wafer Cream Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Coconut Wafer Cream</h3>
-                                <p class="product-type">Tropical Wafer</p>
+                                <h3 class="product-name" data-translate="product-coconut-wafer-cream">Coconut Wafer Cream</h3>
+                                <p class="product-type" data-translate="product-coconut-wafer-cream-type">Tropical Wafer</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Coconut Wafer Cream Bucket</h3>
-                                <p>Exotic coconut cream mixed with crispy wafer pieces. A tropical delight that brings the taste of paradise with every spoonful, combining creamy texture with satisfying crunch.</p>
+                                <h3 data-translate="product-coconut-wafer-cream">Coconut Wafer Cream Bucket</h3>
+                                <p data-translate="product-coconut-wafer-cream-desc">Exotic coconut cream mixed with crispy wafer pieces. A tropical delight that brings the taste of paradise with every spoonful, combining creamy texture with satisfying crunch.</p>
                             </div>
                         </div>
                     </div>
@@ -1661,12 +1755,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/crushed-cinnamon-biscuit.png" alt="Crushed Cinnamon Biscuit Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Crushed Cinnamon Biscuit</h3>
-                                <p class="product-type">Spiced Crumble</p>
+                                <h3 class="product-name" data-translate="product-crushed-cinnamon-biscuit">Crushed Cinnamon Biscuit</h3>
+                                <p class="product-type" data-translate="product-crushed-cinnamon-biscuit-type">Spiced Crumble</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Crushed Cinnamon Biscuit Bucket</h3>
-                                <p>Perfectly crushed cinnamon biscuits ready for topping desserts, mixing into yogurt, or creating your own pastry creations. All the warm spice flavor without the baking work.</p>
+                                <h3 data-translate="product-crushed-cinnamon-biscuit">Crushed Cinnamon Biscuit Bucket</h3>
+                                <p data-translate="product-crushed-cinnamon-biscuit-desc">Perfectly crushed cinnamon biscuits ready for topping desserts, mixing into yogurt, or creating your own pastry creations. All the warm spice flavor without the baking work.</p>
                             </div>
                         </div>
                     </div>
@@ -1678,12 +1772,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/crushed-oreo-biscuits.png" alt="Crushed Oreo Biscuits Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Crushed Oreo Biscuits</h3>
-                                <p class="product-type">Chocolate Cookie Crumbs</p>
+                                <h3 class="product-name" data-translate="product-crushed-oreo-biscuits">Crushed Oreo Biscuits</h3>
+                                <p class="product-type" data-translate="product-crushed-oreo-biscuits-type">Chocolate Cookie Crumbs</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Crushed Oreo Biscuits Bucket</h3>
-                                <p>The ultimate dessert topping! Finely crushed Oreo cookies with their signature cream filling mixed throughout. Perfect for cheesecake bases, ice cream toppings, and more.</p>
+                                <h3 data-translate="product-crushed-oreo-biscuits">Crushed Oreo Biscuits Bucket</h3>
+                                <p data-translate="product-crushed-oreo-biscuits-desc">The ultimate dessert topping! Finely crushed Oreo cookies with their signature cream filling mixed throughout. Perfect for cheesecake bases, ice cream toppings, and more.</p>
                             </div>
                         </div>
                     </div>
@@ -1695,12 +1789,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/hazelnut-cream.png" alt="Hazelnut Cream Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Hazelnut Cream</h3>
-                                <p class="product-type">Nutty Spread</p>
+                                <h3 class="product-name" data-translate="product-hazelnut-cream">Hazelnut Cream</h3>
+                                <p class="product-type" data-translate="product-hazelnut-cream-type">Nutty Spread</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Hazelnut Cream Bucket</h3>
-                                <p>Rich, smooth hazelnut cream that's perfect for spreading, dipping, or baking. Made with premium roasted hazelnuts for that authentic, nutty flavor loved by everyone.</p>
+                                <h3 data-translate="product-hazelnut-cream">Hazelnut Cream Bucket</h3>
+                                <p data-translate="product-hazelnut-cream-desc">Rich, smooth hazelnut cream that's perfect for spreading, dipping, or baking. Made with premium roasted hazelnuts for that authentic, nutty flavor loved by everyone.</p>
                             </div>
                         </div>
                     </div>
@@ -1712,12 +1806,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/biscuits/hazelnut-wafer-cream.png" alt="Hazelnut Wafer Cream Bucket" class="product-image">
                                 </div>
-                                <h3 class="product-name">Hazelnut Wafer Cream</h3>
-                                <p class="product-type">Crunchy Nut Cream</p>
+                                <h3 class="product-name" data-translate="product-hazelnut-wafer-cream">Hazelnut Wafer Cream</h3>
+                                <p class="product-type" data-translate="product-hazelnut-wafer-cream-type">Crunchy Nut Cream</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Hazelnut Wafer Cream Bucket</h3>
-                                <p>Creamy hazelnut spread with crispy wafer pieces mixed in. The perfect combination of smooth, nutty cream and satisfying crunch for a textural delight.</p>
+                                <h3 data-translate="product-hazelnut-wafer-cream">Hazelnut Wafer Cream Bucket</h3>
+                                <p data-translate="product-hazelnut-wafer-cream-desc">Creamy hazelnut spread with crispy wafer pieces mixed in. The perfect combination of smooth, nutty cream and satisfying crunch for a textural delight.</p>
                             </div>
                         </div>
                     </div>
@@ -1738,7 +1832,7 @@
                     <div class="footer-logo-container">
                         <img src="logo.WebP" alt="Tera Energy Logo" class="footer-logo-image">
                         <div class="footer-logo-text-container">
-                            <h2 class="footer-logo-text">TERA ENERGY</h2>
+                            <h2 class="footer-logo-text" data-translate="footer-logo">TERA ENERGY</h2>
                         </div>
                     </div>
                 </div>
@@ -1750,10 +1844,597 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
+                <p data-translate="copyright">&copy; 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
             </div>
         </div>
     </footer>
+
+    <script src="translations.js"></script>
+
+    <script>
+        // ========== BISCUITS PAGE SPECIFIC TRANSLATIONS ==========
+        const biscuitsTranslations = {
+            en: {
+                // Hero Section
+                'biscuits-hero-title': 'TERA BISCUITS & SNACKS',
+                'biscuits-hero-description': 'Indulge in our exquisite collection of chocolates, biscuits, cookies, and creamy delights. Made with the finest ingredients for a royal experience.',
+                'biscuits-hero-button': 'Explore Collection',
+                
+                // Chocolate Bars Section
+                'biscuits-chocolate-title': 'Chocolate Bars',
+                'biscuits-chocolate-description': 'Rich, creamy chocolate bars crafted with premium cocoa for the ultimate indulgence',
+                
+                // Biscuits Section
+                'biscuits-biscuits-title': 'Premium Biscuits',
+                'biscuits-biscuits-description': 'Crunchy, buttery biscuits in various flavors and textures',
+                
+                // Cookies/Bags Section
+                'biscuits-cookies-title': 'Biscuits Bags',
+                'biscuits-cookies-description': 'Crunchy, chewy Biscuits with various add-ins and flavors',
+                
+                // Cream & Crushed Biscuits Section
+                'biscuits-cream-title': 'Cream & Crushed Biscuits Buckets',
+                'biscuits-cream-description': 'Rich, creamy delights and crunchy biscuit mixes in convenient buckets',
+                
+                // ========== CHOCOLATE BARS PRODUCTS ==========
+                // Biscuit Pieces Chocolate
+                'product-biscuit-pieces-chocolate': 'Biscuit Pieces Chocolate',
+                'product-biscuit-pieces-chocolate-type': '100% Crunchy',
+                'product-biscuit-pieces-chocolate-desc': 'A smooth milk chocolate bar generously loaded with crunchy, golden biscuit pieces. It offers a perfect play of creamy sweetness against a satisfying, cookie-like crunch in every bite.',
+                
+                // Cinnamon Cream Chocolate
+                'product-cinnamon-cream-chocolate': 'Cinnamon Cream Chocolate',
+                'product-cinnamon-cream-chocolate-type': 'Creamy & Spiced',
+                'product-cinnamon-cream-chocolate-desc': 'A decadent bar featuring a layer of warm, spiced cinnamon cream enrobed in rich chocolate. It delivers a cozy, bakery-inspired flavor that is both sweet and gently aromatic.',
+                
+                // Coconut Cream Chocolate
+                'product-coconut-cream-chocolate': 'Coconut Cream Chocolate',
+                'product-coconut-cream-chocolate-type': 'Tropical Delight',
+                'product-coconut-cream-chocolate-desc': 'Luscious milk chocolate with a smooth coconut cream filling. This tropical-inspired bar offers a perfect balance of creamy chocolate and exotic coconut flavor.',
+                
+                // Milk Cocoa Crispy
+                'product-milk-cocoa-crispy': 'Milk Cocoa Crispy',
+                'product-milk-cocoa-crispy-type': 'Crispy & Creamy',
+                'product-milk-cocoa-crispy-desc': 'Premium milk chocolate combined with crispy cocoa rice pieces. A delightful texture experience with a rich chocolate flavor that satisfies your crunch cravings.',
+                
+                // Milk Coffee Chocolate
+                'product-milk-coffee-chocolate': 'Milk Coffee Chocolate',
+                'product-milk-coffee-chocolate-type': 'Coffee Infused',
+                'product-milk-coffee-chocolate-desc': 'A perfect morning treat! Smooth milk chocolate infused with premium Arabica coffee. The rich coffee flavor complements the creamy chocolate for an energizing experience.',
+                
+                // Milk Cream Chocolate
+                'product-milk-cream-chocolate': 'Milk Cream Chocolate',
+                'product-milk-cream-chocolate-type': 'Extra Creamy',
+                'product-milk-cream-chocolate-desc': 'Ultra-creamy milk chocolate with an extra smooth texture. This bar melts luxuriously in your mouth, delivering pure chocolate satisfaction with every bite.',
+                
+                // Peanut Creamy Chocolate
+                'product-peanut-creamy-chocolate': 'Peanut Creamy Chocolate',
+                'product-peanut-creamy-chocolate-type': 'Creamy Peanut',
+                'product-peanut-creamy-chocolate-desc': 'Rich milk chocolate with a smooth, creamy peanut filling. The perfect combination of nutty goodness and sweet chocolate that peanut lovers will adore.',
+                
+                // Peanut Milk Chocolate
+                'product-peanut-milk-chocolate': 'Peanut Milk Chocolate',
+                'product-peanut-milk-chocolate-type': 'Crunchy Peanut',
+                'product-peanut-milk-chocolate-desc': 'Creamy milk chocolate packed with whole roasted peanuts. Every bite offers a satisfying crunch and the classic combination of chocolate and peanuts.',
+                
+                // Sesame Creamy Chocolate
+                'product-sesame-creamy-chocolate': 'Sesame Creamy Chocolate',
+                'product-sesame-creamy-chocolate-type': 'Sesame Delight',
+                'product-sesame-creamy-chocolate-desc': 'A unique blend of smooth chocolate with creamy sesame paste filling. This Middle Eastern-inspired treat offers a nutty, slightly sweet flavor that is truly distinctive.',
+                
+                // Sesame Milk Chocolate
+                'product-sesame-milk-chocolate': 'Sesame Milk Chocolate',
+                'product-sesame-milk-chocolate-type': 'Sesame Crunch',
+                'product-sesame-milk-chocolate-desc': 'Milk chocolate generously mixed with toasted sesame seeds. The nutty sesame flavor pairs beautifully with sweet chocolate for a sophisticated taste experience.',
+                
+                // Vanilla Biscuit Chocolate
+                'product-vanilla-biscuit-chocolate': 'Vanilla Biscuit Chocolate',
+                'product-vanilla-biscuit-chocolate-type': 'Vanilla Crunch',
+                'product-vanilla-biscuit-chocolate-desc': 'Delicate vanilla-infused milk chocolate filled with crunchy biscuit pieces. The sweet vanilla aroma enhances the classic chocolate and biscuit combination.',
+                
+                // ========== BISCUITS PRODUCTS ==========
+                // Coco Vanilla Cream
+                'product-coco-vanilla-cream': 'Coco Vanilla Cream',
+                'product-coco-vanilla-cream-type': 'Coconut & Vanilla',
+                'product-coco-vanilla-cream-desc': 'Delicate coconut biscuits sandwiching a smooth, aromatic vanilla cream filling. A tropical twist on classic cream biscuits with a perfect balance of coconut flavor and sweet vanilla.',
+                
+                // Chocolate Vanilla Biscuits
+                'product-chocolate-vanilla-biscuits': 'Chocolate Vanilla Biscuits',
+                'product-chocolate-vanilla-biscuits-type': 'Chocolate Covered',
+                'product-chocolate-vanilla-biscuits-desc': 'Classic vanilla biscuits completely enrobed in rich, creamy milk chocolate. The crisp biscuit base provides the perfect crunch against the smooth chocolate coating for an indulgent treat.',
+                
+                // ========== BISCUITS BAGS PRODUCTS ==========
+                // Chocolate Cookies
+                'product-chocolate-cookies': 'Chocolate Cookies',
+                'product-chocolate-cookies-type': 'Loaded with 24 pieces',
+                'product-chocolate-cookies-desc': 'Soft, chewy cookies loaded with cocoa chocolate. Perfect balance of sweetness and texture.',
+                
+                // Chocolate Biscuits Bag
+                'product-chocolate-biscuits-bag': 'Chocolate Biscuits',
+                'product-chocolate-biscuits-bag-type': 'Bag of 24 pieces',
+                'product-chocolate-biscuits-bag-desc': 'Crispy chocolate biscuits packed in a family-size bag of 24 pieces. Rich cocoa taste with a satisfying crunch.',
+                
+                // Chocolate & Peanut Biscuits
+                'product-chocolate-peanut-biscuits': 'Chocolate & Peanut',
+                'product-chocolate-peanut-biscuits-type': 'Bag of 24 pieces',
+                'product-chocolate-peanut-biscuits-desc': 'Crunchy biscuits combined with rich chocolate and roasted peanuts. A bold, nutty flavor in a 24-piece bag.',
+                
+                // ========== CREAM & CRUSHED BISCUITS PRODUCTS ==========
+                // Bueno Cream
+                'product-bueno-cream': 'Bueno Cream',
+                'product-bueno-cream-type': 'Hazelnut Chocolate',
+                'product-bueno-cream-desc': 'A luxurious cream inspired by the famous chocolate bar, featuring rich hazelnut-chocolate flavor. Perfect for spreading on toast, filling pastries, or enjoying by the spoonful.',
+                
+                // Cinnamon Biscuit Cream
+                'product-cinnamon-biscuit-cream': 'Cinnamon Biscuit Cream',
+                'product-cinnamon-biscuit-cream-type': 'Spiced Cream',
+                'product-cinnamon-biscuit-cream-desc': 'Creamy spread infused with warm cinnamon and tiny biscuit pieces. The perfect balance of smooth cream and cozy spice for a comforting treat any time of day.',
+                
+                // Coconut Wafer Cream
+                'product-coconut-wafer-cream': 'Coconut Wafer Cream',
+                'product-coconut-wafer-cream-type': 'Tropical Wafer',
+                'product-coconut-wafer-cream-desc': 'Exotic coconut cream mixed with crispy wafer pieces. A tropical delight that brings the taste of paradise with every spoonful, combining creamy texture with satisfying crunch.',
+                
+                // Crushed Cinnamon Biscuit
+                'product-crushed-cinnamon-biscuit': 'Crushed Cinnamon Biscuit',
+                'product-crushed-cinnamon-biscuit-type': 'Spiced Crumble',
+                'product-crushed-cinnamon-biscuit-desc': 'Perfectly crushed cinnamon biscuits ready for topping desserts, mixing into yogurt, or creating your own pastry creations. All the warm spice flavor without the baking work.',
+                
+                // Crushed Oreo Biscuits
+                'product-crushed-oreo-biscuits': 'Crushed Oreo Biscuits',
+                'product-crushed-oreo-biscuits-type': 'Chocolate Cookie Crumbs',
+                'product-crushed-oreo-biscuits-desc': 'The ultimate dessert topping! Finely crushed Oreo cookies with their signature cream filling mixed throughout. Perfect for cheesecake bases, ice cream toppings, and more.',
+                
+                // Hazelnut Cream
+                'product-hazelnut-cream': 'Hazelnut Cream',
+                'product-hazelnut-cream-type': 'Nutty Spread',
+                'product-hazelnut-cream-desc': 'Rich, smooth hazelnut cream that is perfect for spreading, dipping, or baking. Made with premium roasted hazelnuts for that authentic, nutty flavor loved by everyone.',
+                
+                // Hazelnut Wafer Cream
+                'product-hazelnut-wafer-cream': 'Hazelnut Wafer Cream',
+                'product-hazelnut-wafer-cream-type': 'Crunchy Nut Cream',
+                'product-hazelnut-wafer-cream-desc': 'Creamy hazelnut spread with crispy wafer pieces mixed in. The perfect combination of smooth, nutty cream and satisfying crunch for a textural delight.',
+                
+                // Footer
+                'footer-logo': 'TERA ENERGY'
+            },
+            ar: {
+                // Hero Section
+                'biscuits-hero-title': 'بسكويت ووجبات خفيفة تيرا',
+                'biscuits-hero-description': 'استمتع بمجموعتنا الرائعة من الشوكولاتة والبسكويت والكوكيز والمقرمشات الكريمية. مصنوعة من أفضل المكونات لتجربة ملكية.',
+                'biscuits-hero-button': 'استكشاف المجموعة',
+                
+                // Chocolate Bars Section
+                'biscuits-chocolate-title': 'ألواح الشوكولاتة',
+                'biscuits-chocolate-description': 'ألواح شوكولاتة غنية وكريمية مصنوعة من كاكاو مميز لأقصى درجات المتعة',
+                
+                // Biscuits Section
+                'biscuits-biscuits-title': 'بسكويت مميز',
+                'biscuits-biscuits-description': 'بسكويت مقرمش وزبدي بنكهات وقوام مختلفة',
+                
+                // Cookies/Bags Section
+                'biscuits-cookies-title': 'أكياس البسكويت',
+                'biscuits-cookies-description': 'بسكويت مقرمش ومطاطي بإضافات ونكهات مختلفة',
+                
+                // Cream & Crushed Biscuits Section
+                'biscuits-cream-title': 'دلاء الكريم والبسكويت المسحوق',
+                'biscuits-cream-description': 'متعات كريمية غنية ومخاليط بسكويت مقرمشة في دلاء مريحة',
+                
+                // ========== CHOCOLATE BARS PRODUCTS ==========
+                // Biscuit Pieces Chocolate
+                'product-biscuit-pieces-chocolate': 'شوكولاتة قطع البسكويت',
+                'product-biscuit-pieces-chocolate-type': 'مقرمش 100%',
+                'product-biscuit-pieces-chocolate-desc': 'لوح شوكولاتة حليب ناعم محمّل بسخاء بقطع بسكويت ذهبية مقرمشة. يقدم لعبة مثالية من الحلاوة الكريمية ضد قرمشة شبيهة بالكوكيز في كل قضمة.',
+                
+                // Cinnamon Cream Chocolate
+                'product-cinnamon-cream-chocolate': 'شوكولاتة كريم القرفة',
+                'product-cinnamon-cream-chocolate-type': 'كريمي وتوابل',
+                'product-cinnamon-cream-chocolate-desc': 'لوح فاخر يحتوي على طبقة من كريم القرفة الدافئ المعطر والمغطى بالشوكولاتة الغنية. يقدم نكهة مخبوزية مريحة حلوة وعطرية بلطف.',
+                
+                // Coconut Cream Chocolate
+                'product-coconut-cream-chocolate': 'شوكولاتة كريم جوز الهند',
+                'product-coconut-cream-chocolate-type': 'متعات استوائية',
+                'product-coconut-cream-chocolate-desc': 'شوكولاتة حليب فاخرة مع حشوة كريم جوز الهند الناعم. هذا اللوح المستوحى من المناطق الاستوائية يوفر توازنًا مثاليًا بين الشوكولاتة الكريمية ونكهة جوز الهند الغريبة.',
+                
+                // Milk Cocoa Crispy
+                'product-milk-cocoa-crispy': 'شوكولاتة كريسبي بالحليب والكاكاو',
+                'product-milk-cocoa-crispy-type': 'مقرمش وكريمي',
+                'product-milk-cocoa-crispy-desc': 'شوكولاتة حليب مميزة مجتمعة مع قطع أرز كاكاو مقرمشة. تجربة قوام ممتعة بنكهة شوكولاتة غنية ترضي رغبتك في القرمشة.',
+                
+                // Milk Coffee Chocolate
+                'product-milk-coffee-chocolate': 'شوكولاتة حليب بالقهوة',
+                'product-milk-coffee-chocolate-type': 'منقوع بالقهوة',
+                'product-milk-coffee-chocolate-desc': 'متعة صباحية مثالية! شوكولاتة حليب ناعمة منقوعة بقهوة أرابيكا مميزة. نكهة القهوة الغنية تكمل الشوكولاتة الكريمية لتجربة منشطة.',
+                
+                // Milk Cream Chocolate
+                'product-milk-cream-chocolate': 'شوكولاتة كريم الحليب',
+                'product-milk-cream-chocolate-type': 'كريمي إضافي',
+                'product-milk-cream-chocolate-desc': 'شوكولاتة حليب فائقة الكريم مع نسيج ناعم إضافي. يذوب هذا اللوح ببذخ في فمك، يقدم رضا شوكولاتة نقي مع كل قضمة.',
+                
+                // Peanut Creamy Chocolate
+                'product-peanut-creamy-chocolate': 'شوكولاتة كريمية بالفول السوداني',
+                'product-peanut-creamy-chocolate-type': 'فول سوداني كريمي',
+                'product-peanut-creamy-chocolate-desc': 'شوكولاتة حليب غنية مع حشوة فول سوداني كريمية ناعمة. المزيج المثالي من خير المكسرات والشوكولاتة الحلوة التي سيعشقها محبو الفول السوداني.',
+                
+                // Peanut Milk Chocolate
+                'product-peanut-milk-chocolate': 'شوكولاتة حليب بالفول السوداني',
+                'product-peanut-milk-chocolate-type': 'فول سوداني مقرمش',
+                'product-peanut-milk-chocolate-desc': 'شوكولاتة حليب كريمية محشوة بفول سوداني محمص كامل. كل قضمة تقدم قرمشة مرضية والمزيج الكلاسيكي من الشوكولاتة والفول السوداني.',
+                
+                // Sesame Creamy Chocolate
+                'product-sesame-creamy-chocolate': 'شوكولاتة كريمية بالسمسم',
+                'product-sesame-creamy-chocolate-type': 'متعات السمسم',
+                'product-sesame-creamy-chocolate-desc': 'مزيج فريد من الشوكولاتة الناعمة مع حشوة معجون سمسم كريمي. هذه المتعة المستوحاة من الشرق الأوسط تقدم نكهة مكسراتية وحلوة قليلاً مميزة حقاً.',
+                
+                // Sesame Milk Chocolate
+                'product-sesame-milk-chocolate': 'شوكولاتة حليب بالسمسم',
+                'product-sesame-milk-chocolate-type': 'قرمشة السمسم',
+                'product-sesame-milk-chocolate-desc': 'شوكولاتة حليب ممزوجة بسخاء ببذور سمسم محمصة. نكهة السمسم المكسراتية تتناسب بشكل جميل مع الشوكولاتة الحلوة لتجربة تذوق متطورة.',
+                
+                // Vanilla Biscuit Chocolate
+                'product-vanilla-biscuit-chocolate': 'شوكولاتة بسكويت الفانيلا',
+                'product-vanilla-biscuit-chocolate-type': 'قرمشة الفانيلا',
+                'product-vanilla-biscuit-chocolate-desc': 'شوكولاتة حليب معطرة بالفانيلا الرقيقة محشوة بقطع بسكويت مقرمشة. عطر الفانيلا الحلو يعزز المزيج الكلاسيكي من الشوكولاتة والبسكويت.',
+                
+                // ========== BISCUITS PRODUCTS ==========
+                // Coco Vanilla Cream
+                'product-coco-vanilla-cream': 'كريم جوز الهند بالفانيلا',
+                'product-coco-vanilla-cream-type': 'جوز الهند والفانيلا',
+                'product-coco-vanilla-cream-desc': 'بسكويت جوز الهند الرقيق يحتوي على حشوة كريم فانيلا ناعمة وعطرة. لمسة استوائية على بسكويت الكريم الكلاسيكي مع توازن مثالي بين نكهة جوز الهند والفانيلا الحلوة.',
+                
+                // Chocolate Vanilla Biscuits
+                'product-chocolate-vanilla-biscuits': 'بسكويت الفانيلا بالشوكولاتة',
+                'product-chocolate-vanilla-biscuits-type': 'مغطى بالشوكولاتة',
+                'product-chocolate-vanilla-biscuits-desc': 'بسكويت فانيلا كلاسيكي مغطى بالكامل بشوكولاتة حليب غنية وكريمية. قاعدة البسكويت المقرمشة توفر القرمشة المثالية ضد الطلاء الشوكولاتي الناعم لمتعة فاخرة.',
+                
+                // ========== BISCUITS BAGS PRODUCTS ==========
+                // Chocolate Cookies
+                'product-chocolate-cookies': 'كوكيز الشوكولاتة',
+                'product-chocolate-cookies-type': 'محمل بـ 24 قطعة',
+                'product-chocolate-cookies-desc': 'كوكيز ناعمة ومطاطية محملة بشوكولاتة الكاكاو. توازن مثالي بين الحلاوة والقوام.',
+                
+                // Chocolate Biscuits Bag
+                'product-chocolate-biscuits-bag': 'بسكويت الشوكولاتة',
+                'product-chocolate-biscuits-bag-type': 'كيس من 24 قطعة',
+                'product-chocolate-biscuits-bag-desc': 'بسكويت شوكولاتة مقرمش معبأ في كيس عائلي من 24 قطعة. طعم كاكاو غني مع قرمشة مرضية.',
+                
+                // Chocolate & Peanut Biscuits
+                'product-chocolate-peanut-biscuits': 'الشوكولاتة والفول السوداني',
+                'product-chocolate-peanut-biscuits-type': 'كيس من 24 قطعة',
+                'product-chocolate-peanut-biscuits-desc': 'بسكويت مقرمش مجتمع مع شوكولاتة غنية وفول سوداني محمص. نكهة مكسراتية جريئة في كيس 24 قطعة.',
+                
+                // ========== CREAM & CRUSHED BISCUITS PRODUCTS ==========
+                // Bueno Cream
+                'product-bueno-cream': 'كريم بوينو',
+                'product-bueno-cream-type': 'شوكولاتة البندق',
+                'product-bueno-cream-desc': 'كريم فاخر مستوحى من لوح الشوكولاتة الشهير، يتميز بنكهة البندق-الشوكولاتة الغنية. مثالي للدهن على الخبز المحمص، أو حشو المعجنات، أو الاستمتاع به بالملعقة.',
+                
+                // Cinnamon Biscuit Cream
+                'product-cinnamon-biscuit-cream': 'كريم بسكويت القرفة',
+                'product-cinnamon-biscuit-cream-type': 'كريم معطر',
+                'product-cinnamon-biscuit-cream-desc': 'كريم قابل للدهن معطر بقرفة دافئة وقطع بسكويت صغيرة. التوازن المثالي بين الكريم الناعم والتوابل المريحة لمتعة مريحة في أي وقت من اليوم.',
+                
+                // Coconut Wafer Cream
+                'product-coconut-wafer-cream': 'كريم ويفر جوز الهند',
+                'product-coconut-wafer-cream-type': 'ويفر استوائي',
+                'product-coconut-wafer-cream-desc': 'كريم جوز الهند الغريب ممزوج بقطع ويفر مقرمشة. متعة استوائية تجلب طعم الجنة مع كل ملعقة، تجمع بين القوام الكريمي والقرمشة المرضية.',
+                
+                // Crushed Cinnamon Biscuit
+                'product-crushed-cinnamon-biscuit': 'بسكويت القرفة المسحوق',
+                'product-crushed-cinnamon-biscuit-type': 'فتات معطر',
+                'product-crushed-cinnamon-biscuit-desc': 'بسكويت قرفة مسحوق تمامًا جاهز لتزيين الحلويات، أو خلطه في الزبادي، أو إنشاء مخبوزاتك الخاصة. كل نكهة التوابل الدافئة دون عمل الخبز.',
+                
+                // Crushed Oreo Biscuits
+                'product-crushed-oreo-biscuits': 'بسكويت أوريو المسحوق',
+                'product-crushed-oreo-biscuits-type': 'فتات كوكيز الشوكولاتة',
+                'product-crushed-oreo-biscuits-desc': 'تزيين الحلويات النهائي! بسكويت أوريو المسحوق ناعماً مع حشوة الكريم المميزة المختلطة في جميع أنحائه. مثالي لقواعد تشيز كيك، وتزيين الآيس كريم، والمزيد.',
+                
+                // Hazelnut Cream
+                'product-hazelnut-cream': 'كريم البندق',
+                'product-hazelnut-cream-type': 'كريم مكسراتي',
+                'product-hazelnut-cream-desc': 'كريم بندق غني وناعم مثالي للدهن، أو الغمس، أو الخبز. مصنوع من بندق محمص مميز لتلك النكهة المكسراتية الأصيلة المحبوبة من قبل الجميع.',
+                
+                // Hazelnut Wafer Cream
+                'product-hazelnut-wafer-cream': 'كريم ويفر البندق',
+                'product-hazelnut-wafer-cream-type': 'كريم مكسراتي مقرمش',
+                'product-hazelnut-wafer-cream-desc': 'كريم بندق قابل للدهن ممزوج بقطع ويفر مقرمشة. المزيج المثالي بين الكريم الناعم المكسراتي والقرمشة المرضية لمتعة قوامية.',
+                
+                // Footer
+                'footer-logo': 'تيرا إنرجي'
+            },
+            fr: {
+                // Hero Section
+                'biscuits-hero-title': 'BISCUITS & SNACKS TERA',
+                'biscuits-hero-description': 'Savourez notre collection exquise de chocolats, biscuits, cookies et délices crémeux. Fabriqués avec les meilleurs ingrédients pour une expérience royale.',
+                'biscuits-hero-button': 'Explorer la Collection',
+                
+                // Chocolate Bars Section
+                'biscuits-chocolate-title': 'Barres de Chocolat',
+                'biscuits-chocolate-description': 'Barres de chocolat riches et crémeuses élaborées avec du cacao premium pour une indulgence ultime',
+                
+                // Biscuits Section
+                'biscuits-biscuits-title': 'Biscuits Premium',
+                'biscuits-biscuits-description': 'Biscuits croquants et beurrés dans diverses saveurs et textures',
+                
+                // Cookies/Bags Section
+                'biscuits-cookies-title': 'Sacs de Biscuits',
+                'biscuits-cookies-description': 'Biscuits croquants et moelleux avec divers ajouts et saveurs',
+                
+                // Cream & Crushed Biscuits Section
+                'biscuits-cream-title': 'Seaux de Crème et Biscuits Concassés',
+                'biscuits-cream-description': 'Délices crémeux riches et mélanges de biscuits croquants dans des seaux pratiques',
+                
+                // ========== CHOCOLATE BARS PRODUCTS ==========
+                // Biscuit Pieces Chocolate
+                'product-biscuit-pieces-chocolate': 'Chocolat aux Morceaux de Biscuit',
+                'product-biscuit-pieces-chocolate-type': '100% Croquant',
+                'product-biscuit-pieces-chocolate-desc': 'Une barre de chocolat au lait lisse généreusement chargée de morceaux de biscuits dorés croquants. Elle offre un jeu parfait de douceur crémeuse contre un croquant satisfaisant, semblable à un cookie, à chaque bouchée.',
+                
+                // Cinnamon Cream Chocolate
+                'product-cinnamon-cream-chocolate': 'Chocolat à la Crème de Cannelle',
+                'product-cinnamon-cream-chocolate-type': 'Crémeux & Épicé',
+                'product-cinnamon-cream-chocolate-desc': 'Une barre décadente présentant une couche de crème de cannelle chaude et épicée enrobée de chocolat riche. Elle offre une saveur inspirée de la boulangerie, douce et délicatement aromatique.',
+                
+                // Coconut Cream Chocolate
+                'product-coconut-cream-chocolate': 'Chocolat à la Crème de Noix de Coco',
+                'product-coconut-cream-chocolate-type': 'Délice Tropical',
+                'product-coconut-cream-chocolate-desc': 'Chocolat au lait luxueux avec une garniture de crème de noix de coco lisse. Cette barre d\'inspiration tropicale offre un équilibre parfait entre le chocolat crémeux et la saveur exotique de la noix de coco.',
+                
+                // Milk Cocoa Crispy
+                'product-milk-cocoa-crispy': 'Croustillant au Lait et Cacao',
+                'product-milk-cocoa-crispy-type': 'Croustillant & Crémeux',
+                'product-milk-cocoa-crispy-desc': 'Chocolat au lait premium combiné à des morceaux de riz cacao croustillants. Une expérience de texture délicieuse avec une riche saveur de chocolat qui satisfait vos envies de croquant.',
+                
+                // Milk Coffee Chocolate
+                'product-milk-coffee-chocolate': 'Chocolat au Lait et Café',
+                'product-milk-coffee-chocolate-type': 'Infusé au Café',
+                'product-milk-coffee-chocolate-desc': 'Une parfaite friandise matinale! Chocolat au lait lisse infusé avec du café Arabica premium. La riche saveur de café complète le chocolat crémeux pour une expérience énergisante.',
+                
+                // Milk Cream Chocolate
+                'product-milk-cream-chocolate': 'Chocolat à la Crème de Lait',
+                'product-milk-cream-chocolate-type': 'Extra Crémeux',
+                'product-milk-cream-chocolate-desc': 'Chocolat au lait ultra crémeux avec une texture extra lisse. Cette barre fond luxueusement dans votre bouche, offrant une satisfaction chocolatée pure à chaque bouchée.',
+                
+                // Peanut Creamy Chocolate
+                'product-peanut-creamy-chocolate': 'Chocolat Crémeux aux Cacahuètes',
+                'product-peanut-creamy-chocolate-type': 'Cacahuète Crémeuse',
+                'product-peanut-creamy-chocolate-desc': 'Chocolat au lait riche avec une garniture crémeuse et lisse de cacahuètes. La combinaison parfaite de bonté de noix et de chocolat sucré que les amateurs de cacahuètes adoreront.',
+                
+                // Peanut Milk Chocolate
+                'product-peanut-milk-chocolate': 'Chocolat au Lait aux Cacahuètes',
+                'product-peanut-milk-chocolate-type': 'Cacahuète Croquante',
+                'product-peanut-milk-chocolate-desc': 'Chocolat au lait crémeux rempli de cacahuètes entières grillées. Chaque bouchée offre un croquant satisfaisant et la combinaison classique de chocolat et de cacahuètes.',
+                
+                // Sesame Creamy Chocolate
+                'product-sesame-creamy-chocolate': 'Chocolat Crémeux au Sésame',
+                'product-sesame-creamy-chocolate-type': 'Délice au Sésame',
+                'product-sesame-creamy-chocolate-desc': 'Un mélange unique de chocolat lisse avec une garniture crémeuse de pâte de sésame. Cette friandise d\'inspiration moyen-orientale offre une saveur de noix légèrement sucrée qui est vraiment distinctive.',
+                
+                // Sesame Milk Chocolate
+                'product-sesame-milk-chocolate': 'Chocolat au Lait au Sésame',
+                'product-sesame-milk-chocolate-type': 'Croquant au Sésame',
+                'product-sesame-milk-chocolate-desc': 'Chocolat au lait généreusement mélangé à des graines de sésame toastées. La saveur de noix du sésame s\'accorde magnifiquement avec le chocolat sucré pour une expérience de dégustation sophistiquée.',
+                
+                // Vanilla Biscuit Chocolate
+                'product-vanilla-biscuit-chocolate': 'Chocolat aux Biscuits à la Vanille',
+                'product-vanilla-biscuit-chocolate-type': 'Croquant à la Vanille',
+                'product-vanilla-biscuit-chocolate-desc': 'Chocolat au lait délicatement infusé à la vanille rempli de morceaux de biscuits croquants. L\'arôme sucré de vanille améliore la combinaison classique de chocolat et de biscuits.',
+                
+                // ========== BISCUITS PRODUCTS ==========
+                // Coco Vanilla Cream
+                'product-coco-vanilla-cream': 'Crème Coco Vanille',
+                'product-coco-vanilla-cream-type': 'Noix de Coco & Vanille',
+                'product-coco-vanilla-cream-desc': 'Biscuits délicats à la noix de coco sandwichés avec une garniture de crème à la vanille lisse et aromatique. Une touche tropicale sur les biscuits à la crème classiques avec un équilibre parfait entre la saveur de noix de coco et la vanille douce.',
+                
+                // Chocolate Vanilla Biscuits
+                'product-chocolate-vanilla-biscuits': 'Biscuits Vanille au Chocolat',
+                'product-chocolate-vanilla-biscuits-type': 'Enrobé de Chocolat',
+                'product-chocolate-vanilla-biscuits-desc': 'Biscuits à la vanille classiques complètement enrobés de chocolat au lait riche et crémeux. La base de biscuit croustillante offre le croquant parfait contre le revêtement de chocolat lisse pour un régal indulgent.',
+                
+                // ========== BISCUITS BAGS PRODUCTS ==========
+                // Chocolate Cookies
+                'product-chocolate-cookies': 'Cookies au Chocolat',
+                'product-chocolate-cookies-type': 'Chargé avec 24 pièces',
+                'product-chocolate-cookies-desc': 'Cookies moelleux et tendres chargés de chocolat cacao. Équilibre parfait entre douceur et texture.',
+                
+                // Chocolate Biscuits Bag
+                'product-chocolate-biscuits-bag': 'Biscuits au Chocolat',
+                'product-chocolate-biscuits-bag-type': 'Sac de 24 pièces',
+                'product-chocolate-biscuits-bag-desc': 'Biscuits au chocolat croustillants emballés dans un sac familial de 24 pièces. Goût de cacao riche avec un croquant satisfaisant.',
+                
+                // Chocolate & Peanut Biscuits
+                'product-chocolate-peanut-biscuits': 'Chocolat & Cacahuètes',
+                'product-chocolate-peanut-biscuits-type': 'Sac de 24 pièces',
+                'product-chocolate-peanut-biscuits-desc': 'Biscuits croustillants combinés avec du chocolat riche et des cacahuètes grillées. Une saveur de noix audacieuse dans un sac de 24 pièces.',
+                
+                // ========== CREAM & CRUSHED BISCUITS PRODUCTS ==========
+                // Bueno Cream
+                'product-bueno-cream': 'Crème Bueno',
+                'product-bueno-cream-type': 'Chocolat Noisette',
+                'product-bueno-cream-desc': 'Une crème luxueuse inspirée de la célèbre barre chocolatée, avec une riche saveur noisette-chocolat. Parfaite pour tartiner sur des toasts, remplir des pâtisseries ou déguster à la cuillère.',
+                
+                // Cinnamon Biscuit Cream
+                'product-cinnamon-biscuit-cream': 'Crème aux Biscuits à la Cannelle',
+                'product-cinnamon-biscuit-cream-type': 'Crème Épicée',
+                'product-cinnamon-biscuit-cream-desc': 'Crème à tartiner infusée de cannelle chaude et de minuscules morceaux de biscuits. L\'équilibre parfait entre la crème lisse et l\'épice réconfortante pour un réconfort à tout moment de la journée.',
+                
+                // Coconut Wafer Cream
+                'product-coconut-wafer-cream': 'Crème à la Gaufrette de Noix de Coco',
+                'product-coconut-wafer-cream-type': 'Gaufrette Tropicale',
+                'product-coconut-wafer-cream-desc': 'Crème de noix de coco exotique mélangée à des morceaux de gaufrettes croustillantes. Un délice tropical qui apporte le goût du paradis à chaque cuillérée, combinant texture crémeuse et croquant satisfaisant.',
+                
+                // Crushed Cinnamon Biscuit
+                'product-crushed-cinnamon-biscuit': 'Biscuit à la Cannelle Concassé',
+                'product-crushed-cinnamon-biscuit-type': 'Crumble Épicé',
+                'product-crushed-cinnamon-biscuit-desc': 'Biscuits à la cannelle parfaitement concassés prêts à garnir des desserts, à mélanger dans du yaourt ou à créer vos propres créations pâtissières. Toute la saveur d\'épice chaude sans le travail de cuisson.',
+                
+                // Crushed Oreo Biscuits
+                'product-crushed-oreo-biscuits': 'Biscuits Oreo Concassés',
+                'product-crushed-oreo-biscuits-type': 'Miettes de Cookies Chocolat',
+                'product-crushed-oreo-biscuits-desc': 'La garniture ultime pour desserts! Cookies Oreo finement concassés avec leur garniture crème signature mélangée partout. Parfait pour les bases de cheesecake, les garnitures de glace, et plus encore.',
+                
+                // Hazelnut Cream
+                'product-hazelnut-cream': 'Crème aux Noisettes',
+                'product-hazelnut-cream-type': 'Tartinade de Noix',
+                'product-hazelnut-cream-desc': 'Crème de noisettes riche et lisse parfaite pour tartiner, tremper ou cuire. Fabriquée avec des noisettes grillées premium pour cette saveur de noix authentique aimée de tous.',
+                
+                // Hazelnut Wafer Cream
+                'product-hazelnut-wafer-cream': 'Crème à la Gaufrette de Noisette',
+                'product-hazelnut-wafer-cream-type': 'Crème de Noix Croquante',
+                'product-hazelnut-wafer-cream-desc': 'Tartinade de noisettes crémeuse mélangée à des morceaux de gaufrettes croustillantes. La combinaison parfaite entre la crème de noix lisse et le croquant satisfaisant pour un délice textural.',
+                
+                // Footer
+                'footer-logo': 'TERA ENERGY'
+            },
+            de: {
+                // Hero Section
+                'biscuits-hero-title': 'TERA BISCUITS & SNACKS',
+                'biscuits-hero-description': 'Genießen Sie unsere exquisiten Kollektionen von Schokoladen, Keksen, Cookies und cremigen Köstlichkeiten. Hergestellt mit den feinsten Zutaten für ein königliches Erlebnis.',
+                'biscuits-hero-button': 'Kollektion Entdecken',
+                
+                // Chocolate Bars Section
+                'biscuits-chocolate-title': 'Schokoladenriegel',
+                'biscuits-chocolate-description': 'Reiche, cremige Schokoladenriegel aus Premium-Kakao für ultimativen Genuss',
+                
+                // Biscuits Section
+                'biscuits-biscuits-title': 'Premium Kekse',
+                'biscuits-biscuits-description': 'Knusprige, buttrige Kekse in verschiedenen Geschmacksrichtungen und Texturen',
+                
+                // Cookies/Bags Section
+                'biscuits-cookies-title': 'Keksbeutel',
+                'biscuits-cookies-description': 'Knusprige, weiche Kekse mit verschiedenen Zugaben und Geschmacksrichtungen',
+                
+                // Cream & Crushed Biscuits Section
+                'biscuits-cream-title': 'Creme & Zerkleinerte Kekse Eimer',
+                'biscuits-cream-description': 'Reiche, cremige Köstlichkeiten und knusprige Keksmischungen in praktischen Eimern',
+                
+                // ========== CHOCOLATE BARS PRODUCTS ==========
+                // Biscuit Pieces Chocolate
+                'product-biscuit-pieces-chocolate': 'Schokolade mit Keksstücken',
+                'product-biscuit-pieces-chocolate-type': '100% Knusprig',
+                'product-biscuit-pieces-chocolate-desc': 'Ein glatter Milchschokoladenriegel reichlich beladen mit knusprigen, goldenen Keksstücken. Er bietet ein perfektes Spiel aus cremiger Süße gegen einen befriedigenden, keksartigen Crunch bei jedem Bissen.',
+                
+                // Cinnamon Cream Chocolate
+                'product-cinnamon-cream-chocolate': 'Zimtcreme Schokolade',
+                'product-cinnamon-cream-chocolate-type': 'Cremig & Gewürzt',
+                'product-cinnamon-cream-chocolate-desc': 'Ein dekadenter Riegel mit einer Schicht warmer, gewürzter Zimtcreme umhüllt von reicher Schokolade. Er liefert einen gemütlichen, bäckerei-inspirierten Geschmack, der sowohl süß als auch sanft aromatisch ist.',
+                
+                // Coconut Cream Chocolate
+                'product-coconut-cream-chocolate': 'Kokoscreme Schokolade',
+                'product-coconut-cream-chocolate-type': 'Tropischer Genuss',
+                'product-coconut-cream-chocolate-desc': 'Üppige Milchschokolade mit einer glatten Kokoscremefüllung. Dieser tropisch inspirierte Riegel bietet ein perfektes Gleichgewicht zwischen cremiger Schokolade und exotischem Kokosgeschmack.',
+                
+                // Milk Cocoa Crispy
+                'product-milk-cocoa-crispy': 'Milch-Kakao Knusper',
+                'product-milk-cocoa-crispy-type': 'Knusprig & Cremig',
+                'product-milk-cocoa-crispy-desc': 'Premium Milchschokolade kombiniert mit knusprigen Kakaoreisstücken. Ein entzückendes Texturerlebnis mit reichem Schokoladengeschmack, der Ihre Knuspergelüste befriedigt.',
+                
+                // Milk Coffee Chocolate
+                'product-milk-coffee-chocolate': 'Milchkaffee Schokolade',
+                'product-milk-coffee-chocolate-type': 'Kaffee Infundiert',
+                'product-milk-coffee-chocolate-desc': 'Ein perfekter morgendlicher Genuss! Glatte Milchschokolade infundiert mit Premium Arabica-Kaffee. Der reiche Kaffeegeschmack ergänzt die cremige Schokolade für ein belebendes Erlebnis.',
+                
+                // Milk Cream Chocolate
+                'product-milk-cream-chocolate': 'Milchcreme Schokolade',
+                'product-milk-cream-chocolate-type': 'Extra Cremig',
+                'product-milk-cream-chocolate-desc': 'Ultra-cremige Milchschokolade mit einer extra glatten Textur. Dieser Riegel schmilzt luxuriös in Ihrem Mund und liefert reine Schokoladenzufriedenheit mit jedem Bissen.',
+                
+                // Peanut Creamy Chocolate
+                'product-peanut-creamy-chocolate': 'Erdnuss Cremige Schokolade',
+                'product-peanut-creamy-chocolate-type': 'Cremige Erdnuss',
+                'product-peanut-creamy-chocolate-desc': 'Reiche Milchschokolade mit einer glatten, cremigen Erdnussfüllung. Die perfekte Kombination aus nussiger Güte und süßer Schokolade, die Erdnussliebhaber lieben werden.',
+                
+                // Peanut Milk Chocolate
+                'product-peanut-milk-chocolate': 'Erdnuss Milchschokolade',
+                'product-peanut-milk-chocolate-type': 'Knusprige Erdnuss',
+                'product-peanut-milk-chocolate-desc': 'Cremige Milchschokolade voller ganzer gerösteter Erdnüsse. Jeder Bissen bietet einen befriedigenden Crunch und die klassische Kombination aus Schokolade und Erdnüssen.',
+                
+                // Sesame Creamy Chocolate
+                'product-sesame-creamy-chocolate': 'Sesam Cremige Schokolade',
+                'product-sesame-creamy-chocolate-type': 'Sesam Genuss',
+                'product-sesame-creamy-chocolate-desc': 'Eine einzigartige Mischung aus glatter Schokolade mit cremiger Sesampastefüllung. Dieser nahöstlich inspirierte Genuss bietet einen nussigen, leicht süßen Geschmack, der wirklich einzigartig ist.',
+                
+                // Sesame Milk Chocolate
+                'product-sesame-milk-chocolate': 'Sesam Milchschokolade',
+                'product-sesame-milk-chocolate-type': 'Sesam Crunch',
+                'product-sesame-milk-chocolate-desc': 'Milchschokolade großzügig gemischt mit gerösteten Sesamsamen. Der nussige Sesamgeschmack passt wunderschön zur süßen Schokolade für ein anspruchsvolles Geschmackserlebnis.',
+                
+                // Vanilla Biscuit Chocolate
+                'product-vanilla-biscuit-chocolate': 'Vanillekeks Schokolade',
+                'product-vanilla-biscuit-chocolate-type': 'Vanille Crunch',
+                'product-vanilla-biscuit-chocolate-desc': 'Zart vanille-infundierte Milchschokolade gefüllt mit knusprigen Keksstücken. Das süße Vanillearoma verbessert die klassische Kombination aus Schokolade und Keksen.',
+                
+                // ========== BISCUITS PRODUCTS ==========
+                // Coco Vanilla Cream
+                'product-coco-vanilla-cream': 'Koko Vanille Creme',
+                'product-coco-vanilla-cream-type': 'Kokos & Vanille',
+                'product-coco-vanilla-cream-desc': 'Zarte Kokosnusskekse mit einer glatten, aromatischen Vanillecremefüllung. Ein tropischer Twist auf klassische Cremekekse mit einem perfekten Gleichgewicht zwischen Kokosgeschmack und süßer Vanille.',
+                
+                // Chocolate Vanilla Biscuits
+                'product-chocolate-vanilla-biscuits': 'Schokoladen Vanille Kekse',
+                'product-chocolate-vanilla-biscuits-type': 'Mit Schokolade Überzogen',
+                'product-chocolate-vanilla-biscuits-desc': 'Klassische Vanillekekse vollständig umhüllt von reicher, cremiger Milchschokolade. Die knusprige Keksbasis bietet den perfekten Crunch gegen die glatte Schokoladenbeschichtung für einen verwöhnenden Genuss.',
+                
+                // ========== BISCUITS BAGS PRODUCTS ==========
+                // Chocolate Cookies
+                'product-chocolate-cookies': 'Schokoladen Cookies',
+                'product-chocolate-cookies-type': 'Geladen mit 24 Stücken',
+                'product-chocolate-cookies-desc': 'Weiche, zähe Cookies voller Kakaoschokolade. Perfektes Gleichgewicht zwischen Süße und Textur.',
+                
+                // Chocolate Biscuits Bag
+                'product-chocolate-biscuits-bag': 'Schokoladenkekse',
+                'product-chocolate-biscuits-bag-type': 'Beutel mit 24 Stücken',
+                'product-chocolate-biscuits-bag-desc': 'Knusprige Schokoladenkekse verpackt in einem Familienbeutel mit 24 Stücken. Reicher Kakaogeschmack mit befriedigendem Crunch.',
+                
+                // Chocolate & Peanut Biscuits
+                'product-chocolate-peanut-biscuits': 'Schokolade & Erdnuss',
+                'product-chocolate-peanut-biscuits-type': 'Beutel mit 24 Stücken',
+                'product-chocolate-peanut-biscuits-desc': 'Knusprige Kekse kombiniert mit reicher Schokolade und gerösteten Erdnüssen. Ein mutiger nussiger Geschmack in einem 24-Stück-Beutel.',
+                
+                // ========== CREAM & CRUSHED BISCUITS PRODUCTS ==========
+                // Bueno Cream
+                'product-bueno-cream': 'Bueno Creme',
+                'product-bueno-cream-type': 'Haselnuss Schokolade',
+                'product-bueno-cream-desc': 'Eine luxuriöse Creme inspiriert von der berühmten Schokoladenriegel, mit reichem Haselnuss-Schokoladengeschmack. Perfekt zum Aufstrich auf Toast, zum Füllen von Gebäck oder zum Genießen mit dem Löffel.',
+                
+                // Cinnamon Biscuit Cream
+                'product-cinnamon-biscuit-cream': 'Zimtkeks Creme',
+                'product-cinnamon-biscuit-cream-type': 'Gewürzte Creme',
+                'product-cinnamon-biscuit-cream-desc': 'Creme zum Aufstrich mit warmer Zimtinfusion und winzigen Keksstücken. Das perfekte Gleichgewicht zwischen glatter Creme und gemütlicher Würze für einen tröstlichen Genuss zu jeder Tageszeit.',
+                
+                // Coconut Wafer Cream
+                'product-coconut-wafer-cream': 'Kokosnuss Waffel Creme',
+                'product-coconut-wafer-cream-type': 'Tropische Waffel',
+                'product-coconut-wafer-cream-desc': 'Exotische Kokoscreme gemischt mit knusprigen Waffelstücken. Ein tropischer Genuss, der den Geschmack des Paradieses mit jedem Löffel bringt und cremige Textur mit befriedigendem Crunch verbindet.',
+                
+                // Crushed Cinnamon Biscuit
+                'product-crushed-cinnamon-biscuit': 'Zerkleinerte Zimtkekse',
+                'product-crushed-cinnamon-biscuit-type': 'Gewürzte Krümel',
+                'product-crushed-cinnamon-biscuit-desc': 'Perfekt zerkleinerte Zimtkekse bereit zum Bestreuen von Desserts, Mischen in Joghurt oder Erstellen eigener Backkreationen. All der warme Würzgeschmack ohne die Backarbeit.',
+                
+                // Crushed Oreo Biscuits
+                'product-crushed-oreo-biscuits': 'Zerkleinerte Oreo Kekse',
+                'product-crushed-oreo-biscuits-type': 'Schokoladenkeks Krümel',
+                'product-crushed-oreo-biscuits-desc': 'Die ultimative Dessert-Topping! Fein zerkleinerte Oreo-Kekse mit ihrer charakteristischen Cremefüllung durchmischt. Perfekt für Käsekuchenböden, Eiscreme-Toppings und mehr.',
+                
+                // Hazelnut Cream
+                'product-hazelnut-cream': 'Haselnuss Creme',
+                'product-hazelnut-cream-type': 'Nussiger Aufstrich',
+                'product-hazelnut-cream-desc': 'Reiche, glatte Haselnusscreme, perfekt zum Aufstrich, Dippen oder Backen. Hergestellt mit Premium-gerösteten Haselnüssen für diesen authentischen, nussigen Geschmack, den jeder liebt.',
+                
+                // Hazelnut Wafer Cream
+                'product-hazelnut-wafer-cream': 'Haselnuss Waffel Creme',
+                'product-hazelnut-wafer-cream-type': 'Knusprige Nusscreme',
+                'product-hazelnut-wafer-cream-desc': 'Cremiger Haselnussaufstrich gemischt mit knusprigen Waffelstücken. Die perfekte Kombination aus glatter, nussiger Creme und befriedigendem Crunch für einen texturlichen Genuss.',
+                
+                // Footer
+                'footer-logo': 'TERA ENERGY'
+            }
+        };
+
+        // Initialize the language switcher with biscuits translations
+        languageSwitcher.init(biscuitsTranslations);
+    </script>
 
     <script>
         // Mobile Menu Toggle
