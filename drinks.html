@@ -1207,6 +1207,91 @@
             }
         }
 
+        /* ========== LANGUAGE SWITCHER ========== */
+        .language-switcher {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .language-btn {
+            background: none;
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .language-btn:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .flag-img {
+            width: 32px;
+            height: 24px;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .language-btn:hover .flag-img {
+            transform: scale(1.1);
+        }
+
+        .language-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .language-btn:hover + .language-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: -35px;
+        }
+
+        /* For mobile menu */
+        @media (max-width: 768px) {
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 20px;
+                order: 3;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .nav-links.active .language-switcher {
+                display: flex;
+            }
+            
+            .language-btn {
+                width: 60px;
+                height: 45px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1224,19 +1309,27 @@
                     </div>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html" data-translate="home">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropbtn">Products <i class="fas fa-chevron-down"></i></a>
+                        <a href="#" class="dropbtn" data-translate="products">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="drinks.html">Drinks</a>
-                            <a href="biscuits.html">Snacks</a>
+                            <a href="drinks.html" data-translate="drinks">Drinks</a>
+                            <a href="biscuits.html" data-translate="snacks">Snacks</a>
                         </div>
                     </li>
-                    <li><a href="retailers.html">Retailers</a></li>
-                    <li><a href="index.html#logo-display">About Us</a></li>
-                    <li><a href="index.html#locations">Locations</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="retailers.html" data-translate="retailers">Retailers</a></li>
+                    <li><a href="index.html#logo-display" data-translate="about-us">About Us</a></li>
+                    <li><a href="index.html#locations" data-translate="locations">Locations</a></li>
+                    <li><a href="index.html#contact" data-translate="contact">Contact</a></li>
                 </ul>
+                <div id="language-switcher" class="language-switcher">
+                    <button id="language-btn" class="language-btn">
+                        <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
+                    </button>
+                    <div class="language-tooltip" id="language-tooltip">
+                        <span id="current-language">English</span>
+                    </div>
+                </div>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -1248,9 +1341,9 @@
     <section class="drinks-hero">
         <div class="container">
             <div class="drinks-hero-content">
-                <h1>TERA DRINKS</h1>
-                <p>Refresh yourself with our premium energy drinks, mineral water, and natural juices. Every sip is an experience of royal quality.</p>
-                <a href="#energy-drinks" class="btn" style="background: linear-gradient(90deg, var(--energy), var(--juice));">Explore Drinks</a>
+                <h1 data-translate="drinks-hero-title">TERA DRINKS</h1>
+                <p data-translate="drinks-hero-description">Refresh yourself with our premium energy drinks, mineral water, and natural juices. Every sip is an experience of royal quality.</p>
+                <a href="#energy-drinks" class="btn" style="background: linear-gradient(90deg, var(--energy), var(--juice));" data-translate="drinks-hero-button">Explore Drinks</a>
             </div>
         </div>
     </section>
@@ -1259,44 +1352,44 @@
     <section id="energy-drinks" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Energy Drinks</h2>
-                <p>Boost your energy with our premium energy formulas for sustained performance</p>
+                <h2 data-translate="drinks-energy-title">Energy Drinks</h2>
+                <p data-translate="drinks-energy-description">Boost your energy with our premium energy formulas for sustained performance</p>
             </div>
             <div class="carousel-container">
                 <button class="carousel-nav prev" id="prev-energy">
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="products-carousel" id="carousel-energy">
-                    <!-- Energy Drink 1 -->
+                    <!-- Energy Drink 1 - Tera Classic -->
                     <div class="flip-card category-energy">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-classic.png" alt="Tera Classic Energy" class="product-image">
                                 </div>
-                                <h3 class="product-name">Tera Classic</h3>
-                                <p class="product-type">Original Energy</p>
+                                <h3 class="product-name" data-translate="product-tera-classic">Tera Classic</h3>
+                                <p class="product-type" data-translate="product-tera-classic-type">Original Energy</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Tera Classic Energy</h3>
-                                <p>Our signature energy drink with a balanced blend of caffeine, taurine, and B-vitamins for sustained energy.</p>
+                                <h3 data-translate="product-tera-classic">Tera Classic Energy</h3>
+                                <p data-translate="product-tera-classic-desc">Our signature energy drink with a balanced blend of caffeine, taurine, and B-vitamins for sustained energy.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Energy Drink 2 -->
+                    <!-- Energy Drink 2 - Tera Mojito -->
                     <div class="flip-card category-energy">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-mojito.png" alt="Tera Mojito" class="product-image">
                                 </div>
-                                <h3 class="product-name">Tera Mojito</h3>
-                                <p class="product-type">Mint & Lime</p>
+                                <h3 class="product-name" data-translate="product-tera-mojito">Tera Mojito</h3>
+                                <p class="product-type" data-translate="product-tera-mojito-type">Mint & Lime</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Tera Mojito Edition</h3>
-                                <p>Refreshing mint-lime twist on our energy formula. Tropical freshness meets powerful energy boost.</p>
+                                <h3 data-translate="product-tera-mojito">Tera Mojito Edition</h3>
+                                <p data-translate="product-tera-mojito-desc">Refreshing mint-lime twist on our energy formula. Tropical freshness meets powerful energy boost.</p>
                             </div>
                         </div>
                     </div>
@@ -1313,8 +1406,8 @@
     <section id="cola-soda" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Cola & Soda</h2>
-                <p>Refreshing cola and soda beverages with unique flavors</p>
+                <h2 data-translate="drinks-cola-title">Cola & Soda</h2>
+                <p data-translate="drinks-cola-description">Refreshing cola and soda beverages with unique flavors</p>
             </div>
             <div class="carousel-container">
                 <button class="carousel-nav prev" id="prev-cola">
@@ -1328,12 +1421,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-cola-menthol.png" alt="Cola Menthol" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cola Menthol</h3>
-                                <p class="product-type">Mint Flavor</p>
+                                <h3 class="product-name" data-translate="product-cola-menthol">Cola Menthol</h3>
+                                <p class="product-type" data-translate="product-cola-menthol-type">Mint Flavor</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cola Menthol</h3>
-                                <p>Cooling menthol cola with refreshing finish. Minty freshness meets classic cola taste.</p>
+                                <h3 data-translate="product-cola-menthol">Cola Menthol</h3>
+                                <p data-translate="product-cola-menthol-desc">Cooling menthol cola with refreshing finish. Minty freshness meets classic cola taste.</p>
                             </div>
                         </div>
                     </div>
@@ -1345,12 +1438,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-cola-classic.png" alt="Cola Classic" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cola Classic</h3>
-                                <p class="product-type">Original Cola</p>
+                                <h3 class="product-name" data-translate="product-cola-classic">Cola Classic</h3>
+                                <p class="product-type" data-translate="product-cola-classic-type">Original Cola</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cola Classic</h3>
-                                <p>Traditional cola taste with perfect carbonation. Classic refreshment with premium ingredients.</p>
+                                <h3 data-translate="product-cola-classic">Cola Classic</h3>
+                                <p data-translate="product-cola-classic-desc">Traditional cola taste with perfect carbonation. Classic refreshment with premium ingredients.</p>
                             </div>
                         </div>
                     </div>
@@ -1362,12 +1455,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-cola-grenadine.png" alt="Cola Grenadine" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cola Grenadine</h3>
-                                <p class="product-type">Pomegranate</p>
+                                <h3 class="product-name" data-translate="product-cola-grenadine">Cola Grenadine</h3>
+                                <p class="product-type" data-translate="product-cola-grenadine-type">Pomegranate</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cola Grenadine</h3>
-                                <p>Cola infused with sweet pomegranate essence. Ruby red color with fruity cola twist.</p>
+                                <h3 data-translate="product-cola-grenadine">Cola Grenadine</h3>
+                                <p data-translate="product-cola-grenadine-desc">Cola infused with sweet pomegranate essence. Ruby red color with fruity cola twist.</p>
                             </div>
                         </div>
                     </div>
@@ -1379,12 +1472,12 @@
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-image">
                                 </div>
-                                <h3 class="product-name">Bitter Soda</h3>
-                                <p class="product-type">Bitter Cola</p>
+                                <h3 class="product-name" data-translate="product-bitter-soda">Bitter Soda</h3>
+                                <p class="product-type" data-translate="product-bitter-soda-type">Bitter Cola</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Bitter Soda</h3>
-                                <p>Unique bitter-sweet cola flavor with herbal notes. Sophisticated soda experience for refined palates.</p>
+                                <h3 data-translate="product-bitter-soda">Bitter Soda</h3>
+                                <p data-translate="product-bitter-soda-desc">Unique bitter-sweet cola flavor with herbal notes. Sophisticated soda experience for refined palates.</p>
                             </div>
                         </div>
                     </div>
@@ -1401,44 +1494,44 @@
     <section id="mineral-water" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Mineral Water</h2>
-                <p>Pure, refreshing water from natural springs for optimal hydration</p>
+                <h2 data-translate="drinks-water-title">Mineral Water</h2>
+                <p data-translate="drinks-water-description">Pure, refreshing water from natural springs for optimal hydration</p>
             </div>
             <div class="carousel-container">
                 <button class="carousel-nav prev" id="prev-water">
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="products-carousel" id="carousel-water">
-                    <!-- Mineral Water 1 -->
+                    <!-- Mineral Water 1 - Still Water -->
                     <div class="flip-card category-water">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-still-water.png" alt="Still Water" class="product-image">
                                 </div>
-                                <h3 class="product-name">Still Water</h3>
-                                <p class="product-type">Pure Hydration</p>
+                                <h3 class="product-name" data-translate="product-still-water">Still Water</h3>
+                                <p class="product-type" data-translate="product-still-water-type">Pure Hydration</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Still Mineral Water</h3>
-                                <p>Pure alpine spring water with natural minerals. Crystal clear hydration from Austrian mountains.</p>
+                                <h3 data-translate="product-still-water">Still Mineral Water</h3>
+                                <p data-translate="product-still-water-desc">Pure alpine spring water with natural minerals. Crystal clear hydration from Austrian mountains.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Mineral Water 2 -->
+                    <!-- Mineral Water 2 - Sparkling Water -->
                     <div class="flip-card category-water">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-sparkling.png" alt="Sparkling Water" class="product-image">
                                 </div>
-                                <h3 class="product-name">Sparkling Water</h3>
-                                <p class="product-type">Bubbly Refreshment</p>
+                                <h3 class="product-name" data-translate="product-sparkling-water">Sparkling Water</h3>
+                                <p class="product-type" data-translate="product-sparkling-water-type">Bubbly Refreshment</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Sparkling Mineral Water</h3>
-                                <p>Naturally carbonated with fine bubbles. Crisp, refreshing taste with mineral balance.</p>
+                                <h3 data-translate="product-sparkling-water">Sparkling Mineral Water</h3>
+                                <p data-translate="product-sparkling-water-desc">Naturally carbonated with fine bubbles. Crisp, refreshing taste with mineral balance.</p>
                             </div>
                         </div>
                     </div>
@@ -1455,146 +1548,146 @@
     <section id="juices" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Tera Juices</h2>
-                <p>natural fruit juices with no preservatives</p>
+                <h2 data-translate="drinks-juices-title">Tera Juices</h2>
+                <p data-translate="drinks-juices-description">Natural fruit juices with no preservatives</p>
             </div>
             <div class="carousel-container">
                 <button class="carousel-nav prev" id="prev-juice">
                     <i class="fas fa-chevron-left"></i>
                 </button>
                 <div class="products-carousel" id="carousel-juice">
-                    <!-- Juice 1 -->
+                    <!-- Juice 1 - Orange Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-orange.png" alt="Orange Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Orange Juice</h3>
-                                <p class="product-type">Fresh Orange</p>
+                                <h3 class="product-name" data-translate="product-orange-juice">Orange Juice</h3>
+                                <p class="product-type" data-translate="product-orange-juice-type">Fresh Orange</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Fresh Orange Juice</h3>
-                                <p>100% pure orange juice with natural sweetness and vibrant citrus flavor. Packed with vitamin C for daily energy boost.</p>
+                                <h3 data-translate="product-orange-juice">Fresh Orange Juice</h3>
+                                <p data-translate="product-orange-juice-desc">100% pure orange juice with natural sweetness and vibrant citrus flavor. Packed with vitamin C for daily energy boost.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 2 -->
+                    <!-- Juice 2 - Multivitamin Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-multivitamin.png" alt="Multivitamin Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Multivitamin</h3>
-                                <p class="product-type">Natural Blend</p>
+                                <h3 class="product-name" data-translate="product-multivitamin-juice">Multivitamin</h3>
+                                <p class="product-type" data-translate="product-multivitamin-juice-type">Natural Blend</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Multivitamin Juice</h3>
-                                <p>A powerful mix of different fruits offering complete nutritional benefits. Perfect daily dose of essential vitamins.</p>
+                                <h3 data-translate="product-multivitamin-juice">Multivitamin Juice</h3>
+                                <p data-translate="product-multivitamin-juice-desc">A powerful mix of different fruits offering complete nutritional benefits. Perfect daily dose of essential vitamins.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 3 -->
+                    <!-- Juice 3 - Apple Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-apple.png" alt="Apple Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Apple Juice</h3>
-                                <p class="product-type">Crisp & Fresh</p>
+                                <h3 class="product-name" data-translate="product-apple-juice">Apple Juice</h3>
+                                <p class="product-type" data-translate="product-apple-juice-type">Crisp & Fresh</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Pure Apple Juice</h3>
-                                <p>Freshly pressed apples delivering a crisp, refreshing taste with subtle sweetness and natural antioxidants.</p>
+                                <h3 data-translate="product-apple-juice">Pure Apple Juice</h3>
+                                <p data-translate="product-apple-juice-desc">Freshly pressed apples delivering a crisp, refreshing taste with subtle sweetness and natural antioxidants.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 4 -->
+                    <!-- Juice 4 - Cherry Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-cherry.png" alt="cherry Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Cherry Juice</h3>
-                                <p class="product-type">Royal Sweet</p>
+                                <h3 class="product-name" data-translate="product-cherry-juice">Cherry Juice</h3>
+                                <p class="product-type" data-translate="product-cherry-juice-type">Royal Sweet</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Cherry Juice</h3>
-                                <p>Rich cherry essence with deep red color and natural sweetness. Contains antioxidants for overall wellness.</p>
+                                <h3 data-translate="product-cherry-juice">Cherry Juice</h3>
+                                <p data-translate="product-cherry-juice-desc">Rich cherry essence with deep red color and natural sweetness. Contains antioxidants for overall wellness.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 5 -->
+                    <!-- Juice 5 - Citron Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-citron.png" alt="citron Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Citron Juice</h3>
-                                <p class="product-type">Rich & tangy</p>
+                                <h3 class="product-name" data-translate="product-citron-juice">Citron Juice</h3>
+                                <p class="product-type" data-translate="product-citron-juice-type">Rich & tangy</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Citron Juice</h3>
-                                <p>Tangy and refreshing lemon-lime blend that revitalizes your senses. Perfect thirst quencher with citrus kick.</p>
+                                <h3 data-translate="product-citron-juice">Citron Juice</h3>
+                                <p data-translate="product-citron-juice-desc">Tangy and refreshing lemon-lime blend that revitalizes your senses. Perfect thirst quencher with citrus kick.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 6 -->
+                    <!-- Juice 6 - Ginger Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-ginger.png" alt="ginger Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Ginger Juice</h3>
-                                <p class="product-type">spicy King</p>
+                                <h3 class="product-name" data-translate="product-ginger-juice">Ginger Juice</h3>
+                                <p class="product-type" data-translate="product-ginger-juice-type">spicy King</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Ginger Juice</h3>
-                                <p>Warming ginger flavor with digestive benefits. Natural spice meets refreshing hydration in every sip.</p>
+                                <h3 data-translate="product-ginger-juice">Ginger Juice</h3>
+                                <p data-translate="product-ginger-juice-desc">Warming ginger flavor with digestive benefits. Natural spice meets refreshing hydration in every sip.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 7 -->
+                    <!-- Juice 7 - Strawberry Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-strawberry.png" alt="Strawberry Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">StrawBerry</h3>
-                                <p class="product-type">Refreshing StrawBerry</p>
+                                <h3 class="product-name" data-translate="product-strawberry-juice">StrawBerry</h3>
+                                <p class="product-type" data-translate="product-strawberry-juice-type">Refreshing StrawBerry</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>StrawBerry Juice</h3>
-                                <p>Sweet strawberry flavor with a hint of natural tartness. Bursting with berry goodness and vitamin C.</p>
+                                <h3 data-translate="product-strawberry-juice">StrawBerry Juice</h3>
+                                <p data-translate="product-strawberry-juice-desc">Sweet strawberry flavor with a hint of natural tartness. Bursting with berry goodness and vitamin C.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Juice 8 -->
+                    <!-- Juice 8 - Pear Juice -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-pear.png" alt="Pear Juice" class="product-image">
                                 </div>
-                                <h3 class="product-name">Pear Juice</h3>
-                                <p class="product-type">Sweet & Smooth</p>
+                                <h3 class="product-name" data-translate="product-pear-juice">Pear Juice</h3>
+                                <p class="product-type" data-translate="product-pear-juice-type">Sweet & Smooth</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Pear Juice</h3>
-                                <p>Delicate pear flavor with smooth, refreshing finish. Mildly sweet and perfect for gentle hydration.</p>
+                                <h3 data-translate="product-pear-juice">Pear Juice</h3>
+                                <p data-translate="product-pear-juice-desc">Delicate pear flavor with smooth, refreshing finish. Mildly sweet and perfect for gentle hydration.</p>
                             </div>
                         </div>
                     </div>
@@ -1610,8 +1703,8 @@
     <section id="ice-tea" class="category-section">
         <div class="container">
             <div class="category-title">
-                <h2>Ice Tea</h2>
-                <p>Chilled tea refreshment with smooth flavor and royal quality</p>
+                <h2 data-translate="drinks-ice-tea-title">Ice Tea</h2>
+                <p data-translate="drinks-ice-tea-description">Chilled tea refreshment with smooth flavor and royal quality</p>
             </div>
 
             <div class="carousel-container">
@@ -1620,36 +1713,36 @@
                 </button>
 
                 <div class="products-carousel" id="carousel-ice-tea">
-                    <!-- Ice Tea 1 -->
+                    <!-- Ice Tea 1 - Lemon -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-ice-tea-lemon.WebP" alt="Ice Tea Lemon" class="product-image">
                                 </div>
-                                <h3 class="product-name">Ice Tea Lemon</h3>
-                                <p class="product-type">Citrus Refresh</p>
+                                <h3 class="product-name" data-translate="product-ice-tea-lemon">Ice Tea Lemon</h3>
+                                <p class="product-type" data-translate="product-ice-tea-lemon-type">Citrus Refresh</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Ice Tea Lemon</h3>
-                                <p>Refreshing iced tea with a bright lemon twist. Smooth, chilled, and perfectly balanced for any moment.</p>
+                                <h3 data-translate="product-ice-tea-lemon">Ice Tea Lemon</h3>
+                                <p data-translate="product-ice-tea-lemon-desc">Refreshing iced tea with a bright lemon twist. Smooth, chilled, and perfectly balanced for any moment.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Ice Tea 2 -->
+                    <!-- Ice Tea 2 - Peach -->
                     <div class="flip-card category-juice">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <div class="product-image-container">
                                     <img src="./assets/flavors/tera-ice-tea-peach.WebP" alt="Ice Tea Peach" class="product-image">
                                 </div>
-                                <h3 class="product-name">Ice Tea Peach</h3>
-                                <p class="product-type">Soft & Sweet</p>
+                                <h3 class="product-name" data-translate="product-ice-tea-peach">Ice Tea Peach</h3>
+                                <p class="product-type" data-translate="product-ice-tea-peach-type">Soft & Sweet</p>
                             </div>
                             <div class="flip-card-back">
-                                <h3>Ice Tea Peach</h3>
-                                <p>Delicate peach flavor blended into smooth iced tea. A sweet, refreshing sip with royal softness.</p>
+                                <h3 data-translate="product-ice-tea-peach">Ice Tea Peach</h3>
+                                <p data-translate="product-ice-tea-peach-desc">Delicate peach flavor blended into smooth iced tea. A sweet, refreshing sip with royal softness.</p>
                             </div>
                         </div>
                     </div>
@@ -1689,6 +1782,501 @@
             </div>
         </div>
     </footer>
+
+    <script src="translations.js"></script>
+
+    <script>
+        // ========== DRINKS PAGE SPECIFIC TRANSLATIONS ==========
+        const drinksTranslations = {
+            en: {
+                // Hero Section
+                'drinks-hero-title': 'TERA DRINKS',
+                'drinks-hero-description': 'Refresh yourself with our premium energy drinks, mineral water, and natural juices. Every sip is an experience of royal quality.',
+                'drinks-hero-button': 'Explore Drinks',
+                
+                // Energy Drinks Section
+                'drinks-energy-title': 'Energy Drinks',
+                'drinks-energy-description': 'Boost your energy with our premium energy formulas for sustained performance',
+                
+                // Cola & Soda Section
+                'drinks-cola-title': 'Cola & Soda',
+                'drinks-cola-description': 'Refreshing cola and soda beverages with unique flavors',
+                
+                // Mineral Water Section
+                'drinks-water-title': 'Mineral Water',
+                'drinks-water-description': 'Pure, refreshing water from natural springs for optimal hydration',
+                
+                // Juices Section
+                'drinks-juices-title': 'Tera Juices',
+                'drinks-juices-description': 'Natural fruit juices with no preservatives',
+                
+                // Ice Tea Section
+                'drinks-ice-tea-title': 'Ice Tea',
+                'drinks-ice-tea-description': 'Chilled tea refreshment with smooth flavor and royal quality',
+
+                // ========== ENERGY DRINKS PRODUCTS ==========
+                // Tera Classic
+                'product-tera-classic': 'Tera Classic',
+                'product-tera-classic-type': 'Original Energy',
+                'product-tera-classic-desc': 'Our signature energy drink with a balanced blend of caffeine, taurine, and B-vitamins for sustained energy.',
+                
+                // Tera Mojito
+                'product-tera-mojito': 'Tera Mojito',
+                'product-tera-mojito-type': 'Mint & Lime',
+                'product-tera-mojito-desc': 'Refreshing mint-lime twist on our energy formula. Tropical freshness meets powerful energy boost.',
+
+                // ========== COLA & SODA PRODUCTS ==========
+                // Cola Menthol
+                'product-cola-menthol': 'Cola Menthol',
+                'product-cola-menthol-type': 'Mint Flavor',
+                'product-cola-menthol-desc': 'Cooling menthol cola with refreshing finish. Minty freshness meets classic cola taste.',
+                
+                // Cola Classic
+                'product-cola-classic': 'Cola Classic',
+                'product-cola-classic-type': 'Original Cola',
+                'product-cola-classic-desc': 'Traditional cola taste with perfect carbonation. Classic refreshment with premium ingredients.',
+                
+                // Cola Grenadine
+                'product-cola-grenadine': 'Cola Grenadine',
+                'product-cola-grenadine-type': 'Pomegranate',
+                'product-cola-grenadine-desc': 'Cola infused with sweet pomegranate essence. Ruby red color with fruity cola twist.',
+                
+                // Bitter Soda
+                'product-bitter-soda': 'Bitter Soda',
+                'product-bitter-soda-type': 'Bitter Cola',
+                'product-bitter-soda-desc': 'Unique bitter-sweet cola flavor with herbal notes. Sophisticated soda experience for refined palates.',
+
+                // ========== MINERAL WATER PRODUCTS ==========
+                // Still Water
+                'product-still-water': 'Still Water',
+                'product-still-water-type': 'Pure Hydration',
+                'product-still-water-desc': 'Pure alpine spring water with natural minerals. Crystal clear hydration from Austrian mountains.',
+                
+                // Sparkling Water
+                'product-sparkling-water': 'Sparkling Water',
+                'product-sparkling-water-type': 'Bubbly Refreshment',
+                'product-sparkling-water-desc': 'Naturally carbonated with fine bubbles. Crisp, refreshing taste with mineral balance.',
+
+                // ========== JUICES PRODUCTS ==========
+                // Orange Juice
+                'product-orange-juice': 'Orange Juice',
+                'product-orange-juice-type': 'Fresh Orange',
+                'product-orange-juice-desc': '100% pure orange juice with natural sweetness and vibrant citrus flavor. Packed with vitamin C for daily energy boost.',
+                
+                // Multivitamin Juice
+                'product-multivitamin-juice': 'Multivitamin',
+                'product-multivitamin-juice-type': 'Natural Blend',
+                'product-multivitamin-juice-desc': 'A powerful mix of different fruits offering complete nutritional benefits. Perfect daily dose of essential vitamins.',
+                
+                // Apple Juice
+                'product-apple-juice': 'Apple Juice',
+                'product-apple-juice-type': 'Crisp & Fresh',
+                'product-apple-juice-desc': 'Freshly pressed apples delivering a crisp, refreshing taste with subtle sweetness and natural antioxidants.',
+                
+                // Cherry Juice
+                'product-cherry-juice': 'Cherry Juice',
+                'product-cherry-juice-type': 'Royal Sweet',
+                'product-cherry-juice-desc': 'Rich cherry essence with deep red color and natural sweetness. Contains antioxidants for overall wellness.',
+                
+                // Citron Juice
+                'product-citron-juice': 'Citron Juice',
+                'product-citron-juice-type': 'Rich & Tangy',
+                'product-citron-juice-desc': 'Tangy and refreshing lemon-lime blend that revitalizes your senses. Perfect thirst quencher with citrus kick.',
+                
+                // Ginger Juice
+                'product-ginger-juice': 'Ginger Juice',
+                'product-ginger-juice-type': 'Spicy King',
+                'product-ginger-juice-desc': 'Warming ginger flavor with digestive benefits. Natural spice meets refreshing hydration in every sip.',
+                
+                // Strawberry Juice
+                'product-strawberry-juice': 'Strawberry',
+                'product-strawberry-juice-type': 'Refreshing Strawberry',
+                'product-strawberry-juice-desc': 'Sweet strawberry flavor with a hint of natural tartness. Bursting with berry goodness and vitamin C.',
+                
+                // Pear Juice
+                'product-pear-juice': 'Pear Juice',
+                'product-pear-juice-type': 'Sweet & Smooth',
+                'product-pear-juice-desc': 'Delicate pear flavor with smooth, refreshing finish. Mildly sweet and perfect for gentle hydration.',
+
+                // ========== ICE TEA PRODUCTS ==========
+                // Ice Tea Lemon
+                'product-ice-tea-lemon': 'Ice Tea Lemon',
+                'product-ice-tea-lemon-type': 'Citrus Refresh',
+                'product-ice-tea-lemon-desc': 'Refreshing iced tea with a bright lemon twist. Smooth, chilled, and perfectly balanced for any moment.',
+                
+                // Ice Tea Peach
+                'product-ice-tea-peach': 'Ice Tea Peach',
+                'product-ice-tea-peach-type': 'Soft & Sweet',
+                'product-ice-tea-peach-desc': 'Delicate peach flavor blended into smooth iced tea. A sweet, refreshing sip with royal softness.'
+            },
+            ar: {
+                // Hero Section
+                'drinks-hero-title': 'مشروبات تيرا',
+                'drinks-hero-description': 'انتعش بمشروبات الطاقة المميزة والمياه المعدنية والعصائر الطبيعية. كل رشفة هي تجربة الجودة الملكية.',
+                'drinks-hero-button': 'استكشاف المشروبات',
+                
+                // Energy Drinks Section
+                'drinks-energy-title': 'مشروبات الطاقة',
+                'drinks-energy-description': 'عزز طاقتك مع صيغ الطاقة المميزة لدينا لأداء مستدام',
+                
+                // Cola & Soda Section
+                'drinks-cola-title': 'كولا ومشروبات غازية',
+                'drinks-cola-description': 'مشروبات كولا ومشروبات غازية منعشة بنكهات فريدة',
+                
+                // Mineral Water Section
+                'drinks-water-title': 'مياه معدنية',
+                'drinks-water-description': 'مياه نقية منعشة من الينابيع الطبيعية للترطيب الأمثل',
+                
+                // Juices Section
+                'drinks-juices-title': 'عصائر تيرا',
+                'drinks-juices-description': 'عصائر فواكه طبيعية بدون مواد حافظة',
+                
+                // Ice Tea Section
+                'drinks-ice-tea-title': 'شاي مثلج',
+                'drinks-ice-tea-description': 'منعش الشاي المثلج بنكهة ناعمة وجودة ملكية',
+
+                // ========== ENERGY DRINKS PRODUCTS ==========
+                // Tera Classic
+                'product-tera-classic': 'تيرا كلاسيك',
+                'product-tera-classic-type': 'طاقة أصلية',
+                'product-tera-classic-desc': 'مشروب الطاقة المميز لدينا بمزيج متوازن من الكافيين والتورين وفيتامينات ب للطاقة المستدامة.',
+                
+                // Tera Mojito
+                'product-tera-mojito': 'تيرا موهيتو',
+                'product-tera-mojito-type': 'نعناع وليمون',
+                'product-tera-mojito-desc': 'تطور منعش بالنعناع والليمون على صيغة الطاقة لدينا. نضارة استوائية تلتقي بدفع طاقة قوي.',
+
+                // ========== COLA & SODA PRODUCTS ==========
+                // Cola Menthol
+                'product-cola-menthol': 'كولا منثول',
+                'product-cola-menthol-type': 'نكهة النعناع',
+                'product-cola-menthol-desc': 'كولا منعشة بالنعناع مع نهاية منعشة. نضارة النعناع تلتقي بطعم الكولا الكلاسيكي.',
+                
+                // Cola Classic
+                'product-cola-classic': 'كولا كلاسيك',
+                'product-cola-classic-type': 'كولا أصلية',
+                'product-cola-classic-desc': 'طعم الكولا التقليدي مع كربونات مثالية. إنعاش كلاسيكي بمكونات مميزة.',
+                
+                // Cola Grenadine
+                'product-cola-grenadine': 'كولا غرناطين',
+                'product-cola-grenadine-type': 'رمان',
+                'product-cola-grenadine-desc': 'كولا معطرة بعطر الرمان الحلو. لون أحمر ياقوتي مع تطور كولا فواكهي.',
+                
+                // Bitter Soda
+                'product-bitter-soda': 'صودا مرة',
+                'product-bitter-soda-type': 'كولا مرة',
+                'product-bitter-soda-desc': 'نكهة كولا فريدة بين المرارة والحلاوة مع ملاحظات عشبية. تجربة صودا متطورة للأذواق المكررة.',
+
+                // ========== MINERAL WATER PRODUCTS ==========
+                // Still Water
+                'product-still-water': 'مياه عادية',
+                'product-still-water-type': 'ترطيب نقي',
+                'product-still-water-desc': 'مياه ينابيع جبال الألب النقية مع معادن طبيعية. ترطيب صافٍ من الجبال النمساوية.',
+                
+                // Sparkling Water
+                'product-sparkling-water': 'مياه فوارة',
+                'product-sparkling-water-type': 'انتعاش فوار',
+                'product-sparkling-water-desc': 'مكربنة طبيعياً مع فقاعات ناعمة. طعم منعش ومقرمش مع توازن معدني.',
+
+                // ========== JUICES PRODUCTS ==========
+                // Orange Juice
+                'product-orange-juice': 'عصير برتقال',
+                'product-orange-juice-type': 'برتقال طازج',
+                'product-orange-juice-desc': '100% عصير برتقال نقي بحلاوة طبيعية ونكهة حمضيات نابضة بالحياة. مليء بفيتامين سي لتعزيز الطاقة اليومية.',
+                
+                // Multivitamin Juice
+                'product-multivitamin-juice': 'متعدد الفيتامينات',
+                'product-multivitamin-juice-type': 'مزيج طبيعي',
+                'product-multivitamin-juice-desc': 'مزيج قوي من فواكه مختلفة يقدم فوائد غذائية كاملة. جرعة يومية مثالية من الفيتامينات الأساسية.',
+                
+                // Apple Juice
+                'product-apple-juice': 'عصير تفاح',
+                'product-apple-juice-type': 'مقرمش ومنعش',
+                'product-apple-juice-desc': 'تفاح معصور طازجاً يقدم طعماً مقرمشاً ومنعشاً بحلاوة خفيفة ومضادات أكسدة طبيعية.',
+                
+                // Cherry Juice
+                'product-cherry-juice': 'عصير كرز',
+                'product-cherry-juice-type': 'حلاوة ملكية',
+                'product-cherry-juice-desc': 'جوهر كرز غني بلون أحمر عميق وحلاوة طبيعية. يحتوي على مضادات الأكسدة للصحة العامة.',
+                
+                // Citron Juice
+                'product-citron-juice': 'عصير ليمون',
+                'product-citron-juice-type': 'غني ولاذع',
+                'product-citron-juice-desc': 'مزيج لاذع ومنعش من الليمون والليمون الحامض ينعش حواسك. مرطب مثالي بركلة حمضيات.',
+                
+                // Ginger Juice
+                'product-ginger-juice': 'عصير زنجبيل',
+                'product-ginger-juice-type': 'ملك التوابل',
+                'product-ginger-juice-desc': 'نكهة زنجبيل دافئة مع فوائد هضمية. توابل طبيعية تلتقي بترطيب منعش في كل رشفة.',
+                
+                // Strawberry Juice
+                'product-strawberry-juice': 'عصير فراولة',
+                'product-strawberry-juice-type': 'فراولة منعشة',
+                'product-strawberry-juice-desc': 'نكهة فراولة حلوة مع لمحة من الطعم اللاذع الطبيعي. مليء بخير التوت وفيتامين سي.',
+                
+                // Pear Juice
+                'product-pear-juice': 'عصير إجاص',
+                'product-pear-juice-type': 'حلو وسلس',
+                'product-pear-juice-desc': 'نكهة إجاص حساسة مع نهاية منعشة وسلسة. حلو قليلاً ومثالي للترطيب اللطيف.',
+
+                // ========== ICE TEA PRODUCTS ==========
+                // Ice Tea Lemon
+                'product-ice-tea-lemon': 'شاي مثلج ليمون',
+                'product-ice-tea-lemon-type': 'انتعاش الحمضيات',
+                'product-ice-tea-lemon-desc': 'شاي مثلج منعش بلمسة ليمون مشرقة. ناعم، بارد، ومتوازن تماماً لأي لحظة.',
+                
+                // Ice Tea Peach
+                'product-ice-tea-peach': 'شاي مثلج خوخ',
+                'product-ice-tea-peach-type': 'ناعم وحلو',
+                'product-ice-tea-peach-desc': 'نكهة خوخ حساسة ممزوجة في شاي مثلج ناعم. رشفة حلوة ومنعشة بنعومة ملكية.'
+            },
+            fr: {
+                // Hero Section
+                'drinks-hero-title': 'BOISSONS TERA',
+                'drinks-hero-description': 'Rafraîchissez-vous avec nos boissons énergétiques premium, eau minérale et jus naturels. Chaque gorgée est une expérience de qualité royale.',
+                'drinks-hero-button': 'Explorer les Boissons',
+                
+                // Energy Drinks Section
+                'drinks-energy-title': 'Boissons Énergétiques',
+                'drinks-energy-description': 'Boostez votre énergie avec nos formules énergétiques premium pour des performances durables',
+                
+                // Cola & Soda Section
+                'drinks-cola-title': 'Cola & Soda',
+                'drinks-cola-description': 'Boissons rafraîchissantes au cola et soda avec des saveurs uniques',
+                
+                // Mineral Water Section
+                'drinks-water-title': 'Eau Minérale',
+                'drinks-water-description': 'Eau pure et rafraîchissante de sources naturelles pour une hydratation optimale',
+                
+                // Juices Section
+                'drinks-juices-title': 'Jus Tera',
+                'drinks-juices-description': 'Jus de fruits naturels sans conservateurs',
+                
+                // Ice Tea Section
+                'drinks-ice-tea-title': 'Thé Glacé',
+                'drinks-ice-tea-description': 'Rafraîchissement au thé glacé avec une saveur douce et une qualité royale',
+
+                // ========== ENERGY DRINKS PRODUCTS ==========
+                // Tera Classic
+                'product-tera-classic': 'Tera Classique',
+                'product-tera-classic-type': 'Énergie Originale',
+                'product-tera-classic-desc': 'Notre boisson énergétique signature avec un mélange équilibré de caféine, taurine et vitamines B pour une énergie durable.',
+                
+                // Tera Mojito
+                'product-tera-mojito': 'Tera Mojito',
+                'product-tera-mojito-type': 'Menthe & Citron Vert',
+                'product-tera-mojito-desc': 'Touche rafraîchissante menthe-citron vert sur notre formule énergétique. Fraîcheur tropicale rencontre un boost énergétique puissant.',
+
+                // ========== COLA & SODA PRODUCTS ==========
+                // Cola Menthol
+                'product-cola-menthol': 'Cola Menthol',
+                'product-cola-menthol-type': 'Saveur Menthe',
+                'product-cola-menthol-desc': 'Cola mentholé rafraîchissant avec une finition fraîche. Fraîcheur mentholée rencontre le goût classique du cola.',
+                
+                // Cola Classic
+                'product-cola-classic': 'Cola Classique',
+                'product-cola-classic-type': 'Cola Original',
+                'product-cola-classic-desc': 'Goût cola traditionnel avec une carbonatation parfaite. Rafraîchissement classique avec des ingrédients premium.',
+                
+                // Cola Grenadine
+                'product-cola-grenadine': 'Cola Grenadine',
+                'product-cola-grenadine-type': 'Grenade',
+                'product-cola-grenadine-desc': 'Cola infusé d\'essence de grenade sucrée. Couleur rouge rubis avec une touche cola fruitée.',
+                
+                // Bitter Soda
+                'product-bitter-soda': 'Soda Amer',
+                'product-bitter-soda-type': 'Cola Amer',
+                'product-bitter-soda-desc': 'Saveur cola unique entre amertume et douceur avec des notes herbales. Expérience soda sophistiquée pour les palais raffinés.',
+
+                // ========== MINERAL WATER PRODUCTS ==========
+                // Still Water
+                'product-still-water': 'Eau Plate',
+                'product-still-water-type': 'Hydratation Pure',
+                'product-still-water-desc': 'Eau de source alpine pure avec des minéraux naturels. Hydratation cristalline des montagnes autrichiennes.',
+                
+                // Sparkling Water
+                'product-sparkling-water': 'Eau Pétillante',
+                'product-sparkling-water-type': 'Rafraîchissement Bulleux',
+                'product-sparkling-water-desc': 'Naturellement carbonatée avec des fines bulles. Goût frais et croquant avec équilibre minéral.',
+
+                // ========== JUICES PRODUCTS ==========
+                // Orange Juice
+                'product-orange-juice': 'Jus d\'Orange',
+                'product-orange-juice-type': 'Orange Fraîche',
+                'product-orange-juice-desc': '100% pur jus d\'orange avec une douceur naturelle et une saveur d\'agrumes vibrante. Riche en vitamine C pour un boost d\'énergie quotidien.',
+                
+                // Multivitamin Juice
+                'product-multivitamin-juice': 'Multivitamine',
+                'product-multivitamin-juice-type': 'Mélange Naturel',
+                'product-multivitamin-juice-desc': 'Un mélange puissant de différents fruits offrant des bénéfices nutritionnels complets. Dose quotidienne parfaite de vitamines essentielles.',
+                
+                // Apple Juice
+                'product-apple-juice': 'Jus de Pomme',
+                'product-apple-juice-type': 'Croustillant & Frais',
+                'product-apple-juice-desc': 'Pommes pressées fraîches offrant un goût croustillant et rafraîchissant avec une douceur subtile et des antioxydants naturels.',
+                
+                // Cherry Juice
+                'product-cherry-juice': 'Jus de Cerise',
+                'product-cherry-juice-type': 'Douceur Royale',
+                'product-cherry-juice-desc': 'Essence de cerise riche avec une couleur rouge profond et une douceur naturelle. Contient des antioxydants pour le bien-être général.',
+                
+                // Citron Juice
+                'product-citron-juice': 'Jus de Citron',
+                'product-citron-juice-type': 'Riche & Acidulé',
+                'product-citron-juice-desc': 'Mélange acidulé et rafraîchissant de citron et citron vert qui revitalise vos sens. Désaltérant parfait avec une touche d\'agrumes.',
+                
+                // Ginger Juice
+                'product-ginger-juice': 'Jus de Gingembre',
+                'product-ginger-juice-type': 'Roi des Épices',
+                'product-ginger-juice-desc': 'Saveur de gingembre réchauffante avec des bénéfices digestifs. Épice naturelle rencontre l\'hydratation rafraîchissante à chaque gorgée.',
+                
+                // Strawberry Juice
+                'product-strawberry-juice': 'Jus de Fraise',
+                'product-strawberry-juice-type': 'Fraise Rafraîchissante',
+                'product-strawberry-juice-desc': 'Saveur de fraise sucrée avec une pointe d\'acidité naturelle. Débordant de bienfaits des baies et de vitamine C.',
+                
+                // Pear Juice
+                'product-pear-juice': 'Jus de Poire',
+                'product-pear-juice-type': 'Doux & Lisse',
+                'product-pear-juice-desc': 'Saveur délicate de poire avec une finition lisse et rafraîchissante. Légèrement sucré et parfait pour une hydratation douce.',
+
+                // ========== ICE TEA PRODUCTS ==========
+                // Ice Tea Lemon
+                'product-ice-tea-lemon': 'Thé Glacé Citron',
+                'product-ice-tea-lemon-type': 'Rafraîchissement Citrus',
+                'product-ice-tea-lemon-desc': 'Thé glacé rafraîchissant avec une touche de citron éclatante. Lisse, frais et parfaitement équilibré pour chaque moment.',
+                
+                // Ice Tea Peach
+                'product-ice-tea-peach': 'Thé Glacé Pêche',
+                'product-ice-tea-peach-type': 'Doux & Sucré',
+                'product-ice-tea-peach-desc': 'Saveur délicate de pêche mélangée à un thé glacé lisse. Une gorgée sucrée et rafraîchissante avec une douceur royale.'
+            },
+            de: {
+                // Hero Section
+                'drinks-hero-title': 'TERA GETRÄNKE',
+                'drinks-hero-description': 'Erfrischen Sie sich mit unseren Premium-Energiegetränken, Mineralwasser und natürlichen Säften. Jeder Schluck ist ein Erlebnis königlicher Qualität.',
+                'drinks-hero-button': 'Getränke Entdecken',
+                
+                // Energy Drinks Section
+                'drinks-energy-title': 'Energiegetränke',
+                'drinks-energy-description': 'Steigern Sie Ihre Energie mit unseren Premium-Energieformeln für nachhaltige Leistung',
+                
+                // Cola & Soda Section
+                'drinks-cola-title': 'Cola & Soda',
+                'drinks-cola-description': 'Erfrischende Cola- und Sodagetränke mit einzigartigen Aromen',
+                
+                // Mineral Water Section
+                'drinks-water-title': 'Mineralwasser',
+                'drinks-water-description': 'Reines, erfrischendes Wasser aus natürlichen Quellen für optimale Hydratation',
+                
+                // Juices Section
+                'drinks-juices-title': 'Tera Säfte',
+                'drinks-juices-description': 'Natürliche Fruchtsäfte ohne Konservierungsstoffe',
+                
+                // Ice Tea Section
+                'drinks-ice-tea-title': 'Eistee',
+                'drinks-ice-tea-description': 'Gekühlte Teeerfrischung mit weichem Aroma und königlicher Qualität',
+
+                // ========== ENERGY DRINKS PRODUCTS ==========
+                // Tera Classic
+                'product-tera-classic': 'Tera Klassisch',
+                'product-tera-classic-type': 'Original Energie',
+                'product-tera-classic-desc': 'Unser Signatur-Energiegetränk mit einer ausgewogenen Mischung aus Koffein, Taurin und B-Vitaminen für nachhaltige Energie.',
+                
+                // Tera Mojito
+                'product-tera-mojito': 'Tera Mojito',
+                'product-tera-mojito-type': 'Minze & Limette',
+                'product-tera-mojito-desc': 'Erfrischende Minze-Limetten-Variante unserer Energieformel. Tropische Frische trifft auf kraftvollen Energieschub.',
+
+                // ========== COLA & SODA PRODUCTS ==========
+                // Cola Menthol
+                'product-cola-menthol': 'Cola Menthol',
+                'product-cola-menthol-type': 'Minzgeschmack',
+                'product-cola-menthol-desc': 'Erfrischende Menthol-Cola mit belebendem Finish. Minzige Frische trifft klassischen Cola-Geschmack.',
+                
+                // Cola Classic
+                'product-cola-classic': 'Cola Klassisch',
+                'product-cola-classic-type': 'Original Cola',
+                'product-cola-classic-desc': 'Traditioneller Cola-Geschmack mit perfekter Kohlensäure. Klassische Erfrischung mit Premium-Zutaten.',
+                
+                // Cola Grenadine
+                'product-cola-grenadine': 'Cola Grenadine',
+                'product-cola-grenadine-type': 'Granatapfel',
+                'product-cola-grenadine-desc': 'Cola mit süßer Granatapfelessenz. Rubinrote Farbe mit fruchtiger Cola-Note.',
+                
+                // Bitter Soda
+                'product-bitter-soda': 'Bitter Soda',
+                'product-bitter-soda-type': 'Bitter Cola',
+                'product-bitter-soda-desc': 'Einzigartiger bittersüßer Cola-Geschmack mit Kräuternoten. Anspruchsvolle Soda-Erfahrung für verfeinerte Gaumen.',
+
+                // ========== MINERAL WATER PRODUCTS ==========
+                // Still Water
+                'product-still-water': 'Stilles Wasser',
+                'product-still-water-type': 'Reine Hydratation',
+                'product-still-water-desc': 'Reines Alpenquellwasser mit natürlichen Mineralien. Kristallklare Hydratation aus den österreichischen Bergen.',
+                
+                // Sparkling Water
+                'product-sparkling-water': 'Sprudelwasser',
+                'product-sparkling-water-type': 'Sprudelnde Erfrischung',
+                'product-sparkling-water-desc': 'Natürlich kohlensäurehaltig mit feinen Bläschen. Knackiger, erfrischender Geschmack mit Mineralbalance.',
+
+                // ========== JUICES PRODUCTS ==========
+                // Orange Juice
+                'product-orange-juice': 'Orangensaft',
+                'product-orange-juice-type': 'Frische Orange',
+                'product-orange-juice-desc': '100% reiner Orangensaft mit natürlicher Süße und lebhaftem Zitrusaroma. Vollgepackt mit Vitamin C für den täglichen Energieschub.',
+                
+                // Multivitamin Juice
+                'product-multivitamin-juice': 'Multivitamin',
+                'product-multivitamin-juice-type': 'Natürliche Mischung',
+                'product-multivitamin-juice-desc': 'Eine kraftvolle Mischung verschiedener Früchte mit vollständigen Nährstoffvorteilen. Perfekte tägliche Dosis essentieller Vitamine.',
+                
+                // Apple Juice
+                'product-apple-juice': 'Apfelsaft',
+                'product-apple-juice-type': 'Knackig & Frisch',
+                'product-apple-juice-desc': 'Frisch gepresste Äpfel mit knackigem, erfrischendem Geschmack, subtiler Süße und natürlichen Antioxidantien.',
+                
+                // Cherry Juice
+                'product-cherry-juice': 'Kirschsaft',
+                'product-cherry-juice-type': 'Königliche Süße',
+                'product-cherry-juice-desc': 'Reiches Kirscharoma mit tiefer roter Farbe und natürlicher Süße. Enthält Antioxidantien für das allgemeine Wohlbefinden.',
+                
+                // Citron Juice
+                'product-citron-juice': 'Zitronensaft',
+                'product-citron-juice-type': 'Reich & Spritzig',
+                'product-citron-juice-desc': 'Spritzige und erfrischende Zitrone-Limette-Mischung, die Ihre Sinne belebt. Perfekter Durstlöscher mit Zitruskick.',
+                
+                // Ginger Juice
+                'product-ginger-juice': 'Ingwersaft',
+                'product-ginger-juice-type': 'König der Gewürze',
+                'product-ginger-juice-desc': 'Wärmender Ingwergeschmack mit Verdauungsvorteilen. Natürliche Würze trifft erfrischende Hydratation bei jedem Schluck.',
+                
+                // Strawberry Juice
+                'product-strawberry-juice': 'Erdbeersaft',
+                'product-strawberry-juice-type': 'Erfrischende Erdbeere',
+                'product-strawberry-juice-desc': 'Süßer Erdbeergeschmack mit einer Prise natürlicher Säure. Voller Beerengenuss und Vitamin C.',
+                
+                // Pear Juice
+                'product-pear-juice': 'Birnensaft',
+                'product-pear-juice-type': 'Süß & Sanft',
+                'product-pear-juice-desc': 'Zartes Birnenaroma mit sanftem, erfrischendem Finish. Leicht süß und perfekt für sanfte Hydratation.',
+
+                // ========== ICE TEA PRODUCTS ==========
+                // Ice Tea Lemon
+                'product-ice-tea-lemon': 'Eistee Zitrone',
+                'product-ice-tea-lemon-type': 'Zitrus Erfrischung',
+                'product-ice-tea-lemon-desc': 'Erfrischender Eistee mit einer hellen Zitronennote. Sanft, gekühlt und perfekt ausbalanciert für jeden Moment.',
+                
+                // Ice Tea Peach
+                'product-ice-tea-peach': 'Eistee Pfirsich',
+                'product-ice-tea-peach-type': 'Sanft & Süß',
+                'product-ice-tea-peach-desc': 'Zartes Pfirsicharoma vermischt mit sanftem Eistee. Ein süßer, erfrischender Schluck mit königlicher Sanftheit.'
+            }
+        };
+
+        // Initialize the language switcher with drinks translations
+        languageSwitcher.init(drinksTranslations);
+    </script>
 
     <script>
         // Mobile Menu Toggle

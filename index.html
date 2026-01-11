@@ -3134,6 +3134,91 @@
             }
         }
 
+        /* ========== LANGUAGE SWITCHER ========== */
+        .language-switcher {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .language-btn {
+            background: none;
+            border: 2px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 40px;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .language-btn:hover {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .flag-img {
+            width: 32px;
+            height: 24px;
+            object-fit: cover;
+            border-radius: 3px;
+            transition: transform 0.3s ease;
+        }
+
+        .language-btn:hover .flag-img {
+            transform: scale(1.1);
+        }
+
+        .language-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.95);
+            color: var(--light);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .language-btn:hover + .language-tooltip {
+            opacity: 1;
+            visibility: visible;
+            bottom: -35px;
+        }
+
+        /* For mobile menu */
+        @media (max-width: 768px) {
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 20px;
+                order: 3;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .nav-links.active .language-switcher {
+                display: flex;
+            }
+            
+            .language-btn {
+                width: 60px;
+                height: 45px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -3151,19 +3236,28 @@
                     </div>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#home" data-translate="home">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropbtn">Products <i class="fas fa-chevron-down"></i></a>
+                        <a href="#" class="dropbtn" data-translate="products">Products <i class="fas fa-chevron-down"></i></a>
                         <div class="dropdown-content">
-                            <a href="drinks.html">Drinks</a>
-                            <a href="biscuits.html">Snacks</a>
+                            <a href="drinks.html" data-translate="drinks">Drinks</a>
+                            <a href="biscuits.html" data-translate="snacks">Snacks</a>
                         </div>
                     </li>
-                    <li><a href="retailers.html">Retailers</a></li>
-                    <li><a href="index.html#logo-display">About Us</a></li>
-                    <li><a href="index.html#locations">Locations</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="retailers.html" data-translate="retailers">Retailers</a></li>
+                    <li><a href="index.html#logo-display" data-translate="about-us">About Us</a></li>
+                    <li><a href="index.html#locations" data-translate="locations">Locations</a></li>
+                    <li><a href="index.html#contact" data-translate="contact">Contact</a></li>
                 </ul>
+                <!-- Language Switcher Button -->
+                <div id="language-switcher" class="language-switcher">
+                    <button id="language-btn" class="language-btn">
+                        <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
+                    </button>
+                    <div class="language-tooltip" id="language-tooltip">
+                        <span id="current-language">English</span>
+                    </div>
+                </div>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -3189,9 +3283,9 @@
         
         <div class="container">
             <div class="hero-content">
-                <h1>TERA ENERGY. ROYAL POWER.</h1>
-                <p>Tera Energy - The drink of champions. With the strength of a lion and the endurance of royalty, conquer your day with our premium energy formula.</p>
-                <a href="#products" class="btn">Discover Our Flavors</a>
+                <h1 data-translate="hero-title">TERA ENERGY. ROYAL POWER.</h1>
+                <p data-translate="hero-description">Tera Energy - The drink of champions. With the strength of a lion and the endurance of royalty, conquer your day with our premium energy formula.</p>
+                <a href="#products" class="btn" data-translate="hero-button">Discover Our Flavors</a>
             </div>
         </div>
         <div class="hero-bg-element"></div>
@@ -3209,7 +3303,7 @@
         </div>
         <div class="container">
             <div class="section-title">
-                <h2>Our Premium Flavors</h2>
+                <h2 data-translate="our-flavors">Our Premium Flavors</h2>
             </div>
             
             <div class="carousel-container">
@@ -3223,22 +3317,21 @@
                         <div class="product-card">
                             <div class="product-card__edition-wrapper">
                                 <div class="product-card__edition-line">
-                                    <h3>TERA ENERGY</h3>
+                                    <h3>TERA ENERGY</h3> <!-- Brand name stays same -->
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>CLASSIC EDITION</h3>
+                                    <h3 data-translate="classic-edition">CLASSIC EDITION</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-classic.png" alt="Tera Classic Energy Drink" class="product-card__can-image">
                                     <div class="product-card__can-fallback classic-fallback">
-                                        <span>CLASSIC</span>
-                                        <span>Blue Edition</span>
+                                        <span data-translate="classic-fallback-1">CLASSIC</span>
+                                        <span data-translate="classic-fallback-2">Blue Edition</span>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </a>
                     <!-- Mojito Flavor -->
@@ -3249,19 +3342,18 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>MOJITO EDITION</h3>
+                                    <h3 data-translate="mojito-edition">MOJITO EDITION</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-mojito.png" alt="Tera Mojito Energy Drink" class="product-card__can-image">
                                     <div class="product-card__can-fallback mojito-fallback">
-                                        <span>MOJITO</span>
-                                        <span>Exotic Blend</span>
+                                        <span data-translate="mojito-fallback-1">MOJITO</span>
+                                        <span data-translate="mojito-fallback-2">Exotic Blend</span>
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                     </a>
                     <!-- Bitter Soda -->
@@ -3272,15 +3364,15 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>BITTER SODA</h3>
+                                    <h3 data-translate="bitter-soda-edition">BITTER SODA</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-bitter-soda.png" alt="Tera Bitter Soda" class="product-card__can-image">
                                     <div class="product-card__can-fallback bitter-soda-fallback">
-                                        <span>BITTER SODA</span>
-                                        <span>Cola Red</span>
+                                        <span data-translate="bitter-soda-fallback-1">BITTER SODA</span>
+                                        <span data-translate="bitter-soda-fallback-2">Cola Red</span>
                                     </div>
                                 </div>
                             </div>
@@ -3294,15 +3386,15 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>COLA GRENADINE</h3>
+                                    <h3 data-translate="cola-grenadine-edition">COLA GRENADINE</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-cola-grenadine.png" alt="Tera Cola Grenadine" class="product-card__can-image">
                                     <div class="product-card__can-fallback cola-grenadine-fallback">
-                                        <span>COLA GRENADINE</span>
-                                        <span>Pomegranate Red</span>
+                                        <span data-translate="cola-grenadine-fallback-1">COLA GRENADINE</span>
+                                        <span data-translate="cola-grenadine-fallback-2">Pomegranate Red</span>
                                     </div>
                                 </div>
                             </div>
@@ -3316,15 +3408,15 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>COLA CLASSIC</h3>
+                                    <h3 data-translate="cola-classic-edition">COLA CLASSIC</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-cola-classic.png" alt="Tera Cola Classic" class="product-card__can-image">
                                     <div class="product-card__can-fallback cola-classic-fallback">
-                                        <span>COLA CLASSIC</span>
-                                        <span>Classic Cola</span>
+                                        <span data-translate="cola-classic-fallback-1">COLA CLASSIC</span>
+                                        <span data-translate="cola-classic-fallback-2">Classic Cola</span>
                                     </div>
                                 </div>
                             </div>
@@ -3338,15 +3430,15 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>COLA MENTHOL</h3>
+                                    <h3 data-translate="cola-menthol-edition">COLA MENTHOL</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-cola-menthol.png" alt="Tera Cola Menthol" class="product-card__can-image">
                                     <div class="product-card__can-fallback cola-menthol-fallback">
-                                        <span>COLA MENTHOL</span>
-                                        <span>Mint Green</span>
+                                        <span data-translate="cola-menthol-fallback-1">COLA MENTHOL</span>
+                                        <span data-translate="cola-menthol-fallback-2">Mint Green</span>
                                     </div>
                                 </div>
                             </div>
@@ -3360,15 +3452,15 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>STILL WATER</h3>
+                                    <h3 data-translate="still-water-edition">STILL WATER</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-still-water.png" alt="Tera Still Water" class="product-card__can-image">
                                     <div class="product-card__can-fallback still-water-fallback">
-                                        <span>STILL WATER</span>
-                                        <span>Pure Hydration</span>
+                                        <span data-translate="still-water-fallback-1">STILL WATER</span>
+                                        <span data-translate="still-water-fallback-2">Pure Hydration</span>
                                     </div>
                                 </div>
                             </div>
@@ -3382,15 +3474,15 @@
                                     <h3>TERA ENERGY</h3>
                                 </div>
                                 <div class="product-card__edition-line">
-                                    <h3>SPARKLING WATER</h3>
+                                    <h3 data-translate="sparkling-edition">SPARKLING WATER</h3>
                                 </div>
                             </div>
                             <div class="product-card__can-container">
                                 <div class="product-card__can">
                                     <img src="./assets/flavors/tera-sparkling.png" alt="Tera Sparkling Water" class="product-card__can-image">
                                     <div class="product-card__can-fallback sparkling-fallback">
-                                        <span>SPARKLING WATER</span>
-                                        <span>Bubbly Refreshment</span>
+                                        <span data-translate="sparkling-fallback-1">SPARKLING WATER</span>
+                                        <span data-translate="sparkling-fallback-2">Bubbly Refreshment</span>
                                     </div>
                                 </div>
                             </div>
@@ -3413,8 +3505,8 @@
     <section id="other-products" class="other-products-section">
         <div class="container">
             <div class="section-title">
-                <h2>More from Tera Energy</h2>
-                <p>Discover our complete range of premium snacks and beverages</p>
+                <h2 data-translate="more-products">More from Tera Energy</h2>
+                <p data-translate="more-products-desc">Discover our complete range of premium snacks and beverages</p>
             </div>
             <!-- Moving Ladder Container -->
             <div class="products-ladder-container">
@@ -3424,49 +3516,49 @@
                         <!-- Biscuits & Snacks Category -->
                         <a href="biscuits.html" class="product-item" data-category="biscuits">
                             <img src="./assets/biscuits/biscuits.png" alt="Tera Premium Biscuits">
-                            <div class="product-label">Premium Biscuits</div>
+                            <div class="product-label" data-translate="premium-biscuits">Premium Biscuits</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="chocolate">
                             <img src="./assets/biscuits/chocolates.png" alt="Tera Chocolate">
-                            <div class="product-label">Chocolate Bars</div>
+                            <div class="product-label" data-translate="chocolate-bars">Chocolate Bars</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="cookies">
                             <img src="./assets/biscuits/cookies.png" alt="Tera Cookies">
-                            <div class="product-label">Cookies</div>
+                            <div class="product-label" data-translate="cookies">Cookies</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="cream-buckets">
                             <img src="./assets/biscuits/bueno-cream.png" alt="Cinnamon Cream Chocolate">
-                            <div class="product-label">Cream Buckets</div>
+                            <div class="product-label" data-translate="cream-buckets">Cream Buckets</div>
                         </a>
                         
                         <!-- Drinks Category -->
                         <a href="drinks.html" class="product-item" data-category="juice">
                             <img src="./assets/flavors/tera-multivitamin.png" alt="Tera Natural Juice">
-                            <div class="product-label">Natural Juices</div>
+                            <div class="product-label" data-translate="natural-juices">Natural Juices</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="biscuits">
                             <img src="./assets/biscuits/crushed-oreo-biscuits.png" alt="Crushed Biscuits">
-                            <div class="product-label">Crushed Biscuits</div>
+                            <div class="product-label" data-translate="crushed-biscuits">Crushed Biscuits</div>
                         </a>
                         
                         <!-- Duplicate for seamless scrolling (same links) -->
                         <a href="biscuits.html" class="product-item" data-category="biscuits">
                             <img src="./assets/biscuits/biscuits.png" alt="Tera Premium Biscuits">
-                            <div class="product-label">Premium Biscuits</div>
+                            <div class="product-label" data-translate="premium-biscuits">Premium Biscuits</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="chocolate">
                             <img src="./assets/biscuits/chocolates.png" alt="Tera Royal Chocolate">
-                            <div class="product-label">Chocolate Bars</div>
+                            <div class="product-label" data-translate="chocolate-bars">Chocolate Bars</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="cookies">
                             <img src="./assets/biscuits/cookies.png" alt="Tera Cookies">
-                            <div class="product-label">Cookies</div>
+                            <div class="product-label" data-translate="cookies">Cookies</div>
                         </a>
                     </div>
                 </div>
@@ -3477,43 +3569,43 @@
                         <!-- Different products for variety -->
                         <a href="biscuits.html" class="product-item" data-category="chocolate">
                             <img src="./assets/biscuits/chocolates.png" alt="Milk Chocolate">
-                            <div class="product-label">Milk Chocolate</div>
+                            <div class="product-label" data-translate="milk-chocolate">Milk Chocolate</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="cookies">
                             <img src="./assets/biscuits/cookies.png" alt="Tera Cookies">
-                            <div class="product-label">Special Cookies</div>
+                            <div class="product-label" data-translate="special-cookies">Special Cookies</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="cream-buckets">
                             <img src="./assets/biscuits/cinnamon-biscuit-cream.png" alt="Coconut Cream Chocolate">
-                            <div class="product-label">Flavored Creams</div>
+                            <div class="product-label" data-translate="flavored-creams">Flavored Creams</div>
                         </a>
                         
                         <a href="drinks.html" class="product-item" data-category="juice">
                             <img src="./assets/flavors/tera-orange.png" alt="Tera Tropical Juice">
-                            <div class="product-label">Fresh Juices</div>
+                            <div class="product-label" data-translate="fresh-juices">Fresh Juices</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="biscuits">
                             <img src="./assets/biscuits/biscuits.png" alt="Hazelnut Cream Biscuits">
-                            <div class="product-label">Cream Biscuits</div>
+                            <div class="product-label" data-translate="cream-biscuits">Cream Biscuits</div>
                         </a>
                         
                         <!-- Duplicate for seamless scrolling -->
                         <a href="biscuits.html" class="product-item" data-category="chocolate">
                             <img src="./assets/biscuits/chocolates.png" alt="Milk Chocolate">
-                            <div class="product-label">Chocolate</div>
+                            <div class="product-label" data-translate="chocolate-bars">Chocolate</div>
                         </a>
                         
                         <a href="biscuits.html" class="product-item" data-category="cookies">
                             <img src="./assets/biscuits/cookies.png" alt="Tera Cookies">
-                            <div class="product-label">Cookies</div>
+                            <div class="product-label" data-translate="cookies">Cookies</div>
                         </a>
                         
                         <a href="drinks.html" class="product-item" data-category="cream-buckets">
                             <img src="./assets/flavors/tera-apple.png" alt="Tera Energy Bar">
-                            <div class="product-label">Juices</div>
+                            <div class="product-label" data-translate="juices">Juices</div>
                         </a>
                     </div>
                 </div>
@@ -3525,87 +3617,96 @@
     <section id="logo-display" class="about-section">
         <div class="container">
             <div class="section-title">
-                <h2>About Tera Energy</h2>
+                <h2 data-translate="about-title">About Tera Energy</h2>
             </div>
             
             <div class="about-container">
                 <!-- Company Story on Left -->
                 <div class="company-story">
-                    <h3>The Tera Energy Revolution</h3>
-                    <p>Tera Energy drink is prestigious beverage. Owing to its special prescription from most qualitative ingredients. Encourage Tera Energy's drink and spirit added bodies. Because water is an important component in our life, we use the fresh, natural purest spring water from the Austrian mountains for Tera Energy drink. After the first Blopp-enjoyment pure and deletes your thirst.</p>
+                    <h3 data-translate="about-story-title">The Tera Energy Revolution</h3>
+                    <p data-translate="about-story-p1">Tera Energy drink is prestigious beverage. Owing to its special prescription from most qualitative ingredients. Encourage Tera Energy's drink and spirit added bodies. Because water is an important component in our life, we use the fresh, natural purest spring water from the Austrian mountains for Tera Energy drink. After the first Blopp-enjoyment pure and deletes your thirst.</p>
                     
                     <div class="company-values">
                         <div class="value-item">
                             <i class="fas fa-flask"></i>
-                            <h4>Scientifically Proven</h4>
-                            <p>Every formula undergoes 200+ hours of testing in our labs</p>
+                            <h4 data-translate="value-scientifically-proven">Scientifically Proven</h4>
+                            <p data-translate="value-scientifically-proven-desc">Every formula undergoes 200+ hours of testing in our labs</p>
                         </div>
                         <div class="value-item">
                             <i class="fas fa-leaf"></i>
-                            <h4>Natural Ingredients</h4>
-                            <p>Only premium, ethically-sourced components</p>
+                            <h4 data-translate="value-natural-ingredients">Natural Ingredients</h4>
+                            <p data-translate="value-natural-ingredients-desc">Only premium, ethically-sourced components</p>
                         </div>
                         <div class="value-item">
                             <i class="fas fa-award"></i>
-                            <h4>Award-Winning</h4>
-                            <p>Recognized for innovation in beverage technology</p>
+                            <h4 data-translate="value-award-winning">Award-Winning</h4>
+                            <p data-translate="value-award-winning-desc">Recognized for innovation in beverage technology</p>
                         </div>
                         <div class="value-item">
                             <i class="fas fa-globe"></i>
-                            <h4>Global Vision</h4>
-                            <p>Connecting Austrian precision with the whole world</p>
+                            <h4 data-translate="value-global-vision">Global Vision</h4>
+                            <p data-translate="value-global-vision-desc">Connecting Austrian precision with the whole world</p>
                         </div>
                     </div>
                     
-                    <p style="margin-top: 30px; font-style: italic; color: var(--primary);">
+                    <p style="margin-top: 30px; font-style: italic; color: var(--primary);" data-translate="about-story-p2">
                         "Strength isn't just about power, it's about endurance. That's why Tera Energy provides 8+ hours of sustained energy without artificial aftereffects."
                     </p>
                 </div>
                 
                 <!-- Lab Gallery on Right -->
                 <div class="lab-gallery">
-                    <h3>Our Research & Development Labs</h3>
+                    <h3 data-translate="lab-gallery-title">Our Research & Development Labs</h3>
                     
                     <div class="gallery-grid">
                         <div class="gallery-item">
                             <img src="./assets/about us/lab 1.WebP" alt="Tera Energy Main Laboratory">
-                            <span>Main Research Lab</span>
+                            <span data-translate="main-research-lab">Main Research Lab</span>
                         </div>
                         <div class="gallery-item">
                             <img src="./assets/about us/lab 2.WebP" alt="Quality Control Department">
-                            <span>Quality Control</span>
+                            <span data-translate="quality-control">Quality Control</span>
                         </div>
                         <div class="gallery-item">
                             <img src="./assets/about us/lab 3.WebP" alt="Brewing Process">
-                            <span>Formula Brewing</span>
+                            <span data-translate="formula-brewing">Formula Brewing</span>
                         </div>
                         <div class="gallery-item">
                             <img src="./assets/about us/lab 4.WebP" alt="Product Testing">
-                            <span>Product Testing</span>
+                            <span data-translate="product-testing">Product Testing</span>
                         </div>
                     </div>
                     
                     <div class="gallery-info">
-                        <p><i class="fas fa-microscope"></i> <strong>Advanced Research Facilities:</strong> Our labs in Austria feature cutting-edge technology for beverage innovation, including HPLC analysis, spectrometry, and micro-brewing systems.</p>
+                        <p>
+                            <i class="fas fa-microscope"></i> 
+                            <strong data-translate="advanced-research">Advanced Research Facilities:</strong> 
+                            <span data-translate="lab-description">Our labs in Austria feature cutting-edge technology for beverage innovation, including HPLC analysis, spectrometry, and micro-brewing systems.</span>
+                        </p>
                     </div>
                     
                     <div class="lab-equipment">
-                        <h4>Laboratory Equipment</h4>
+                        <h4 data-translate="lab-equipment-title">Laboratory Equipment</h4>
                         <div class="equipment-list">
                             <div class="equipment-tag">
-                                <i class="fas fa-vial"></i> HPLC Systems
+                                <i class="fas fa-vial"></i> 
+                                <span data-translate="equipment-hplc">HPLC Systems</span>
                             </div>
                             <div class="equipment-tag">
-                                <i class="fas fa-temperature-high"></i> Precision Brewers
+                                <i class="fas fa-temperature-high"></i> 
+                                <span data-translate="equipment-brewers">Precision Brewers</span>
                             </div>
                             <div class="equipment-tag">
-                                <i class="fas fa-tint"></i> Spectrophotometers
+                                <i class="fas fa-tint"></i> 
+                                <span data-translate="equipment-spectrophotometers">Spectrophotometers</span>
                             </div>
                             <div class="equipment-tag">
-                                <i class="fas fa-robot"></i> Automated Mixers
+                                <i class="fas fa-robot"></i> 
+                                <span data-translate="equipment-mixers">Automated Mixers</span>
                             </div>
                             <div class="equipment-tag">
-                                <i class="fas fa-filter"></i> Micro-Filtration
+                                <i class="fas fa-filter"></i> 
+                                <span data-translate="equipment-filtration">Micro-Filtration</span>
                             </div>
                         </div>
                     </div>
@@ -3618,39 +3719,69 @@
     <section id="locations" class="locations">
         <div class="container">
             <div class="section-title">
-                <h2>Our Headquarters</h2>
+                <h2 data-translate="locations-title">Our Headquarters</h2>
             </div>
             <div class="locations-grid">
                 <!-- Tunis Location -->
                 <div class="location-card">
                     <div class="location-header">
                         <i class="fas fa-sun"></i>
-                        <h3>Tunis Headquarters</h3>
+                        <h3 data-translate="tunis-hq">Tunis Headquarters</h3>
                     </div>
                     <div class="location-details">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong>&nbsp;09 RUE IBN JAZZAR BAB BHAR 1002 TUNIS</p>
-                        <p><i class="fas fa-building"></i> <strong>Office:</strong>&nbsp;2eme Etage B1-2</p>
-                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong>&nbsp;+216 53 553 239</p>
-                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong>&nbsp;yahia.benmami@gmail.com</p>
-                        <p><i class="fas fa-users"></i> <strong>Operations:</strong>&nbsp;TERA ENERGY TRADING</p>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 
+                            <strong data-translate="address">Address:</strong>&nbsp;09 RUE IBN JAZZAR BAB BHAR 1002 TUNIS
+                        </p>
+                        <p>
+                            <i class="fas fa-building"></i> 
+                            <strong data-translate="office">Office:</strong>&nbsp;2eme Etage B1-2
+                        </p>
+                        <p>
+                            <i class="fas fa-phone"></i> 
+                            <strong data-translate="phone">Phone:</strong>&nbsp;+216 53 553 239
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope"></i> 
+                            <strong data-translate="email">Email:</strong>&nbsp;yahia.benmami@gmail.com
+                        </p>
+                        <p>
+                            <i class="fas fa-users"></i> 
+                            <strong data-translate="operations">Operations:</strong>&nbsp;TERA ENERGY TRADING
+                        </p>
                     </div>
-                    <a href="#contact" class="btn">Contact Tunis Office</a>
+                    <a href="#contact" class="btn" data-translate="contact-tunis-office">Contact Tunis Office</a>
                 </div>
                 
                 <!-- Austria Location -->
                 <div class="location-card">
                     <div class="location-header">
                         <i class="fas fa-mountain"></i>
-                        <h3>Austria European HQ</h3>
+                        <h3 data-translate="austria-hq">Austria European HQ</h3>
                     </div>
                     <div class="location-details">
-                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong>&nbsp;RENNBAHNWEG 27 1220 WIEN AUSTRIA</p>
-                        <p><i class="fas fa-building"></i> <strong>Office:</strong>&nbsp;-</p>
-                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong>&nbsp;+43 676 719 1985</p>
-                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong>&nbsp;office@teraenergy.at</p>
-                        <p><i class="fas fa-users"></i> <strong>Operations:</strong>&nbsp;TERA ENERGY</p>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> 
+                            <strong data-translate="address">Address:</strong>&nbsp;RENNBAHNWEG 27 1220 WIEN AUSTRIA
+                        </p>
+                        <p>
+                            <i class="fas fa-building"></i> 
+                            <strong data-translate="office">Office:</strong>&nbsp;-
+                        </p>
+                        <p>
+                            <i class="fas fa-phone"></i> 
+                            <strong data-translate="phone">Phone:</strong>&nbsp;+43 676 719 1985
+                        </p>
+                        <p>
+                            <i class="fas fa-envelope"></i> 
+                            <strong data-translate="email">Email:</strong>&nbsp;office@teraenergy.at
+                        </p>
+                        <p>
+                            <i class="fas fa-users"></i> 
+                            <strong data-translate="operations">Operations:</strong>&nbsp;TERA ENERGY
+                        </p>
                     </div>
-                    <a href="#contact" class="btn">Contact Vienna Office</a>
+                    <a href="#contact" class="btn" data-translate="contact-vienna-office">Contact Vienna Office</a>
                 </div>
             </div>
         </div>
@@ -3660,32 +3791,32 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-title">
-                <h2>Contact Tera Energy</h2>
+                <h2 data-translate="contact-title">Contact Tera Energy</h2>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Join Our Kingdom</h3>
-                    <p>Whether you're a distributor, retailer, or simply a loyal subject of the Tera Energy kingdom, we welcome your inquiries. Choose your preferred headquarters for correspondence.</p>
+                    <h3 data-translate="join-our-kingdom">Join Our Kingdom</h3>
+                    <p data-translate="contact-description">Whether you're a distributor, retailer, or simply a loyal subject of the Tera Energy kingdom, we welcome your inquiries. Choose your preferred headquarters for correspondence.</p>
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-flag"></i>
                             <div>
-                                <h4>Tunis Office</h4>
+                                <h4 data-translate="tunis-office">Tunis Office</h4>
                                 <p>+216 53 553 239 | yahia.benmami@gmail.com</p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-flag"></i>
                             <div>
-                                <h4>Vienna Office</h4>
+                                <h4 data-translate="vienna-office">Vienna Office</h4>
                                 <p>+436767191985 | office@teraenergy.at</p>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-clock"></i>
                             <div>
-                                <h4>Business Hours</h4>
-                                <p>Monday-Friday: 8AM-5PM (Local Time)</p>
+                                <h4 data-translate="business-hours">Business Hours</h4>
+                                <p data-translate="business-hours-info">Monday-Friday: 8AM-5PM (Local Time)</p>
                             </div>
                         </div>
                     </div>
@@ -3693,30 +3824,46 @@
                 <div class="contact-form">
                     <form id="contactForm">
                         <div class="form-group">
-                            <label for="location">Select Office</label>
+                            <label for="location" data-translate="select-office">Select Office</label>
                             <select id="location" class="form-control" required>
-                                <option value="">Choose location...</option>
-                                <option value="tunis">Tunis Headquarters</option>
-                                <option value="vienna">Vienna European HQ</option>
+                                <option value="" data-translate="choose-location">Choose location...</option>
+                                <option value="tunis" data-translate="tunis-headquarters">Tunis Headquarters</option>
+                                <option value="vienna" data-translate="vienna-hq">Vienna European HQ</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" class="form-control" required>
+                            <label for="name" data-translate="full-name">Full Name</label>
+                            <input type="text" id="name" class="form-control" 
+                                placeholder="Full Name" 
+                                data-translate="full-name-placeholder"
+                                data-translate-type="placeholder"
+                                required>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <label for="email" data-translate="email-address">Email Address</label>
+                            <input type="email" id="email" class="form-control" 
+                                placeholder="Email Address" 
+                                data-translate="email-placeholder"
+                                data-translate-type="placeholder"
+                                required>
                         </div>
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" class="form-control" required>
+                            <label for="subject" data-translate="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" 
+                                placeholder="Subject" 
+                                data-translate="subject-placeholder"
+                                data-translate-type="placeholder"
+                                required>
                         </div>
                         <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" class="form-control" required></textarea>
+                            <label for="message" data-translate="your-message">Your Message</label>
+                            <textarea id="message" class="form-control" 
+                                    placeholder="Your Message" 
+                                    data-translate="message-placeholder"
+                                    data-translate-type="placeholder"
+                                    required></textarea>
                         </div>
-                        <button type="submit" class="btn">Send To Tera Energy</button>
+                        <button type="submit" class="btn" data-translate="send-to-tera">Send To Tera Energy</button>
                     </form>
                 </div>
             </div>
@@ -3743,7 +3890,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
+                <p data-translate="copyright">&copy; 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty</p>
             </div>
         </div>
     </footer>
@@ -4061,22 +4208,31 @@
             });
         });
 
-        // Add typing effect to hero text
+        // REMOVED: Typing effect to hero text (conflicts with translation system)
+        // Comment out or remove the entire typing animation code
+        // const heroText = document.querySelector('.hero h1');
+        // const originalText = heroText.textContent;
+        // heroText.textContent = '';
+        // 
+        // let i = 0;
+        // const typeWriter = () => {
+        //     if (i < originalText.length) {
+        //         heroText.textContent += originalText.charAt(i);
+        //         i++;
+        //         setTimeout(typeWriter, 50);
+        //     }
+        // };
+        // 
+        // // Start typing effect when page loads
+        // setTimeout(typeWriter, 1000);
+
+        // Instead, ensure hero text is visible immediately
         const heroText = document.querySelector('.hero h1');
-        const originalText = heroText.textContent;
-        heroText.textContent = '';
-        
-        let i = 0;
-        const typeWriter = () => {
-            if (i < originalText.length) {
-                heroText.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            }
-        };
-        
-        // Start typing effect when page loads
-        setTimeout(typeWriter, 1000);
+        if (heroText) {
+            // Make sure text is visible (in case typing animation was partially applied)
+            heroText.style.opacity = '1';
+            heroText.style.visibility = 'visible';
+        }
 
         // Logo hover effects
         const logoImages = document.querySelectorAll('.logo-image, .footer-logo-image');
@@ -4638,6 +4794,675 @@
                     dropdown.classList.remove('active');
                 });
             }
+        });
+
+        // ========== COMPLETE LANGUAGE TRANSLATOR ==========
+        const languageSwitcher = {
+            currentLang: 0, // 0:en, 1:ar, 2:fr, 3:de
+            languages: [
+                { code: 'en', name: 'English', flag: './assets/flags/uk.svg' },
+                { code: 'ar', name: 'Arabic', flag: './assets/flags/tn.svg' },
+                { code: 'fr', name: 'French', flag: './assets/flags/fr.svg' },
+                { code: 'de', name: 'German', flag: './assets/flags/de.svg' }
+            ],
+            
+            // COMPLETE Translation dictionary
+            translations: {
+                en: {
+                    // Navbar
+                    'home': 'Home',
+                    'products': 'Products',
+                    'retailers': 'Retailers',
+                    'about-us': 'About Us',
+                    'locations': 'Locations',
+                    'contact': 'Contact',
+                    'drinks': 'Drinks',
+                    'snacks': 'Snacks',
+                    
+                    // Hero
+                    'hero-title': 'TERA ENERGY. ROYAL POWER.',
+                    'hero-description': 'Tera Energy - The drink of champions. With the strength of a lion and the endurance of royalty, conquer your day with our premium energy formula.',
+                    'hero-button': 'Discover Our Flavors',
+                    
+                    // Products Section
+                    'our-flavors': 'Our Premium Flavors',
+                    
+                    // Product Editions
+                    'classic-edition': 'CLASSIC EDITION',
+                    'mojito-edition': 'MOJITO EDITION',
+                    'bitter-soda-edition': 'BITTER SODA',
+                    'cola-grenadine-edition': 'COLA GRENADINE',
+                    'cola-classic-edition': 'COLA CLASSIC',
+                    'cola-menthol-edition': 'COLA MENTHOL',
+                    'still-water-edition': 'STILL WATER',
+                    'sparkling-edition': 'SPARKLING WATER',
+                    
+                    // Product Fallback Text
+                    'classic-fallback-1': 'CLASSIC',
+                    'classic-fallback-2': 'Blue Edition',
+                    'mojito-fallback-1': 'MOJITO',
+                    'mojito-fallback-2': 'Exotic Blend',
+                    'bitter-soda-fallback-1': 'BITTER SODA',
+                    'bitter-soda-fallback-2': 'Cola Red',
+                    'cola-grenadine-fallback-1': 'COLA GRENADINE',
+                    'cola-grenadine-fallback-2': 'Pomegranate Red',
+                    'cola-classic-fallback-1': 'COLA CLASSIC',
+                    'cola-classic-fallback-2': 'Classic Cola',
+                    'cola-menthol-fallback-1': 'COLA MENTHOL',
+                    'cola-menthol-fallback-2': 'Mint Green',
+                    'still-water-fallback-1': 'STILL WATER',
+                    'still-water-fallback-2': 'Pure Hydration',
+                    'sparkling-fallback-1': 'SPARKLING WATER',
+                    'sparkling-fallback-2': 'Bubbly Refreshment',
+                    
+                    // Other Products Section
+                    'more-products': 'More from Tera Energy',
+                    'more-products-desc': 'Discover our complete range of premium snacks and beverages',
+                    'premium-biscuits': 'Premium Biscuits',
+                    'chocolate-bars': 'Chocolate Bars',
+                    'cookies': 'Cookies',
+                    'cream-buckets': 'Cream Buckets',
+                    'natural-juices': 'Natural Juices',
+                    'crushed-biscuits': 'Crushed Biscuits',
+                    'milk-chocolate': 'Milk Chocolate',
+                    'special-cookies': 'Special Cookies',
+                    'flavored-creams': 'Flavored Creams',
+                    'fresh-juices': 'Fresh Juices',
+                    'cream-biscuits': 'Cream Biscuits',
+                    'juices': 'Juices',
+                    
+                    // About Us Section
+                    'about-title': 'About Tera Energy',
+                    'about-story-title': 'The Tera Energy Revolution',
+                    'about-story-p1': 'Tera Energy drink is prestigious beverage. Owing to its special prescription from most qualitative ingredients. Encourage Tera Energy\'s drink and spirit added bodies. Because water is an important component in our life, we use the fresh, natural purest spring water from the Austrian mountains for Tera Energy drink. After the first Blopp-enjoyment pure and deletes your thirst.',
+                    'about-story-p2': '"Strength isn\'t just about power, it\'s about endurance. That\'s why Tera Energy provides 8+ hours of sustained energy without artificial aftereffects."',
+                    'main-research-lab': 'Main Research Lab',
+                    'quality-control': 'Quality Control',
+                    'formula-brewing': 'Formula Brewing',
+                    'product-testing': 'Product Testing',
+                    
+                    // Company Values
+                    'value-scientifically-proven': 'Scientifically Proven',
+                    'value-scientifically-proven-desc': 'Every formula undergoes 200+ hours of testing in our labs',
+                    'value-natural-ingredients': 'Natural Ingredients',
+                    'value-natural-ingredients-desc': 'Only premium, ethically-sourced components',
+                    'value-award-winning': 'Award-Winning',
+                    'value-award-winning-desc': 'Recognized for innovation in beverage technology',
+                    'value-global-vision': 'Global Vision',
+                    'value-global-vision-desc': 'Connecting Austrian precision with the whole world',
+                    
+                    // Lab Gallery
+                    'lab-gallery-title': 'Our Research & Development Labs',
+                    'advanced-research': 'Advanced Research Facilities',
+                    'lab-description': 'Our labs in Austria feature cutting-edge technology for beverage innovation, including HPLC analysis, spectrometry, and micro-brewing systems.',
+                    'lab-equipment-title': 'Laboratory Equipment',
+                    'equipment-hplc': 'HPLC Systems',
+                    'equipment-brewers': 'Precision Brewers',
+                    'equipment-spectrophotometers': 'Spectrophotometers',
+                    'equipment-mixers': 'Automated Mixers',
+                    'equipment-filtration': 'Micro-Filtration',
+                    
+                    // Locations Section
+                    'locations-title': 'Our Headquarters',
+                    'tunis-hq': 'Tunis Headquarters',
+                    'austria-hq': 'Austria European HQ',
+                    'address': 'Address',
+                    'office': 'Office',
+                    'phone': 'Phone',
+                    'email': 'Email',
+                    'operations': 'Operations',
+                    'contact-tunis-office': 'Contact Tunis Office',
+                    'contact-vienna-office': 'Contact Vienna Office',
+                    
+                    // Contact Section
+                    'contact-title': 'Contact Tera Energy',
+                    'join-our-kingdom': 'Join Our Kingdom',
+                    'contact-description': 'Whether you\'re a distributor, retailer, or simply a loyal subject of the Tera Energy kingdom, we welcome your inquiries. Choose your preferred headquarters for correspondence.',
+                    'tunis-office': 'Tunis Office',
+                    'vienna-office': 'Vienna Office',
+                    'business-hours': 'Business Hours',
+                    'business-hours-info': 'Monday-Friday: 8AM-5PM (Local Time)',
+                    
+                    // Contact Form
+                    'select-office': 'Select Office',
+                    'choose-location': 'Choose location...',
+                    'tunis-headquarters': 'Tunis Headquarters',
+                    'vienna-hq': 'Vienna European HQ',
+                    'full-name': 'Full Name',
+                    'full-name-placeholder': 'Full Name',
+                    'email-address': 'Email Address',
+                    'email-placeholder': 'Email Address',
+                    'subject': 'Subject',
+                    'subject-placeholder': 'Subject',
+                    'your-message': 'Your Message',
+                    'message-placeholder': 'Your Message',
+                    'send-to-tera': 'Send To Tera Energy',
+                    
+                    // Footer
+                    'copyright': '© 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty'
+                },
+                ar: {
+                    // Navbar
+                    'home': 'الرئيسية',
+                    'products': 'المنتجات',
+                    'retailers': 'التجار',
+                    'about-us': 'من نحن',
+                    'locations': 'المواقع',
+                    'contact': 'اتصل بنا',
+                    'drinks': 'المشروبات',
+                    'snacks': 'الوجبات الخفيفة',
+                    
+                    // Hero
+                    'hero-title': 'تيرا إنرجي. قوة ملكية.',
+                    'hero-description': 'تيرا إنرجي - مشروب الأبطال. بقوة الأسد وتحمل الملوك، احتلي يومك بتركيبتنا المميزة للطاقة.',
+                    'hero-button': 'اكتشف نكهاتنا',
+                    
+                    // Products Section
+                    'our-flavors': 'نكهاتنا المميزة',
+                    
+                    // Product Editions
+                    'classic-edition': 'الإصدار الكلاسيكي',
+                    'mojito-edition': 'إصدار الموهيتو',
+                    'bitter-soda-edition': 'صودا المرة',
+                    'cola-grenadine-edition': 'كولا غرناطين',
+                    'cola-classic-edition': 'كولا كلاسيك',
+                    'cola-menthol-edition': 'كولا منثول',
+                    'still-water-edition': 'مياه عادية',
+                    'sparkling-edition': 'مياه فوارة',
+                    
+                    // Product Fallback Text
+                    'classic-fallback-1': 'كلاسيك',
+                    'classic-fallback-2': 'الإصدار الأزرق',
+                    'mojito-fallback-1': 'موهيتو',
+                    'mojito-fallback-2': 'مزيج استوائي',
+                    'bitter-soda-fallback-1': 'صودا المرة',
+                    'bitter-soda-fallback-2': 'كولا أحمر',
+                    'cola-grenadine-fallback-1': 'كولا غرناطين',
+                    'cola-grenadine-fallback-2': 'أحمر رمان',
+                    'cola-classic-fallback-1': 'كولا كلاسيك',
+                    'cola-classic-fallback-2': 'كولا تقليدي',
+                    'cola-menthol-fallback-1': 'كولا منثول',
+                    'cola-menthol-fallback-2': 'أخضر نعناع',
+                    'still-water-fallback-1': 'مياه عادية',
+                    'still-water-fallback-2': 'ترطيب نقي',
+                    'sparkling-fallback-1': 'مياه فوارة',
+                    'sparkling-fallback-2': 'انتعاش فوار',
+                    
+                    // Other Products Section
+                    'more-products': 'المزيد من تيرا إنرجي',
+                    'more-products-desc': 'اكتشف مجموعتنا الكاملة من الوجبات الخفيفة والمشروبات المميزة',
+                    'premium-biscuits': 'بسكويت مميز',
+                    'chocolate-bars': 'ألواح الشوكولاتة',
+                    'cookies': 'كوكيز',
+                    'cream-buckets': 'دلاء الكريم',
+                    'natural-juices': 'عصائر طبيعية',
+                    'crushed-biscuits': 'بسكويت مطحون',
+                    'milk-chocolate': 'شوكولاتة بالحليب',
+                    'special-cookies': 'كوكيز خاصة',
+                    'flavored-creams': 'كريمات بنكهات',
+                    'fresh-juices': 'عصائر طازجة',
+                    'cream-biscuits': 'بسكويت بالكريمة',
+                    'juices': 'عصائر',
+                    
+                    // About Us Section
+                    'about-title': 'عن تيرا إنرجي',
+                    'about-story-title': 'ثورة تيرا إنرجي',
+                    'about-story-p1': 'تيرا إنرجي هو مشروب مميز. نظرًا لوصفته الخاصة من المكونات الأكثر جودة. يشجع تيرا إنرجي على إضافة الروح والجسم. لأن الماء مكون مهم في حياتنا، نستخدم أنقى مياه الينابيع الطبيعية الطازجة من الجبال النمساوية لمشروب تيرا إنرجي. بعد أول متعة بلوب، تنقي وتزيل عطشك.',
+                    'about-story-p2': '"القوة ليست مجرد قوة، بل هي تحمل. لهذا السبب يوفر تيرا إنرجي أكثر من 8 ساعات من الطاقة المستدامة دون آثار جانبية صناعية."',
+                    'main-research-lab': 'المختبر البحثي الرئيسي',
+                    'quality-control': 'مراقبة الجودة',
+                    'formula-brewing': 'تخمير الصيغة',
+                    'product-testing': 'اختبار المنتج',
+                    
+                    // Company Values
+                    'value-scientifically-proven': 'مثبت علميًا',
+                    'value-scientifically-proven-desc': 'كل صيغة تخضع لأكثر من 200 ساعة من الاختبار في مختبراتنا',
+                    'value-natural-ingredients': 'مكونات طبيعية',
+                    'value-natural-ingredients-desc': 'مكونات مميزة ومصدرها أخلاقي فقط',
+                    'value-award-winning': 'حائز على جوائز',
+                    'value-award-winning-desc': 'معترف به لابتكار تقنية المشروبات',
+                    'value-global-vision': 'رؤية عالمية',
+                    'value-global-vision-desc': 'ربط الدقة النمساوية مع العالم بأسره',
+                    
+                    // Lab Gallery
+                    'lab-gallery-title': 'مختبرات البحث والتطوير لدينا',
+                    'advanced-research': 'مرافق بحث متطورة',
+                    'lab-description': 'تتميز مختبراتنا في النمسا بتقنية متطورة لابتكار المشروبات، بما في ذلك تحليل HPLC والمطيافية وأنظمة التخمير الدقيقة.',
+                    'lab-equipment-title': 'معدات المختبر',
+                    'equipment-hplc': 'أنظمة HPLC',
+                    'equipment-brewers': 'أجهزة تخمير دقيقة',
+                    'equipment-spectrophotometers': 'مطيات ضوئية',
+                    'equipment-mixers': 'خلاطات آلية',
+                    'equipment-filtration': 'ترشيح دقيق',
+                    
+                    // Locations Section
+                    'locations-title': 'مقراتنا الرئيسية',
+                    'tunis-hq': 'المقر الرئيسي بتونس',
+                    'austria-hq': 'المقر الأوروبي بالنمسا',
+                    'address': 'العنوان',
+                    'office': 'المكتب',
+                    'phone': 'الهاتف',
+                    'email': 'البريد الإلكتروني',
+                    'operations': 'العمليات',
+                    'contact-tunis-office': 'اتصل بمكتب تونس',
+                    'contact-vienna-office': 'اتصل بمكتب فيينا',
+                    
+                    // Contact Section
+                    'contact-title': 'اتصل بتيرا إنرجي',
+                    'join-our-kingdom': 'انضم إلى مملكتنا',
+                    'contact-description': 'سواء كنت موزعًا أو تاجرًا أو مجرد موضوع مخلص لمملكة تيرا إنرجي، فنحن نرحب باستفساراتك. اختر المقر الرئيسي المفضل للتواصل.',
+                    'tunis-office': 'مكتب تونس',
+                    'vienna-office': 'مكتب فيينا',
+                    'business-hours': 'ساعات العمل',
+                    'business-hours-info': 'الإثنين - الجمعة: 8 صباحًا - 5 مساءً (التوقيت المحلي)',
+                    
+                    // Contact Form
+                    'select-office': 'اختر المكتب',
+                    'choose-location': 'اختر الموقع...',
+                    'tunis-headquarters': 'المقر الرئيسي بتونس',
+                    'vienna-hq': 'المقر الأوروبي بالنمسا',
+                    'full-name': 'الاسم الكامل',
+                    'full-name-placeholder': 'الاسم الكامل',
+                    'email-address': 'البريد الإلكتروني',
+                    'email-placeholder': 'البريد الإلكتروني',
+                    'subject': 'الموضوع',
+                    'subject-placeholder': 'الموضوع',
+                    'your-message': 'رسالتك',
+                    'message-placeholder': 'رسالتك',
+                    'send-to-tera': 'أرسل إلى تيرا إنرجي',
+                    
+                    // Footer
+                    'copyright': '© 2013 تيرا إنرجي. جميع الحقوق محفوظة. | تونس وفينا | قوة الأسد، قوة الملوك'
+                },
+                fr: {
+                    // Navbar
+                    'home': 'Accueil',
+                    'products': 'Produits',
+                    'retailers': 'Détaillants',
+                    'about-us': 'À propos',
+                    'locations': 'Emplacements',
+                    'contact': 'Contact',
+                    'drinks': 'Boissons',
+                    'snacks': 'Collations',
+                    
+                    // Hero
+                    'hero-title': 'TERA ENERGY. PUISSANCE ROYALE.',
+                    'hero-description': 'Tera Energy - La boisson des champions. Avec la force d\'un lion et l\'endurance de la royauté, conquérez votre journée avec notre formule énergétique premium.',
+                    'hero-button': 'Découvrir Nos Saveurs',
+                    
+                    // Products Section
+                    'our-flavors': 'Nos Saveurs Premium',
+                    
+                    // Product Editions
+                    'classic-edition': 'ÉDITION CLASSIQUE',
+                    'mojito-edition': 'ÉDITION MOJITO',
+                    'bitter-soda-edition': 'SODA AMER',
+                    'cola-grenadine-edition': 'COLA GRENADINE',
+                    'cola-classic-edition': 'COLA CLASSIQUE',
+                    'cola-menthol-edition': 'COLA MENTHOL',
+                    'still-water-edition': 'EAU PLATE',
+                    'sparkling-edition': 'EAU GAZEUSE',
+                    
+                    // Product Fallback Text
+                    'classic-fallback-1': 'CLASSIQUE',
+                    'classic-fallback-2': 'Édition Bleue',
+                    'mojito-fallback-1': 'MOJITO',
+                    'mojito-fallback-2': 'Mélange Exotique',
+                    'bitter-soda-fallback-1': 'SODA AMER',
+                    'bitter-soda-fallback-2': 'Rouge Cola',
+                    'cola-grenadine-fallback-1': 'COLA GRENADINE',
+                    'cola-grenadine-fallback-2': 'Rouge Grenade',
+                    'cola-classic-fallback-1': 'COLA CLASSIQUE',
+                    'cola-classic-fallback-2': 'Cola Classique',
+                    'cola-menthol-fallback-1': 'COLA MENTHOL',
+                    'cola-menthol-fallback-2': 'Vert Menthe',
+                    'still-water-fallback-1': 'EAU PLATE',
+                    'still-water-fallback-2': 'Hydratation Pure',
+                    'sparkling-fallback-1': 'EAU GAZEUSE',
+                    'sparkling-fallback-2': 'Rafraîchissement Pétillant',
+                    
+                    // Other Products Section
+                    'more-products': 'Plus de Tera Energy',
+                    'more-products-desc': 'Découvrez notre gamme complète de collations et boissons premium',
+                    'premium-biscuits': 'Biscuits Premium',
+                    'chocolate-bars': 'Barres Chocolatées',
+                    'cookies': 'Cookies',
+                    'cream-buckets': 'Seaux de Crème',
+                    'natural-juices': 'Jus Naturels',
+                    'crushed-biscuits': 'Biscuits Concassés',
+                    'milk-chocolate': 'Chocolat au Lait',
+                    'special-cookies': 'Cookies Spéciaux',
+                    'flavored-creams': 'Crèmes Aromatisées',
+                    'fresh-juices': 'Jus Frais',
+                    'cream-biscuits': 'Biscuits à la Crème',
+                    'juices': 'Jus',
+                    
+                    // About Us Section
+                    'about-title': 'À propos de Tera Energy',
+                    'about-story-title': 'La Révolution Tera Energy',
+                    'about-story-p1': 'Tera Energy est une boisson prestigieuse. Grâce à sa prescription spéciale d\'ingrédients les plus qualitatifs. Encouragez le corps et l\'esprit avec la boisson Tera Energy. Parce que l\'eau est un composant important de notre vie, nous utilisons l\'eau de source naturelle la plus pure des montagnes autrichiennes pour la boisson Tera Energy. Après la première jouissance Blopp, pure et supprime votre soif.',
+                    'about-story-p2': '"La force n\'est pas seulement une question de puissance, c\'est une question d\'endurance. C\'est pourquoi Tera Energy fournit plus de 8 heures d\'énergie durable sans effets secondaires artificiels."',
+                    'main-research-lab': 'Laboratoire de Recherche Principal',
+                    'quality-control': 'Contrôle Qualité',
+                    'formula-brewing': 'Brassage de Formule',
+                    'product-testing': 'Test de Produit',
+                    
+                    // Company Values
+                    'value-scientifically-proven': 'Scientifiquement Prouvé',
+                    'value-scientifically-proven-desc': 'Chaque formule subit plus de 200 heures de tests dans nos laboratoires',
+                    'value-natural-ingredients': 'Ingrédients Naturels',
+                    'value-natural-ingredients-desc': 'Seuls des composants premium d\'origine éthique',
+                    'value-award-winning': 'Primé',
+                    'value-award-winning-desc': 'Reconnu pour l\'innovation dans la technologie des boissons',
+                    'value-global-vision': 'Vision Globale',
+                    'value-global-vision-desc': 'Connecter la précision autrichienne avec le monde entier',
+                    
+                    // Lab Gallery
+                    'lab-gallery-title': 'Nos Laboratoires de Recherche & Développement',
+                    'advanced-research': 'Installations de Recherche Avancées',
+                    'lab-description': 'Nos laboratoires en Autriche disposent d\'une technologie de pointe pour l\'innovation en matière de boissons, y compris l\'analyse HPLC, la spectrométrie et les systèmes de micro-brassage.',
+                    'lab-equipment-title': 'Équipement de Laboratoire',
+                    'equipment-hplc': 'Systèmes HPLC',
+                    'equipment-brewers': 'Brasseurs de Précision',
+                    'equipment-spectrophotometers': 'Spectrophotomètres',
+                    'equipment-mixers': 'Mélangeurs Automatisés',
+                    'equipment-filtration': 'Micro-Filtration',
+                    
+                    // Locations Section
+                    'locations-title': 'Nos Sièges',
+                    'tunis-hq': 'Siège de Tunis',
+                    'austria-hq': 'Siège Européen d\'Autriche',
+                    'address': 'Adresse',
+                    'office': 'Bureau',
+                    'phone': 'Téléphone',
+                    'email': 'Email',
+                    'operations': 'Opérations',
+                    'contact-tunis-office': 'Contacter le Bureau de Tunis',
+                    'contact-vienna-office': 'Contacter le Bureau de Vienne',
+                    
+                    // Contact Section
+                    'contact-title': 'Contacter Tera Energy',
+                    'join-our-kingdom': 'Rejoignez Notre Royaume',
+                    'contact-description': 'Que vous soyez distributeur, détaillant ou simplement un sujet loyal du royaume Tera Energy, nous accueillons vos demandes. Choisissez votre siège préféré pour correspondre.',
+                    'tunis-office': 'Bureau de Tunis',
+                    'vienna-office': 'Bureau de Vienne',
+                    'business-hours': 'Heures d\'Ouverture',
+                    'business-hours-info': 'Lundi-Vendredi: 8h-17h (Heure Locale)',
+                    
+                    // Contact Form
+                    'select-office': 'Sélectionner le Bureau',
+                    'choose-location': 'Choisir l\'emplacement...',
+                    'tunis-headquarters': 'Siège de Tunis',
+                    'vienna-hq': 'Siège Européen d\'Autriche',
+                    'full-name': 'Nom Complet',
+                    'full-name-placeholder': 'Nom Complet',
+                    'email-address': 'Adresse Email',
+                    'email-placeholder': 'Adresse Email',
+                    'subject': 'Sujet',
+                    'subject-placeholder': 'Sujet',
+                    'your-message': 'Votre Message',
+                    'message-placeholder': 'Votre Message',
+                    'send-to-tera': 'Envoyer à Tera Energy',
+                    
+                    // Footer
+                    'copyright': '© 2013 Tera Energy. Tous droits réservés. | Tunis & Vienne | Force du Lion, Puissance Royale'
+                },
+                de: {
+                    // Navbar
+                    'home': 'Startseite',
+                    'products': 'Produkte',
+                    'retailers': 'Händler',
+                    'about-us': 'Über Uns',
+                    'locations': 'Standorte',
+                    'contact': 'Kontakt',
+                    'drinks': 'Getränke',
+                    'snacks': 'Snacks',
+                    
+                    // Hero
+                    'hero-title': 'TERA ENERGY. KÖNIGLICHE KRAFT.',
+                    'hero-description': 'Tera Energy - Das Getränk der Champions. Mit der Stärke eines Löwen und der Ausdauer der Königlichkeit erobern Sie Ihren Tag mit unserer Premium-Energieformel.',
+                    'hero-button': 'Unsere Aromen Entdecken',
+                    
+                    // Products Section
+                    'our-flavors': 'Unsere Premium-Aromen',
+                    
+                    // Product Editions
+                    'classic-edition': 'KLASSISCHE AUSGABE',
+                    'mojito-edition': 'MOJITO AUSGABE',
+                    'bitter-soda-edition': 'BITTERES SODA',
+                    'cola-grenadine-edition': 'COLA GRANATAPFEL',
+                    'cola-classic-edition': 'COLA KLASSISCH',
+                    'cola-menthol-edition': 'COLA MENTHOL',
+                    'still-water-edition': 'STILLES WASSER',
+                    'sparkling-edition': 'SPRUDELWASSER',
+                    
+                    // Product Fallback Text
+                    'classic-fallback-1': 'KLASSISCH',
+                    'classic-fallback-2': 'Blaue Ausgabe',
+                    'mojito-fallback-1': 'MOJITO',
+                    'mojito-fallback-2': 'Exotische Mischung',
+                    'bitter-soda-fallback-1': 'BITTERES SODA',
+                    'bitter-soda-fallback-2': 'Cola Rot',
+                    'cola-grenadine-fallback-1': 'COLA GRANATAPFEL',
+                    'cola-grenadine-fallback-2': 'Granatapfelrot',
+                    'cola-classic-fallback-1': 'COLA KLASSISCH',
+                    'cola-classic-fallback-2': 'Klassisches Cola',
+                    'cola-menthol-fallback-1': 'COLA MENTHOL',
+                    'cola-menthol-fallback-2': 'Minzgrün',
+                    'still-water-fallback-1': 'STILLES WASSER',
+                    'still-water-fallback-2': 'Reine Hydratation',
+                    'sparkling-fallback-1': 'SPRUDELWASSER',
+                    'sparkling-fallback-2': 'Sprudelnde Erfrischung',
+                    
+                    // Other Products Section
+                    'more-products': 'Mehr von Tera Energy',
+                    'more-products-desc': 'Entdecken Sie unser komplettes Sortiment an Premium-Snacks und Getränken',
+                    'premium-biscuits': 'Premium-Kekse',
+                    'chocolate-bars': 'Schokoriegel',
+                    'cookies': 'Kekse',
+                    'cream-buckets': 'Creme-Eimer',
+                    'natural-juices': 'Natürliche Säfte',
+                    'crushed-biscuits': 'Zerkleinerte Kekse',
+                    'milk-chocolate': 'Milchschokolade',
+                    'special-cookies': 'Spezielle Kekse',
+                    'flavored-creams': 'Aromatisierte Cremes',
+                    'fresh-juices': 'Frische Säfte',
+                    'cream-biscuits': 'Creme-Kekse',
+                    'juices': 'Säfte',
+                    
+                    // About Us Section
+                    'about-title': 'Über Tera Energy',
+                    'about-story-title': 'Die Tera Energy Revolution',
+                    'about-story-p1': 'Tera Energy ist ein prestigeträchtiges Getränk. Aufgrund seiner speziellen Rezeptur aus hochwertigsten Zutaten. Ermutigt Tera Energy\'s Getränk und Geist hinzugefügte Körper. Da Wasser ein wichtiger Bestandteil in unserem Leben ist, verwenden wir das frische, natürliche reinsten Quellwasser aus den österreichischen Bergen für Tera Energy Getränk. Nach dem ersten Blopp-Genuss rein und löscht Ihren Durst.',
+                    'about-story-p2': '"Stärke ist nicht nur Macht, es ist Ausdauer. Deshalb bietet Tera Energy mehr als 8 Stunden nachhaltige Energie ohne künstliche Nachwirkungen."',
+                    'main-research-lab': 'Hauptforschungslabor',
+                    'quality-control': 'Qualitätskontrolle',
+                    'formula-brewing': 'Formelbrauen',
+                    'product-testing': 'Produkttest',
+                    
+                    // Company Values
+                    'value-scientifically-proven': 'Wissenschaftlich Bewiesen',
+                    'value-scientifically-proven-desc': 'Jede Formel durchläuft mehr als 200 Stunden Tests in unseren Labors',
+                    'value-natural-ingredients': 'Natürliche Zutaten',
+                    'value-natural-ingredients-desc': 'Nur premium, ethisch bezogene Komponenten',
+                    'value-award-winning': 'Preisgekrönt',
+                    'value-award-winning-desc': 'Anerkannt für Innovation in Getränketechnologie',
+                    'value-global-vision': 'Globale Vision',
+                    'value-global-vision-desc': 'Österreichische Präzision mit der ganzen Welt verbinden',
+                    
+                    // Lab Gallery
+                    'lab-gallery-title': 'Unsere Forschungs- & Entwicklungslabore',
+                    'advanced-research': 'Fortschrittliche Forschungseinrichtungen',
+                    'lab-description': 'Unsere Labore in Österreich verfügen über Spitzentechnologie für Getränkeinnovation, einschließlich HPLC-Analyse, Spektrometrie und Mikrobrausysteme.',
+                    'lab-equipment-title': 'Laborausrüstung',
+                    'equipment-hplc': 'HPLC-Systeme',
+                    'equipment-brewers': 'Präzisionsbrauer',
+                    'equipment-spectrophotometers': 'Spektrophotometer',
+                    'equipment-mixers': 'Automatisierte Mixer',
+                    'equipment-filtration': 'Mikro-Filtration',
+                    
+                    // Locations Section
+                    'locations-title': 'Unser Hauptsitz',
+                    'tunis-hq': 'Tunis Hauptsitz',
+                    'austria-hq': 'Österreich Europäischer Hauptsitz',
+                    'address': 'Adresse',
+                    'office': 'Büro',
+                    'phone': 'Telefon',
+                    'email': 'E-Mail',
+                    'operations': 'Operationen',
+                    'contact-tunis-office': 'Kontakt Tunis Büro',
+                    'contact-vienna-office': 'Kontakt Wien Büro',
+                    
+                    // Contact Section
+                    'contact-title': 'Tera Energy Kontaktieren',
+                    'join-our-kingdom': 'Treten Sie Unserem Königreich Bei',
+                    'contact-description': 'Ob Sie Händler, Einzelhändler oder einfach ein loyaler Untertan des Tera Energy Königreichs sind, wir heißen Ihre Anfragen willkommen. Wählen Sie Ihren bevorzugten Hauptsitz für die Korrespondenz.',
+                    'tunis-office': 'Tunis Büro',
+                    'vienna-office': 'Wien Büro',
+                    'business-hours': 'Geschäftszeiten',
+                    'business-hours-info': 'Montag-Freitag: 8-17 Uhr (Ortszeit)',
+                    
+                    // Contact Form
+                    'select-office': 'Büro auswählen',
+                    'choose-location': 'Standort auswählen...',
+                    'tunis-headquarters': 'Tunis Hauptsitz',
+                    'vienna-hq': 'Österreich Europäischer Hauptsitz',
+                    'full-name': 'Vollständiger Name',
+                    'full-name-placeholder': 'Vollständiger Name',
+                    'email-address': 'E-Mail-Adresse',
+                    'email-placeholder': 'E-Mail-Adresse',
+                    'subject': 'Betreff',
+                    'subject-placeholder': 'Betreff',
+                    'your-message': 'Ihre Nachricht',
+                    'message-placeholder': 'Ihre Nachricht',
+                    'send-to-tera': 'An Tera Energy senden',
+                    
+                    // Footer
+                    'copyright': '© 2013 Tera Energy. Alle Rechte vorbehalten. | Tunis & Wien | Stärke des Löwen, Kraft der Königlichkeit'
+                }
+            },
+            
+            init() {
+                // Load saved language from localStorage
+                const savedLang = localStorage.getItem('tera-language');
+                if (savedLang) {
+                    const langIndex = this.languages.findIndex(lang => lang.code === savedLang);
+                    if (langIndex > -1) {
+                        this.currentLang = langIndex;
+                    }
+                }
+                
+                // Set up button
+                this.updateButton();
+                this.setupEventListeners();
+                
+                // Apply translations
+                this.translatePage();
+            },
+            
+            setupEventListeners() {
+                const btn = document.getElementById('language-btn');
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        this.nextLanguage();
+                    });
+                }
+            },
+            
+            nextLanguage() {
+                this.currentLang = (this.currentLang + 1) % this.languages.length;
+                this.updateButton();
+                this.translatePage();
+                this.saveLanguage();
+            },
+            
+            updateButton() {
+                const currentLang = this.languages[this.currentLang];
+                const flagImg = document.getElementById('flag-img');
+                const langText = document.getElementById('current-language');
+                
+                if (flagImg) {
+                    flagImg.src = currentLang.flag;
+                    flagImg.alt = currentLang.name;
+                }
+                
+                if (langText) {
+                    langText.textContent = currentLang.name;
+                }
+            },
+            
+            translatePage() {
+                const currentLang = this.languages[this.currentLang];
+                const translations = this.translations[currentLang.code];
+                
+                if (!translations) {
+                    console.error('No translations found for language:', currentLang.code);
+                    return;
+                }
+                
+                // Update all elements with data-translate attribute
+                document.querySelectorAll('[data-translate]').forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    if (translations[key]) {
+                        // Special handling for different element types
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            // Check if it's a placeholder or value
+                            if (element.hasAttribute('data-translate-type') && 
+                                element.getAttribute('data-translate-type') === 'placeholder') {
+                                element.placeholder = translations[key];
+                            } else {
+                                element.value = translations[key];
+                            }
+                        } else if (element.tagName === 'OPTION') {
+                            element.textContent = translations[key];
+                        } else {
+                            element.textContent = translations[key];
+                        }
+                    }
+                });
+                
+                // Also translate select options
+                document.querySelectorAll('select option').forEach(option => {
+                    const key = option.getAttribute('data-translate');
+                    if (key && translations[key]) {
+                        option.textContent = translations[key];
+                    }
+                });
+                
+                // Update HTML lang attribute
+                document.documentElement.lang = currentLang.code;
+                
+                // REMOVED THE RTL STYLING - Keep everything LTR (left-to-right)
+                // We're only changing the text content, not the layout direction
+                
+                // Reset any previously applied RTL styles
+                document.body.style.direction = 'ltr';
+                document.body.style.textAlign = 'left';
+                
+                // Reset any flex direction changes
+                document.querySelectorAll('.location-details p, .contact-item').forEach(el => {
+                    el.style.flexDirection = 'row';
+                    el.style.justifyContent = 'flex-start';
+                });
+                
+                // Reset form label alignment
+                document.querySelectorAll('.form-group label').forEach(label => {
+                    label.style.textAlign = 'left';
+                });
+            },
+            
+            saveLanguage() {
+                const currentLang = this.languages[this.currentLang];
+                localStorage.setItem('tera-language', currentLang.code);
+            }
+        };
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            languageSwitcher.init();
+            
+            // Clear typing animation state if exists
+            sessionStorage.removeItem('typingAnimationDone');
         });
 
     </script>
