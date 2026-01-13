@@ -1330,6 +1330,36 @@
         font-size: 1rem;
       }
     }
+
+    /* Style for select dropdown options */
+    select option {
+    color: #000000 !important; /* Black text */
+    background-color: #ffffff !important; /* White background */
+    }
+
+    select.form-control option {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    }
+
+    #location option {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    }
+
+    /* Make sure the dropdown itself looks good on the dark theme */
+    select {
+    color: var(--light) !important; /* Light text for the selected value */
+    background-color: rgba(245, 245, 220, 0.05) !important;
+    }
+
+    select option:hover,
+    select option:focus,
+    select option:active {
+    background-color: var(--primary) !important;
+    color: var(--secondary) !important;
+    }
+
   </style>
 </head>
 
