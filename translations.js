@@ -3,171 +3,291 @@ const languageSwitcher = {
     currentLang: 0,
     languages: [
         { code: 'en', name: 'English', flag: './assets/flags/uk.svg' },
-        { code: 'ar', name: 'Arabic', flag: './assets/flags/tn.svg' },
-        { code: 'fr', name: 'French', flag: './assets/flags/fr.svg' },
-        { code: 'de', name: 'German', flag: './assets/flags/de.svg' }
+        { code: 'ar', name: 'Arabic',  flag: './assets/flags/tn.svg' },
+        { code: 'fr', name: 'French',  flag: './assets/flags/fr.svg' },
+        { code: 'de', name: 'German',  flag: './assets/flags/de.svg' }
     ],
-    
-    // Base translations (common for all pages)
+
     translations: {
         en: {
-            // Navigation (common for all pages)
-            'home': 'Home',
-            'products': 'Products',
-            'retailers': 'Retailers',
-            'events': 'Events',
-            'about-us': 'About Us',
-            'locations': 'Locations',
-            'contact': 'Contact',
-            'drinks': 'Drinks',
-            'snacks': 'Snacks',
-            
-            // Footer (common)
+            'home': 'Home', 'products': 'Products', 'retailers': 'Retailers',
+            'events': 'Events', 'about-us': 'About Us', 'locations': 'Locations',
+            'contact': 'Contact', 'drinks': 'Drinks', 'snacks': 'Snacks',
             'copyright': '© 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty'
         },
         ar: {
-            'home': 'الرئيسية',
-            'products': 'المنتجات',
-            'retailers': 'التجار',
-            'events': 'الفعاليات',
-            'about-us': 'من نحن',
-            'locations': 'المواقع',
-            'contact': 'اتصل بنا',
-            'drinks': 'المشروبات',
-            'snacks': 'الوجبات الخفيفة',
+            'home': 'الرئيسية', 'products': 'المنتجات', 'retailers': 'التجار',
+            'events': 'الفعاليات', 'about-us': 'من نحن', 'locations': 'المواقع',
+            'contact': 'اتصل بنا', 'drinks': 'المشروبات', 'snacks': 'الوجبات الخفيفة',
             'copyright': '© 2013 تيرا إنرجي. جميع الحقوق محفوظة. | تونس وفينا | قوة الأسد، قوة الملوك'
         },
         fr: {
-            'home': 'Accueil',
-            'products': 'Produits',
-            'retailers': 'Détaillants',
-            'events': 'Événements',
-            'about-us': 'À propos',
-            'locations': 'Emplacements',
-            'contact': 'Contact',
-            'drinks': 'Boissons',
-            'snacks': 'Collations',
+            'home': 'Accueil', 'products': 'Produits', 'retailers': 'Détaillants',
+            'events': 'Événements', 'about-us': 'À propos', 'locations': 'Emplacements',
+            'contact': 'Contact', 'drinks': 'Boissons', 'snacks': 'Collations',
             'copyright': '© 2013 Tera Energy. Tous droits réservés. | Tunis & Vienne | Force du Lion, Puissance Royale'
         },
         de: {
-            'home': 'Startseite',
-            'products': 'Produkte',
-            'retailers': 'Händler',
-            'events': 'Events',
-            'about-us': 'Über Uns',
-            'locations': 'Standorte',
-            'contact': 'Kontakt',
-            'drinks': 'Getränke',
-            'snacks': 'Snacks',
+            'home': 'Startseite', 'products': 'Produkte', 'retailers': 'Händler',
+            'events': 'Events', 'about-us': 'Über Uns', 'locations': 'Standorte',
+            'contact': 'Kontakt', 'drinks': 'Getränke', 'snacks': 'Snacks',
             'copyright': '© 2013 Tera Energy. Alle Rechte vorbehalten. | Tunis & Wien | Stärke des Löwen, Kraft der Königlichkeit'
         }
     },
-    
-    // Initialize with page-specific translations
+
     init(pageTranslations = {}) {
-        // Merge page-specific translations with base translations
+        // Merge page-specific translations
         Object.keys(pageTranslations).forEach(lang => {
             if (this.translations[lang]) {
-                this.translations[lang] = {
-                    ...this.translations[lang],
-                    ...pageTranslations[lang]
-                };
+                this.translations[lang] = { ...this.translations[lang], ...pageTranslations[lang] };
             }
         });
-        
-        // Load saved language from localStorage
-        const savedLang = localStorage.getItem('tera-language');
-        if (savedLang) {
-            const langIndex = this.languages.findIndex(lang => lang.code === savedLang);
-            if (langIndex > -1) {
-                this.currentLang = langIndex;
-            }
+
+        // Load saved language
+        const saved = localStorage.getItem('tera-language');
+        if (saved) {
+            const idx = this.languages.findIndex(l => l.code === saved);
+            if (idx > -1) this.currentLang = idx;
         }
-        
+
+        this.injectStyles();
+        this.buildDropdown();
         this.updateButton();
-        this.setupEventListeners();
         this.translatePage();
     },
-    
-    setupEventListeners() {
+
+    injectStyles() {
+        if (document.getElementById('lang-switcher-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'lang-switcher-styles';
+        style.textContent = `
+            .language-switcher { position: relative; }
+
+            .language-btn {
+                background: rgba(37,99,235,0.1);
+                border: 1px solid rgba(37,99,235,0.25);
+                border-radius: 8px;
+                padding: 7px 12px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s ease;
+                color: #f8fafc;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
+
+            .language-btn:hover {
+                background: rgba(37,99,235,0.22);
+                border-color: rgba(37,99,235,0.5);
+            }
+
+            .language-btn .flag-img {
+                width: 22px; height: 16px;
+                object-fit: cover;
+                border-radius: 2px;
+                flex-shrink: 0;
+            }
+
+            .language-btn .lang-chevron {
+                font-size: 0.6rem;
+                transition: transform 0.3s ease;
+                margin-left: 2px;
+                opacity: 0.7;
+            }
+
+            .language-switcher.open .lang-chevron {
+                transform: rotate(180deg);
+            }
+
+            .lang-dropdown {
+                display: none;
+                position: absolute;
+                top: calc(100% + 10px);
+                right: 0;
+                background: rgba(10, 17, 35, 0.98);
+                border: 1px solid rgba(37,99,235,0.25);
+                border-radius: 14px;
+                padding: 8px;
+                min-width: 170px;
+                backdrop-filter: blur(20px);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(37,99,235,0.1);
+                z-index: 3000;
+                animation: langDropIn 0.2s ease-out;
+            }
+
+            @keyframes langDropIn {
+                from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+                to   { opacity: 1; transform: translateY(0) scale(1); }
+            }
+
+            .language-switcher.open .lang-dropdown {
+                display: block;
+            }
+
+            .lang-option {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+                padding: 10px 14px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background 0.2s ease;
+                border: none;
+                background: transparent;
+                width: 100%;
+                color: #94a3b8;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.82rem;
+                font-weight: 600;
+                letter-spacing: 0.3px;
+                text-align: left;
+            }
+
+            .lang-option:hover {
+                background: rgba(37,99,235,0.12);
+                color: #f8fafc;
+            }
+
+            .lang-option.active {
+                background: rgba(37,99,235,0.18);
+                color: #f8fafc;
+            }
+
+            .lang-option .opt-flag {
+                width: 24px; height: 17px;
+                object-fit: cover;
+                border-radius: 3px;
+                flex-shrink: 0;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            }
+
+            .lang-option .opt-check {
+                margin-left: auto;
+                color: #2563eb;
+                font-size: 0.75rem;
+                opacity: 0;
+            }
+
+            .lang-option.active .opt-check {
+                opacity: 1;
+            }
+
+            /* Divider between options */
+            .lang-option + .lang-option {
+                border-top: 1px solid rgba(255,255,255,0.04);
+            }
+        `;
+        document.head.appendChild(style);
+    },
+
+    buildDropdown() {
+        const switcher = document.getElementById('language-switcher');
+        if (!switcher) return;
+
+        // Remove old tooltip if present
+        const oldTooltip = document.getElementById('language-tooltip');
+        if (oldTooltip) oldTooltip.remove();
+
+        // Build dropdown panel
+        const dropdown = document.createElement('div');
+        dropdown.className = 'lang-dropdown';
+        dropdown.id = 'lang-dropdown';
+
+        this.languages.forEach((lang, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'lang-option' + (index === this.currentLang ? ' active' : '');
+            btn.dataset.index = index;
+            btn.innerHTML = `
+                <img src="${lang.flag}" alt="${lang.name}" class="opt-flag">
+                <span>${lang.name}</span>
+                <i class="fas fa-check opt-check"></i>
+            `;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.setLanguage(index);
+                this.closeDropdown();
+            });
+            dropdown.appendChild(btn);
+        });
+
+        switcher.appendChild(dropdown);
+
+        // Toggle on button click
         const btn = document.getElementById('language-btn');
         if (btn) {
-            btn.addEventListener('click', () => {
-                this.nextLanguage();
+            // Remove old click listener by cloning
+            const newBtn = btn.cloneNode(true);
+            btn.parentNode.replaceChild(newBtn, btn);
+
+            // Add chevron icon to button
+            const chevron = document.createElement('i');
+            chevron.className = 'fas fa-chevron-down lang-chevron';
+            newBtn.appendChild(chevron);
+
+            newBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                switcher.classList.toggle('open');
             });
         }
+
+        // Close on outside click
+        document.addEventListener('click', () => this.closeDropdown());
     },
-    
-    nextLanguage() {
-        this.currentLang = (this.currentLang + 1) % this.languages.length;
+
+    closeDropdown() {
+        const switcher = document.getElementById('language-switcher');
+        if (switcher) switcher.classList.remove('open');
+    },
+
+    setLanguage(index) {
+        this.currentLang = index;
         this.updateButton();
+        this.updateDropdownActive();
         this.translatePage();
         this.saveLanguage();
-        
-        // Force reset direction to LTR
-        document.body.style.direction = 'ltr';
-        document.body.style.textAlign = 'left';
     },
-    
+
     updateButton() {
-        const currentLang = this.languages[this.currentLang];
+        const lang = this.languages[this.currentLang];
         const flagImg = document.getElementById('flag-img');
+        if (flagImg) { flagImg.src = lang.flag; flagImg.alt = lang.name; }
+        // Update old current-language span if still present
         const langText = document.getElementById('current-language');
-        
-        if (flagImg) {
-            flagImg.src = currentLang.flag;
-            flagImg.alt = currentLang.name;
-        }
-        
-        if (langText) {
-            langText.textContent = currentLang.name;
-        }
+        if (langText) langText.textContent = lang.name;
     },
-    
+
+    updateDropdownActive() {
+        document.querySelectorAll('.lang-option').forEach((el, i) => {
+            el.classList.toggle('active', i === this.currentLang);
+        });
+    },
+
     translatePage() {
-        const currentLang = this.languages[this.currentLang];
-        const translations = this.translations[currentLang.code];
-        
-        if (!translations) {
-            console.error('No translations found for language:', currentLang.code);
-            return;
-        }
-        
-        // Update all elements with data-translate attribute
-        document.querySelectorAll('[data-translate]').forEach(element => {
-            const key = element.getAttribute('data-translate');
-            if (translations[key]) {
-                // Special handling for different element types
-                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                    // Check if it's a placeholder or value
-                    if (element.hasAttribute('data-translate-type') && 
-                        element.getAttribute('data-translate-type') === 'placeholder') {
-                        element.placeholder = translations[key];
-                    } else {
-                        element.value = translations[key];
-                    }
-                } else if (element.tagName === 'OPTION') {
-                    element.textContent = translations[key];
-                } else {
-                    element.textContent = translations[key];
-                }
+        const lang = this.languages[this.currentLang];
+        const translations = this.translations[lang.code];
+        if (!translations) return;
+
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
+            if (!translations[key]) return;
+            if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') &&
+                el.getAttribute('data-translate-type') === 'placeholder') {
+                el.placeholder = translations[key];
+            } else if (el.tagName === 'OPTION') {
+                el.textContent = translations[key];
+            } else {
+                el.textContent = translations[key];
             }
         });
-        
-        // Also translate select options
-        document.querySelectorAll('select option').forEach(option => {
-            const key = option.getAttribute('data-translate');
-            if (key && translations[key]) {
-                option.textContent = translations[key];
-            }
-        });
-        
-        // Update HTML lang attribute
-        document.documentElement.lang = currentLang.code;
+
+        document.documentElement.lang = lang.code;
     },
-    
+
     saveLanguage() {
-        const currentLang = this.languages[this.currentLang];
-        localStorage.setItem('tera-language', currentLang.code);
+        localStorage.setItem('tera-language', this.languages[this.currentLang].code);
     }
 };

@@ -3381,9 +3381,6 @@
                     <button id="language-btn" class="language-btn">
                         <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
                     </button>
-                    <div class="language-tooltip" id="language-tooltip">
-                        <span id="current-language">English</span>
-                    </div>
                 </div>
                 <button class="mobile-menu-btn">
                     <i class="fas fa-bars"></i>
@@ -5544,117 +5541,174 @@
             },
             
             init() {
-                // Load saved language from localStorage
                 const savedLang = localStorage.getItem('tera-language');
                 if (savedLang) {
-                    const langIndex = this.languages.findIndex(lang => lang.code === savedLang);
-                    if (langIndex > -1) {
-                        this.currentLang = langIndex;
-                    }
+                    const langIndex = this.languages.findIndex(l => l.code === savedLang);
+                    if (langIndex > -1) this.currentLang = langIndex;
                 }
-                
-                // Set up button
+                this.injectStyles();
+                this.buildDropdown();
                 this.updateButton();
-                this.setupEventListeners();
-                
-                // Apply translations
                 this.translatePage();
             },
-            
-            setupEventListeners() {
-                const btn = document.getElementById('language-btn');
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        this.nextLanguage();
+
+            injectStyles() {
+                if (document.getElementById('lang-switcher-styles')) return;
+                const style = document.createElement('style');
+                style.id = 'lang-switcher-styles';
+                style.textContent = `
+                    .language-switcher { position: relative; }
+                    .language-btn {
+                        background: rgba(37,99,235,0.1);
+                        border: 1px solid rgba(37,99,235,0.25);
+                        border-radius: 8px; padding: 7px 12px;
+                        cursor: pointer; display: flex; align-items: center; gap: 8px;
+                        transition: all 0.3s ease; color: #f8fafc;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+                    }
+                    .language-btn:hover { background: rgba(37,99,235,0.22); border-color: rgba(37,99,235,0.5); }
+                    .language-btn .flag-img { width: 22px; height: 16px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+                    .language-btn .lang-chevron { font-size: 0.6rem; transition: transform 0.3s ease; margin-left: 2px; opacity: 0.7; }
+                    .language-switcher.open .lang-chevron { transform: rotate(180deg); }
+                    .lang-dropdown {
+                        display: none; position: absolute;
+                        top: calc(100% + 10px); right: 0;
+                        background: rgba(10,17,35,0.98);
+                        border: 1px solid rgba(37,99,235,0.25);
+                        border-radius: 14px; padding: 8px; min-width: 170px;
+                        backdrop-filter: blur(20px);
+                        box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(37,99,235,0.1);
+                        z-index: 3000; animation: langDropIn 0.2s ease-out;
+                    }
+                    @keyframes langDropIn {
+                        from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+                        to   { opacity: 1; transform: translateY(0) scale(1); }
+                    }
+                    .language-switcher.open .lang-dropdown { display: block; }
+                    .lang-option {
+                        display: flex; align-items: center; gap: 11px;
+                        padding: 10px 14px; border-radius: 8px; cursor: pointer;
+                        transition: background 0.2s ease; border: none;
+                        background: transparent; width: 100%; color: #94a3b8;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 0.82rem; font-weight: 600; letter-spacing: 0.3px; text-align: left;
+                    }
+                    .lang-option:hover { background: rgba(37,99,235,0.12); color: #f8fafc; }
+                    .lang-option.active { background: rgba(37,99,235,0.18); color: #f8fafc; }
+                    .lang-option .opt-flag { width: 24px; height: 17px; object-fit: cover; border-radius: 3px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+                    .lang-option .opt-check { margin-left: auto; color: #2563eb; font-size: 0.75rem; opacity: 0; }
+                    .lang-option.active .opt-check { opacity: 1; }
+                    .lang-option + .lang-option { border-top: 1px solid rgba(255,255,255,0.04); }
+                `;
+                document.head.appendChild(style);
+            },
+
+            buildDropdown() {
+                const switcher = document.getElementById('language-switcher');
+                if (!switcher) return;
+                const oldTooltip = document.getElementById('language-tooltip');
+                if (oldTooltip) oldTooltip.remove();
+
+                const dropdown = document.createElement('div');
+                dropdown.className = 'lang-dropdown';
+                dropdown.id = 'lang-dropdown';
+
+                this.languages.forEach((lang, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'lang-option' + (index === this.currentLang ? ' active' : '');
+                    btn.dataset.index = index;
+                    btn.innerHTML = `<img src="${lang.flag}" alt="${lang.name}" class="opt-flag"><span>${lang.name}</span><i class="fas fa-check opt-check"></i>`;
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.setLanguage(index);
+                        this.closeDropdown();
+                    });
+                    dropdown.appendChild(btn);
+                });
+
+                switcher.appendChild(dropdown);
+
+                const oldBtn = document.getElementById('language-btn');
+                if (oldBtn) {
+                    const newBtn = oldBtn.cloneNode(true);
+                    oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+                    const chevron = document.createElement('i');
+                    chevron.className = 'fas fa-chevron-down lang-chevron';
+                    newBtn.appendChild(chevron);
+                    newBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        switcher.classList.toggle('open');
                     });
                 }
+
+                document.addEventListener('click', () => this.closeDropdown());
             },
-            
-            nextLanguage() {
-                this.currentLang = (this.currentLang + 1) % this.languages.length;
+
+            closeDropdown() {
+                const switcher = document.getElementById('language-switcher');
+                if (switcher) switcher.classList.remove('open');
+            },
+
+            setLanguage(index) {
+                this.currentLang = index;
                 this.updateButton();
+                this.updateDropdownActive();
                 this.translatePage();
                 this.saveLanguage();
             },
-            
+
             updateButton() {
-                const currentLang = this.languages[this.currentLang];
+                const lang = this.languages[this.currentLang];
                 const flagImg = document.getElementById('flag-img');
-                const langText = document.getElementById('current-language');
-                
-                if (flagImg) {
-                    flagImg.src = currentLang.flag;
-                    flagImg.alt = currentLang.name;
-                }
-                
-                if (langText) {
-                    langText.textContent = currentLang.name;
-                }
+                if (flagImg) { flagImg.src = lang.flag; flagImg.alt = lang.name; }
             },
-            
+
+            updateDropdownActive() {
+                document.querySelectorAll('.lang-option').forEach((el, i) => {
+                    el.classList.toggle('active', i === this.currentLang);
+                });
+            },
+
             translatePage() {
                 const currentLang = this.languages[this.currentLang];
                 const translations = this.translations[currentLang.code];
-                
-                if (!translations) {
-                    console.error('No translations found for language:', currentLang.code);
-                    return;
-                }
-                
-                // Update all elements with data-translate attribute
+                if (!translations) return;
+
                 document.querySelectorAll('[data-translate]').forEach(element => {
                     const key = element.getAttribute('data-translate');
-                    if (translations[key]) {
-                        // Special handling for different element types
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            // Check if it's a placeholder or value
-                            if (element.hasAttribute('data-translate-type') && 
-                                element.getAttribute('data-translate-type') === 'placeholder') {
-                                element.placeholder = translations[key];
-                            } else {
-                                element.value = translations[key];
-                            }
-                        } else if (element.tagName === 'OPTION') {
-                            element.textContent = translations[key];
-                        } else {
-                            element.textContent = translations[key];
-                        }
+                    if (!translations[key]) return;
+                    if ((element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') &&
+                        element.getAttribute('data-translate-type') === 'placeholder') {
+                        element.placeholder = translations[key];
+                    } else if (element.tagName === 'OPTION') {
+                        element.textContent = translations[key];
+                    } else {
+                        element.textContent = translations[key];
                     }
                 });
-                
-                // Also translate select options
+
                 document.querySelectorAll('select option').forEach(option => {
                     const key = option.getAttribute('data-translate');
-                    if (key && translations[key]) {
-                        option.textContent = translations[key];
-                    }
+                    if (key && translations[key]) option.textContent = translations[key];
                 });
-                
-                // Update HTML lang attribute
+
                 document.documentElement.lang = currentLang.code;
-                
-                // REMOVED THE RTL STYLING - Keep everything LTR (left-to-right)
-                // We're only changing the text content, not the layout direction
-                
-                // Reset any previously applied RTL styles
                 document.body.style.direction = 'ltr';
                 document.body.style.textAlign = 'left';
-                
-                // Reset any flex direction changes
+
                 document.querySelectorAll('.location-details p, .contact-item').forEach(el => {
                     el.style.flexDirection = 'row';
                     el.style.justifyContent = 'flex-start';
                 });
-                
-                // Reset form label alignment
+
                 document.querySelectorAll('.form-group label').forEach(label => {
                     label.style.textAlign = 'left';
                 });
             },
-            
+
             saveLanguage() {
-                const currentLang = this.languages[this.currentLang];
-                localStorage.setItem('tera-language', currentLang.code);
+                localStorage.setItem('tera-language', this.languages[this.currentLang].code);
             }
         };
 

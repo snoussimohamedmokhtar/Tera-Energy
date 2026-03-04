@@ -390,31 +390,6 @@
       transform: scale(1.1);
     }
 
-    .language-tooltip {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--light);
-      padding: 5px 10px;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(37, 99, 235, 0.2);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-    }
-
-    .language-btn:hover + .language-tooltip {
-      opacity: 1;
-      visibility: visible;
-      bottom: -35px;
-    }
-
     /* Mobile menu button */
     .mobile-menu-btn {
       display: none;
@@ -1396,12 +1371,9 @@
 
         <!-- Language Switcher (kept, simple) -->
         <div id="language-switcher" class="language-switcher">
-          <button id="language-btn" class="language-btn" aria-label="Change language">
-            <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
+          <button id="language-btn" class="language-btn">
+              <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
           </button>
-          <div class="language-tooltip" id="language-tooltip">
-            <span id="current-language">English</span>
-          </div>
         </div>
 
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
@@ -1980,83 +1952,144 @@
         }
     };
 
-    const languageBtn = document.getElementById("language-btn");
-    const flagImg = document.getElementById("flag-img");
-    const currentLanguage = document.getElementById("current-language");
-
-    // ✅ Load saved language from localStorage
-    function loadSavedLanguage() {
-        const savedLangCode = localStorage.getItem('tera-language');
-        if (savedLangCode) {
-            const savedIndex = languageSwitcher.languages.findIndex(lang => lang.code === savedLangCode);
-            if (savedIndex > -1) {
-                languageSwitcher.currentLang = savedIndex;
-                console.log("Loaded saved language:", savedLangCode);
-                return true;
+    // ========== DROPDOWN LANGUAGE SWITCHER ==========
+    function injectLangStyles() {
+        if (document.getElementById('lang-switcher-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'lang-switcher-styles';
+        style.textContent = `
+            .language-switcher { position: relative; }
+            .language-btn {
+                background: rgba(37,99,235,0.1);
+                border: 1px solid rgba(37,99,235,0.25);
+                border-radius: 8px; padding: 7px 12px;
+                cursor: pointer; display: flex; align-items: center; gap: 8px;
+                transition: all 0.3s ease; color: #f8fafc;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+                width: auto; height: auto;
             }
+            .language-btn:hover { background: rgba(37,99,235,0.22); border-color: rgba(37,99,235,0.5); transform: none; }
+            .language-btn .flag-img { width: 22px; height: 16px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+            .lang-chevron { font-size: 0.6rem; transition: transform 0.3s ease; margin-left: 2px; opacity: 0.7; }
+            .language-switcher.open .lang-chevron { transform: rotate(180deg); }
+            .lang-dropdown {
+                display: none; position: absolute;
+                top: calc(100% + 10px); right: 0;
+                background: rgba(10,17,35,0.98);
+                border: 1px solid rgba(37,99,235,0.25);
+                border-radius: 14px; padding: 8px; min-width: 170px;
+                backdrop-filter: blur(20px);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 20px rgba(37,99,235,0.1);
+                z-index: 3000; animation: langDropIn 0.2s ease-out;
+            }
+            @keyframes langDropIn {
+                from { opacity: 0; transform: translateY(-8px) scale(0.97); }
+                to   { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            .language-switcher.open .lang-dropdown { display: block; }
+            .lang-option {
+                display: flex; align-items: center; gap: 11px;
+                padding: 10px 14px; border-radius: 8px; cursor: pointer;
+                transition: background 0.2s ease; border: none;
+                background: transparent; width: 100%; color: #94a3b8;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.82rem; font-weight: 600; text-align: left;
+            }
+            .lang-option:hover { background: rgba(37,99,235,0.12); color: #f8fafc; }
+            .lang-option.active { background: rgba(37,99,235,0.18); color: #f8fafc; }
+            .lang-option .opt-flag { width: 24px; height: 17px; object-fit: cover; border-radius: 3px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+            .lang-option .opt-check { margin-left: auto; color: #2563eb; font-size: 0.75rem; opacity: 0; }
+            .lang-option.active .opt-check { opacity: 1; }
+            .lang-option + .lang-option { border-top: 1px solid rgba(255,255,255,0.04); }
+        `;
+        document.head.appendChild(style);
+    }
+
+    function buildLangDropdown() {
+        const switcher = document.getElementById('language-switcher');
+        if (!switcher) return;
+
+        // Build dropdown panel
+        const dropdown = document.createElement('div');
+        dropdown.className = 'lang-dropdown';
+        dropdown.id = 'lang-dropdown';
+
+        languageSwitcher.languages.forEach((lang, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'lang-option' + (index === languageSwitcher.currentLang ? ' active' : '');
+            btn.innerHTML = `<img src="${lang.flag}" alt="${lang.name}" class="opt-flag"><span>${lang.name}</span><i class="fas fa-check opt-check"></i>`;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                setLang(index);
+                switcher.classList.remove('open');
+            });
+            dropdown.appendChild(btn);
+        });
+
+        switcher.appendChild(dropdown);
+
+        // Replace button to clear old listeners, add chevron
+        const oldBtn = document.getElementById('language-btn');
+        if (oldBtn) {
+            const newBtn = oldBtn.cloneNode(true);
+            oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+            const chevron = document.createElement('i');
+            chevron.className = 'fas fa-chevron-down lang-chevron';
+            newBtn.appendChild(chevron);
+            newBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                switcher.classList.toggle('open');
+            });
         }
-        return false;
+
+        document.addEventListener('click', () => switcher.classList.remove('open'));
+    }
+
+    function updateLangButton() {
+        const lang = languageSwitcher.languages[languageSwitcher.currentLang];
+        const flagImg = document.getElementById('flag-img');
+        if (flagImg) { flagImg.src = lang.flag; flagImg.alt = lang.name; }
+    }
+
+    function updateLangDropdownActive() {
+        document.querySelectorAll('.lang-option').forEach((el, i) => {
+            el.classList.toggle('active', i === languageSwitcher.currentLang);
+        });
     }
 
     function applyTranslations(langCode) {
         const dict = languageSwitcher.translations[langCode] || {};
-        document.querySelectorAll("[data-translate]").forEach(el => {
-            const key = el.getAttribute("data-translate");
+        document.querySelectorAll('[data-translate]').forEach(el => {
+            const key = el.getAttribute('data-translate');
             if (dict[key]) el.textContent = dict[key];
         });
-
         document.documentElement.lang = langCode;
-        document.documentElement.dir = "ltr"; // Force LTR for all languages
-        document.body.classList.remove("rtl");
+        document.documentElement.dir = 'ltr';
     }
 
-    function setLanguageByIndex(idx) {
-        languageSwitcher.currentLang = idx % languageSwitcher.languages.length;
-        const lang = languageSwitcher.languages[languageSwitcher.currentLang];
-        
-        flagImg.src = lang.flag;
-        flagImg.alt = lang.name;
-        currentLanguage.textContent = lang.name;
-        applyTranslations(lang.code);
-        
-        // ✅ Save selected language to localStorage
-        localStorage.setItem('tera-language', lang.code);
-        console.log("Saved language to localStorage:", lang.code);
+    function setLang(index) {
+        languageSwitcher.currentLang = index;
+        updateLangButton();
+        updateLangDropdownActive();
+        applyTranslations(languageSwitcher.languages[index].code);
+        localStorage.setItem('tera-language', languageSwitcher.languages[index].code);
     }
 
-    // ✅ Initialize language - load saved or default to English
-    function initializeLanguage() {
-        const hasSaved = loadSavedLanguage();
-        
-        if (!hasSaved) {
-            // Default to English if no saved language
-            languageSwitcher.currentLang = 0;
-            localStorage.setItem('tera-language', 'en');
+    function initLang() {
+        const saved = localStorage.getItem('tera-language');
+        if (saved) {
+            const idx = languageSwitcher.languages.findIndex(l => l.code === saved);
+            if (idx > -1) languageSwitcher.currentLang = idx;
         }
-        
-        // Apply the language
-        setLanguageByIndex(languageSwitcher.currentLang);
+        injectLangStyles();
+        buildLangDropdown();
+        updateLangButton();
+        applyTranslations(languageSwitcher.languages[languageSwitcher.currentLang].code);
     }
 
-    // Button click to switch language
-    languageBtn.addEventListener("click", () => {
-        setLanguageByIndex(languageSwitcher.currentLang + 1);
-    });
-
-    // ✅ Initialize when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        // Small delay to ensure DOM is fully ready
-        setTimeout(() => {
-            initializeLanguage();
-        }, 100);
-    });
-
-    // ✅ Also initialize if page is already loaded (for faster pages)
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeLanguage);
-    } else {
-        initializeLanguage();
-    }
+    document.addEventListener('DOMContentLoaded', initLang);
+    if (document.readyState !== 'loading') initLang();
 
     /**********************************************************************
      * Smooth scroll for internal anchors
