@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tera Energy - Events & Stories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@400;700&family=Alumni+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="mini-logo.WebP">
+    <style>
+        /* ========== BASE (same as drinks/biscuits) ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #f5f5dc;
+            --accent: #3b82f6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #334155;
+            --gold: #fbbf24;
+            --neon-glow: 0 0 10px rgba(37, 99, 235, 0.5), 0 0 20px rgba(37, 99, 235, 0.3);
+            --section-bg: rgba(245, 245, 220, 0.03);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; font-weight: 700; }
+
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        section { padding: 100px 0; }
+
+        .section-title { text-align: center; margin-bottom: 60px; position: relative; }
+
+        .section-title h2 {
+            font-size: 3rem;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            bottom: -15px; left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+        }
+
+        /* ========== HEADER & NAVIGATION ========== */
+        header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; z-index: 2000;
+            padding: 8px 0;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            min-height: 60px;
+        }
+
+        .logo {
+            display: flex; align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 10; flex-shrink: 0; gap: 15px;
+        }
+
+        .logo:hover { transform: scale(1.05); }
+
+        .logo-image-container {
+            display: inline-block; position: relative;
+            max-width: 70px; height: 70px;
+            filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .logo-image-container:hover { filter: drop-shadow(0 0 20px rgba(37, 99, 235, 0.6)); }
+
+        .logo-image {
+            height: 100%; width: auto;
+            max-width: 70px; max-height: 70px;
+            display: block; object-fit: contain;
+            transition: all 0.3s ease;
+        }
+
+        .logo-text-container { display: flex; align-items: center; }
+
+        .logo-text {
+            font-family: 'Alumni Sans', sans-serif;
+            font-weight: 900; font-style: italic;
+            font-size: 2.4rem; color: #ec1c22;
+            text-transform: uppercase; letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(236,28,34,0.3);
+            margin: 0; padding: 0; line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex; list-style: none;
+            margin: 0; padding: 0;
+            align-items: center; justify-content: flex-end;
+            gap: 40px;
+        }
+
+        .nav-links li { margin: 0; }
+
+        .nav-links a {
+            color: var(--light); text-decoration: none;
+            font-weight: 600; text-transform: uppercase;
+            font-size: 0.9rem; letter-spacing: 1px;
+            transition: all 0.3s ease; position: relative;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+
+        .nav-links a::after {
+            content: ''; position: absolute;
+            width: 0; height: 2px;
+            background: var(--primary);
+            left: 0; bottom: -5px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .language-switcher { position: relative; }
+
+        .language-btn {
+            background: rgba(37,99,235,0.1);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 8px; padding: 8px 12px;
+            cursor: pointer; display: flex; align-items: center; gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover { background: rgba(37,99,235,0.2); }
+
+        .flag-img { width: 24px; height: 18px; object-fit: cover; border-radius: 2px; }
+
+        .language-tooltip {
+            position: absolute; top: 50%;
+            left: calc(100% + 10px);
+            transform: translateY(-50%);
+            background: rgba(15,23,42,0.95);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 6px; padding: 4px 10px;
+            font-size: 0.8rem; white-space: nowrap;
+            pointer-events: none; opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .language-switcher:hover .language-tooltip { opacity: 1; }
+
+        .mobile-menu-btn {
+            display: none; font-size: 1.5rem;
+            background: none; border: none;
+            color: var(--light); cursor: pointer; z-index: 10;
+        }
+
+        .dropdown { position: relative; }
+
+        .dropdown-content {
+            display: none; position: absolute;
+            top: calc(100% + 10px); left: 0;
+            background: rgba(15,23,42,0.98);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 10px; min-width: 150px;
+            padding: 8px; backdrop-filter: blur(20px);
+            z-index: 100;
+        }
+
+        .dropdown-content::before {
+            content: ''; position: absolute;
+            width: 100%; height: 10px; top: -10px; left: 0;
+        }
+
+        .dropdown-content a { display: block; padding: 10px 14px; border-radius: 6px; color: var(--light); }
+        .dropdown-content a:hover { background: rgba(37,99,235,0.15); color: var(--primary); }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropbtn i { transition: transform 0.3s ease; }
+        .dropdown:hover .dropbtn i { transform: rotate(180deg); }
+
+        /* ========== EVENTS HERO ========== */
+        .events-hero {
+            min-height: 70vh;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden; padding-top: 80px;
+            background: linear-gradient(135deg,
+                rgba(15, 23, 42, 0.98) 0%,
+                rgba(37, 99, 235, 0.6) 50%,
+                rgba(15, 23, 42, 0.98) 100%);
+        }
+
+        .events-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(37,99,235,0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(251,191,36,0.1) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .events-hero::after {
+            content: 'EVENTS';
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(80px, 15vw, 200px); font-weight: 900;
+            color: rgba(37,99,235,0.04); letter-spacing: 10px;
+            white-space: nowrap; pointer-events: none; user-select: none;
+        }
+
+        .events-hero-content {
+            max-width: 800px; text-align: center;
+            z-index: 2; position: relative;
+            padding: 50px 40px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .events-hero-content h1 {
+            font-size: 3.5rem; line-height: 1.1;
+            margin-bottom: 20px; text-transform: uppercase;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            position: relative; display: inline-block;
+        }
+
+        .events-hero-content h1::after {
+            content: ''; position: absolute;
+            bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            border-radius: 2px;
+        }
+
+        .events-hero-content p {
+            font-size: 1.1rem; margin-bottom: 10px;
+            color: var(--secondary);
+            max-width: 600px; margin-left: auto; margin-right: auto;
+            line-height: 1.6; margin-top: 20px;
+        }
+
+        .hero-stats {
+            display: flex; justify-content: center;
+            gap: 40px; flex-wrap: wrap;
+            margin-top: 30px; padding-top: 30px;
+            border-top: 1px solid rgba(37,99,235,0.2);
+        }
+
+        .stat-item { text-align: center; }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif; font-size: 2rem;
+            font-weight: 900; color: var(--primary);
+            display: block; line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.72rem; letter-spacing: 2px;
+            color: #94a3b8; text-transform: uppercase;
+            margin-top: 4px; display: block;
+        }
+
+        /* ========== FILTERS BAR ========== */
+        .filters-section {
+            background: rgba(15,23,42,0.97);
+            border-bottom: 1px solid rgba(37,99,235,0.1);
+            padding: 20px 0;
+            position: sticky; top: 76px; z-index: 100;
+            backdrop-filter: blur(20px);
+        }
+
+        .filters-inner {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            gap: 16px; flex-wrap: wrap;
+        }
+
+        .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .filter-tab {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 9px 20px; border-radius: 50px;
+            border: 1px solid rgba(37,99,235,0.25);
+            background: transparent; color: #94a3b8;
+            font-size: 0.8rem; font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover { color: var(--light); border-color: rgba(37,99,235,0.5); background: rgba(37,99,235,0.08); }
+
+        .filter-tab.active {
+            background: var(--primary); border-color: var(--primary);
+            color: white; box-shadow: 0 0 20px rgba(37,99,235,0.4);
+        }
+
+        .filter-tab .count {
+            background: rgba(255,255,255,0.2); border-radius: 50px;
+            padding: 1px 8px; font-size: 0.68rem;
+        }
+
+        .search-box {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 50px; padding: 10px 20px;
+            min-width: 230px;
+        }
+
+        .search-box i { color: #94a3b8; font-size: 0.9rem; }
+
+        .search-box input {
+            background: none; border: none; outline: none;
+            color: var(--light);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem; width: 100%;
+        }
+
+        .search-box input::placeholder { color: #94a3b8; }
+
+        /* ========== EVENTS GRID ========== */
+        .events-section { padding: 60px 0 100px; }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        /* ========== EVENT CARD ========== */
+        .event-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(37,99,235,0.15);
+            border-radius: 20px; overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.4s ease, border-color 0.3s ease;
+            display: none; flex-direction: column;
+            backdrop-filter: blur(10px);
+        }
+
+        .event-card.visible { display: flex; }
+
+        .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), var(--neon-glow);
+            border-color: rgba(37,99,235,0.4);
+        }
+
+        .event-card.featured { grid-column: span 2; flex-direction: row; }
+        .event-card.featured .card-media { width: 50%; padding-top: 0; min-height: 320px; flex-shrink: 0; }
+        .event-card.featured .card-body { padding: 36px; justify-content: center; }
+        .event-card.featured .card-title { font-size: 1.4rem; }
+
+        .card-media {
+            position: relative; width: 100%; padding-top: 58%;
+            overflow: hidden; background: var(--dark); flex-shrink: 0;
+        }
+
+        .card-media img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .event-card:hover .card-media img { transform: scale(1.06); }
+
+        .card-media-placeholder {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 4rem; color: rgba(37,99,235,0.2);
+        }
+
+        .card-video-thumb { position: absolute; inset: 0; cursor: pointer; }
+
+        .play-btn-overlay {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.3); transition: background 0.3s ease;
+        }
+
+        .card-video-thumb:hover .play-btn-overlay { background: rgba(0,0,0,0.5); }
+
+        .play-circle {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: rgba(37,99,235,0.85);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: white;
+            box-shadow: 0 0 30px rgba(37,99,235,0.6);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-video-thumb:hover .play-circle { transform: scale(1.1); box-shadow: 0 0 50px rgba(37,99,235,0.9); }
+        .play-circle i { margin-left: 4px; }
+
+        .source-badge {
+            position: absolute; top: 14px; left: 14px;
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 5px 12px; border-radius: 50px;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .source-badge.instagram { background: rgba(225,48,108,0.85); color: white; }
+        .source-badge.facebook  { background: rgba(24,119,242,0.85); color: white; }
+        .source-badge.youtube   { background: rgba(255,0,0,0.85); color: white; }
+        .source-badge.event     { background: rgba(251,191,36,0.9); color: var(--dark); }
+
+        .featured-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: linear-gradient(90deg, var(--gold), #f59e0b);
+            color: var(--dark); font-size: 0.65rem;
+            font-family: 'Orbitron', sans-serif; font-weight: 700;
+            letter-spacing: 2px; padding: 4px 12px;
+            border-radius: 50px; margin-bottom: 16px;
+        }
+
+        .card-body { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+
+        .card-meta {
+            display: flex; align-items: center;
+            justify-content: space-between; margin-bottom: 12px;
+        }
+
+        .card-date, .card-likes {
+            font-size: 0.72rem; color: #94a3b8;
+            display: flex; align-items: center; gap: 5px;
+        }
+
+        .card-date i { color: var(--primary); }
+        .card-likes i { color: #f43f5e; }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif; font-size: 1rem;
+            font-weight: 700; color: var(--light);
+            margin-bottom: 10px; line-height: 1.4; letter-spacing: 0.5px;
+        }
+
+        .card-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.65; margin-bottom: 18px; flex: 1; }
+
+        .card-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+
+        .tag {
+            font-size: 0.7rem; font-weight: 600;
+            padding: 3px 10px; border-radius: 50px;
+            border: 1px solid rgba(37,99,235,0.3);
+            color: var(--accent); background: rgba(37,99,235,0.08);
+            cursor: pointer; transition: all 0.2s ease;
+        }
+
+        .tag:hover { background: rgba(37,99,235,0.2); border-color: var(--primary); }
+        .tag.gold { border-color: rgba(251,191,36,0.35); color: var(--gold); background: rgba(251,191,36,0.08); }
+
+        .card-action {
+            display: flex; align-items: center; gap: 10px;
+            padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-view {
+            flex: 1; text-align: center;
+            padding: 10px 20px; background: rgba(37,99,235,0.1);
+            border: 1px solid rgba(37,99,235,0.3); border-radius: 50px;
+            color: var(--accent); font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 1px; text-decoration: none; text-transform: uppercase;
+            transition: all 0.3s ease; cursor: pointer;
+        }
+
+        .btn-view:hover { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 5px 15px rgba(37,99,235,0.4); }
+
+        .btn-share {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
+            color: #94a3b8; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 0.85rem; text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-share:hover { color: var(--primary); background: rgba(37,99,235,0.15); }
+
+        .no-results { grid-column: 1/-1; text-align: center; padding: 80px 20px; display: none; }
+        .no-results.show { display: block; }
+        .no-results i { font-size: 3rem; color: rgba(37,99,235,0.2); margin-bottom: 20px; display: block; }
+        .no-results h3 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #94a3b8; }
+        .no-results p { margin-top: 10px; }
+
+        .load-more-wrap { text-align: center; margin-top: 50px; }
+
+        /* ========== VIDEO MODAL ========== */
+        .video-modal {
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+            align-items: center; justify-content: center; padding: 20px;
+        }
+
+        .video-modal.open { display: flex; }
+
+        .modal-inner {
+            position: relative; width: 100%; max-width: 900px;
+            background: var(--dark); border-radius: 20px;
+            border: 1px solid rgba(37,99,235,0.2); overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8), var(--neon-glow);
+        }
+
+        .modal-close {
+            position: absolute; top: 16px; right: 16px; z-index: 10;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15);
+            color: white; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover { background: rgba(37,99,235,0.7); }
+        .modal-video-wrap { position: relative; padding-top: 56.25%; }
+        .modal-video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background-color: var(--darker);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(37,99,235,0.1);
+            position: relative; overflow: hidden;
+        }
+
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+            animation: pulse 3s infinite;
+        }
+
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
+        .footer-logo { display: flex; align-items: center; }
+        .footer-logo-container { display: flex; align-items: center; gap: 20px; }
+
+        .footer-logo-image {
+            height: 80px; width: auto; max-width: 80px;
+            filter: drop-shadow(0 0 10px rgba(37,99,235,0.3));
+            transition: all 0.3s ease;
+        }
+
+        .footer-logo-text {
+            font-family: 'Alumni Sans', sans-serif; font-weight: 900; font-style: italic;
+            font-size: 3rem; color: #ec1c22; text-transform: uppercase; letter-spacing: 3px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.6), 0 0 15px rgba(236,28,34,0.4);
+            margin: 0; padding: 0; line-height: 1;
+        }
+
+        .social-links { display: flex; }
+
+        .social-links a {
+            display: flex; align-items: center; justify-content: center;
+            width: 45px; height: 45px; background-color: rgba(37,99,235,0.1);
+            border-radius: 50%; margin-left: 15px; color: var(--light);
+            font-size: 1.2rem; transition: all 0.3s ease; text-decoration: none;
+        }
+
+        .social-links a:hover { color: var(--secondary); transform: translateY(-5px) rotate(360deg); background-color: var(--primary); }
+
+        .copyright {
+            text-align: center; padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #94a3b8; font-size: 0.9rem;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 992px) {
+            .event-card.featured { grid-column: span 1; flex-direction: column; }
+            .event-card.featured .card-media { width: 100%; padding-top: 58%; min-height: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .events-grid { grid-template-columns: 1fr; }
+            .events-hero-content { padding: 30px 20px; }
+            .events-hero-content h1 { font-size: 2.2rem; }
+            .hero-stats { gap: 20px; }
+            .filters-inner { flex-direction: column; align-items: flex-start; }
+            .search-box { width: 100%; }
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                display: none; position: absolute;
+                top: 76px; left: 0; width: 100%;
+                flex-direction: column;
+                background: rgba(15,23,42,0.98);
+                padding: 20px; border-bottom: 1px solid rgba(37,99,235,0.1);
+                gap: 10px;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display: block; padding: 10px 0; }
+            .dropdown-content { position: static; border: none; background: transparent; padding: 0 0 0 16px; display: none; }
+            .dropdown.active .dropdown-content { display: block; }
+            .footer-content { flex-direction: column; text-align: center; gap: 20px; }
+            .footer-logo-image { height: 60px; max-width: 60px; }
+            .footer-logo-text { font-size: 2rem; letter-spacing: 2px; }
+        }
+
+        @media (max-width: 480px) {
+            .section-title h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-image-container">
+                    <img src="logo.WebP" alt="Tera Energy Logo" class="logo-image" style="background-color: transparent;">
+                </div>
+                <div class="logo-text-container">
+                    <h1 class="logo-text">TERA ENERGY</h1>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-translate="home">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" data-translate="products">Products <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="drinks.html" data-translate="drinks">Drinks</a>
+                        <a href="biscuits.html" data-translate="snacks">Snacks</a>
+                    </div>
+                </li>
+                <li><a href="retailers.html" data-translate="retailers">Retailers</a></li>
+                <li><a href="events.html" class="active" data-translate="events">Events</a></li>
+                <li><a href="index.html#contact" data-translate="contact">Contact</a></li>
+                <li><a href="index.html#logo-display" data-translate="about-us">About Us</a></li>
+            </ul>
+            <div id="language-switcher" class="language-switcher">
+                <button id="language-btn" class="language-btn">
+                    <img id="flag-img" src="./assets/flags/uk.svg" alt="English" class="flag-img">
+                </button>
+                <div class="language-tooltip" id="language-tooltip">
+                    <span id="current-language">English</span>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="events-hero">
+    <div class="container">
+        <div class="events-hero-content">
+            <h1 data-translate="events-hero-title">TERA EVENTS</h1>
+            <p data-translate="events-hero-description">Social posts, event recaps, exclusive videos — everything happening in the world of Tera Energy.</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="countPosts">0</span>
+                    <span class="stat-label" data-translate="events-stat-posts">Posts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="countEvents">0</span>
+                    <span class="stat-label" data-translate="events-stat-events">Events</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="countVideos">0</span>
+                    <span class="stat-label" data-translate="events-stat-videos">Videos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="countCountries">12</span>
+                    <span class="stat-label" data-translate="events-stat-countries">Countries</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FILTERS ===== -->
+<div class="filters-section">
+    <div class="container">
+        <div class="filters-inner">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-th"></i> <span data-translate="events-filter-all">All</span> <span class="count" id="countAll">0</span>
+                </button>
+                <button class="filter-tab" data-filter="instagram">
+                    <i class="fab fa-instagram"></i> Instagram <span class="count" id="countIG">0</span>
+                </button>
+                <button class="filter-tab" data-filter="facebook">
+                    <i class="fab fa-facebook"></i> Facebook <span class="count" id="countFB">0</span>
+                </button>
+                <button class="filter-tab" data-filter="youtube">
+                    <i class="fab fa-youtube"></i> <span data-translate="events-filter-videos">Videos</span> <span class="count" id="countYT">0</span>
+                </button>
+                <button class="filter-tab" data-filter="event">
+                    <i class="fas fa-star"></i> <span data-translate="events-filter-events">Events</span> <span class="count" id="countEV">0</span>
+                </button>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search posts, tags...">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== EVENTS GRID ===== -->
+<section class="events-section">
+    <div class="container">
+        <div class="events-grid" id="eventsGrid">
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search-minus"></i>
+                <h3 data-translate="events-no-results">No events found</h3>
+                <p style="color:#94a3b8;margin-top:8px;" data-translate="events-no-results-sub">Try a different filter or search term</p>
+            </div>
+        </div>
+        <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+            <button class="btn" id="loadMoreBtn" data-translate="events-load-more">Load More</button>
+        </div>
+    </div>
+</section>
+
+<!-- ===== VIDEO MODAL ===== -->
+<div class="video-modal" id="videoModal">
+    <div class="modal-inner">
+        <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+        <div class="modal-video-wrap">
+            <iframe id="modalIframe" src="" allowfullscreen allow="autoplay"></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-container">
+                    <img src="logo.WebP" alt="Tera Energy Logo" class="footer-logo-image">
+                    <div class="footer-logo-text-container">
+                        <h2 class="footer-logo-text">TERA ENERGY</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/tera_energy1?igsh=MWw0YTYwNjhkbTdkYg==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/1N8pYeJk2z/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://x.com/TeraEnergy1" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/company/tera-energy1/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p data-translate="copyright">&copy; 2013 Tera Energy. All rights reserved. | Tunis &amp; Vienna | Strength of the Lion, Power of Royalty</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== TRANSLATIONS ===== -->
+<script src="translations.js"></script>
+
+<script>
+/* ============================================================
+   EVENTS DATA
+   To add a post: copy one object, change the fields, add to array.
+   image: path like './assets/events/myimage.jpg' — leave '' for icon placeholder
+   videoUrl: YouTube embed link for type:'youtube'
+============================================================ */
+const eventsData = [
+    {
+        id: 1, type: 'youtube', featured: true,
+        title: 'Tera Classic — Official Promo',
+        desc: 'Power up your day with the original. Our official promotional video for Tera Classic Energy — the bold taste that started it all.',
+        date: '2025', likes: '', image: '',
+        videoUrl: 'https://www.youtube.com/embed/QGWljWhaONY',
+        tags: ['#TeraClassic', '#EnergyDrink', '#TeraEnergy', '#Official'],
+        link: 'https://youtu.be/QGWljWhaONY?si=FiiDvfywf0KIW_5X', gold: true
+    },
+    {
+        id: 2, type: 'youtube', featured: false,
+        title: 'Tera Energy — Ramadan Special',
+        desc: 'A warm message from Tera Energy to everyone celebrating Ramadan. Share energy, share spirit, share the moment.',
+        date: 'Ramadan 2025', likes: '', image: '',
+        videoUrl: 'https://www.youtube.com/embed/ul4cVQG1fo0',
+        tags: ['#Ramadan', '#TeraEnergy', '#RamadanKareem', '#ShareTheMoment'],
+        link: 'https://youtu.be/ul4cVQG1fo0?si=2GNWQsH5xuSrwTgL', gold: false
+    },
+    {
+        id: 3, type: 'event', featured: false,
+        title: 'Summer Vibes with Tera Energy',
+        desc: 'Sun, energy, and good times — Tera Energy was made for summer. Stay refreshed all season long.',
+        date: 'Summer 2025', likes: '', image: './assets/events/summer-event.WebP',
+        tags: ['#Summer', '#TeraEnergy', '#SummerVibes', '#StayFresh'],
+        link: 'https://www.instagram.com/tera_energy1', gold: true
+    },
+    {
+        id: 4, type: 'event', featured: false,
+        title: 'Ramadan with Tera Energy',
+        desc: 'Celebrating the holy month with our community. Tera Energy wishes everyone a blessed and energized Ramadan.',
+        date: 'Ramadan 2025', likes: '', image: './assets/events/ramadan-event.WebP',
+        tags: ['#Ramadan', '#RamadanKareem', '#TeraFamily', '#TeraEnergy'],
+        link: 'https://www.instagram.com/tera_energy1', gold: false
+    },
+    {
+        id: 5, type: 'instagram', featured: false,
+        title: 'Tera Energy — Marketing Spotlight',
+        desc: 'Bold designs, royal energy. A look at our latest marketing visuals crafted to fuel your ambition.',
+        date: '2025', likes: '', image: './assets/events/event1.WebP',
+        tags: ['#TeraEnergy', '#Marketing', '#Design', '#RoyalPower'],
+        link: 'https://www.instagram.com/tera_energy1', gold: false
+    },
+    {
+        id: 6, type: 'instagram', featured: false,
+        title: 'Tera Energy — Creative Series',
+        desc: 'Our creative team at work. Every design tells the story of strength, royalty, and unstoppable energy.',
+        date: '2025', likes: '', image: './assets/events/event2.WebP',
+        tags: ['#Creative', '#TeraEnergy', '#BrandStory', '#Design'],
+        link: 'https://www.instagram.com/tera_energy1', gold: false
+    },
+    {
+        id: 7, type: 'facebook', featured: false,
+        title: 'Tera Energy — Community Post',
+        desc: 'Real people, real energy. Thank you to our growing community for the love and support across the region.',
+        date: '2025', likes: '', image: './assets/events/event3.WebP',
+        tags: ['#TeraFamily', '#Community', '#TeraEnergy', '#RoyalPower'],
+        link: 'https://www.facebook.com/share/1N8pYeJk2z/', gold: false
+    },
+    {
+        id: 8, type: 'facebook', featured: false,
+        title: 'Tera Energy — Latest Drop',
+        desc: 'Fresh content, fresh energy. Stay tuned for what\'s next from the Tera Energy universe.',
+        date: '2025', likes: '', image: './assets/events/event4.WebP',
+        tags: ['#NewDrop', '#TeraEnergy', '#StayTuned', '#Energy'],
+        link: 'https://www.facebook.com/share/1N8pYeJk2z/', gold: false
+    }
+];
+
+/* ============================================================
+   PAGE-SPECIFIC TRANSLATIONS (merged on top of translations.js)
+============================================================ */
+const eventsTranslations = {
+    en: {
+        'events-hero-title': 'TERA EVENTS',
+        'events-hero-description': 'Social posts, event recaps, exclusive videos — everything happening in the world of Tera Energy.',
+        'events-stat-posts': 'Posts', 'events-stat-events': 'Events',
+        'events-stat-videos': 'Videos', 'events-stat-countries': 'Countries',
+        'events-filter-all': 'All', 'events-filter-videos': 'Videos', 'events-filter-events': 'Events',
+        'events-no-results': 'No events found', 'events-no-results-sub': 'Try a different filter or search term',
+        'events-load-more': 'Load More'
+    },
+    ar: {
+        'events-hero-title': 'فعاليات تيرا',
+        'events-hero-description': 'منشورات، ملخصات الفعاليات، مقاطع فيديو حصرية — كل ما يحدث في عالم تيرا إنرجي.',
+        'events-stat-posts': 'منشورات', 'events-stat-events': 'فعاليات',
+        'events-stat-videos': 'فيديوهات', 'events-stat-countries': 'دول',
+        'events-filter-all': 'الكل', 'events-filter-videos': 'فيديوهات', 'events-filter-events': 'فعاليات',
+        'events-no-results': 'لا توجد فعاليات', 'events-no-results-sub': 'جرب فلتراً أو كلمة بحث مختلفة',
+        'events-load-more': 'تحميل المزيد'
+    },
+    fr: {
+        'events-hero-title': 'ÉVÉNEMENTS TERA',
+        'events-hero-description': 'Publications, récapitulatifs d\'événements, vidéos exclusives — tout ce qui se passe dans l\'univers Tera Energy.',
+        'events-stat-posts': 'Publications', 'events-stat-events': 'Événements',
+        'events-stat-videos': 'Vidéos', 'events-stat-countries': 'Pays',
+        'events-filter-all': 'Tout', 'events-filter-videos': 'Vidéos', 'events-filter-events': 'Événements',
+        'events-no-results': 'Aucun événement trouvé', 'events-no-results-sub': 'Essayez un filtre ou terme de recherche différent',
+        'events-load-more': 'Charger Plus'
+    },
+    de: {
+        'events-hero-title': 'TERA EVENTS',
+        'events-hero-description': 'Beiträge, Event-Rückblicke, exklusive Videos — alles, was in der Welt von Tera Energy passiert.',
+        'events-stat-posts': 'Beiträge', 'events-stat-events': 'Events',
+        'events-stat-videos': 'Videos', 'events-stat-countries': 'Länder',
+        'events-filter-all': 'Alle', 'events-filter-videos': 'Videos', 'events-filter-events': 'Events',
+        'events-no-results': 'Keine Events gefunden', 'events-no-results-sub': 'Versuchen Sie einen anderen Filter oder Suchbegriff',
+        'events-load-more': 'Mehr Laden'
+    }
+};
+
+/* ============================================================
+   RENDERING ENGINE
+============================================================ */
+const CARDS_PER_PAGE = 6;
+let activeFilter = 'all', searchTerm = '', shownCount = 0;
+
+function getFiltered() {
+    return eventsData.filter(p => {
+        const matchType = activeFilter === 'all' || p.type === activeFilter;
+        const matchSearch = !searchTerm ||
+            p.title.toLowerCase().includes(searchTerm) ||
+            p.desc.toLowerCase().includes(searchTerm) ||
+            p.tags.some(t => t.toLowerCase().includes(searchTerm));
+        return matchType && matchSearch;
+    });
+}
+
+const sourceMap = {
+    instagram: ['instagram', '<i class="fab fa-instagram"></i> Instagram'],
+    facebook:  ['facebook',  '<i class="fab fa-facebook"></i> Facebook'],
+    youtube:   ['youtube',   '<i class="fab fa-youtube"></i> YouTube'],
+    event:     ['event',     '<i class="fas fa-star"></i> Event']
+};
+
+function buildCard(p) {
+    const [cls, label] = sourceMap[p.type] || sourceMap.event;
+    const isVideo = p.type === 'youtube';
+
+    const mediaContent = isVideo
+        ? `<div class="card-video-thumb" onclick="openVideo('${p.videoUrl}', '${p.link}')">
+               ${p.image ? `<img src="${p.image}" alt="${p.title}">` : ''}
+               <div class="play-btn-overlay"><div class="play-circle"><i class="fas fa-play"></i></div></div>
+           </div>`
+        : (p.image
+            ? `<img src="${p.image}" alt="${p.title}" loading="lazy">`
+            : `<div class="card-media-placeholder"><i class="fas fa-${p.type === 'event' ? 'star' : 'image'}"></i></div>`);
+
+    const tagsHtml = p.tags.map((t, i) => `<span class="tag ${i===0&&p.gold?'gold':''}">${t}</span>`).join('');
+    const featuredBadge = p.featured ? `<div class="featured-badge"><i class="fas fa-crown"></i> Featured Event</div>` : '';
+    const viewAction = isVideo ? `onclick="openVideo('${p.videoUrl}', '${p.link}')"` : `href="${p.link}" target="_blank" rel="noopener noreferrer"`;
+
+    return `
+    <article class="event-card visible${p.featured?' featured':''}" data-type="${p.type}">
+        <div class="card-media">
+            ${mediaContent}
+            <div class="source-badge ${cls}">${label}</div>
+        </div>
+        <div class="card-body">
+            ${featuredBadge}
+            <div class="card-meta">
+                <span class="card-date"><i class="far fa-calendar-alt"></i> ${p.date}</span>
+                ${p.likes ? `<span class="card-likes"><i class="fas fa-heart"></i> ${p.likes}</span>` : ''}
+            </div>
+            <h3 class="card-title">${p.title}</h3>
+            <p class="card-desc">${p.desc}</p>
+            <div class="card-tags">${tagsHtml}</div>
+            <div class="card-action">
+                <a class="btn-view" ${viewAction}>${isVideo ? 'Watch Video' : 'View Post'}</a>
+                <a class="btn-share" href="${p.link}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+    </article>`;
+}
+
+function updateCounts() {
+    document.getElementById('countAll').textContent = eventsData.length;
+    document.getElementById('countIG').textContent  = eventsData.filter(p => p.type==='instagram').length;
+    document.getElementById('countFB').textContent  = eventsData.filter(p => p.type==='facebook').length;
+    document.getElementById('countYT').textContent  = eventsData.filter(p => p.type==='youtube').length;
+    document.getElementById('countEV').textContent  = eventsData.filter(p => p.type==='event').length;
+}
+
+function renderGrid() {
+    const filtered = getFiltered();
+    const grid = document.getElementById('eventsGrid');
+    grid.querySelectorAll('.event-card').forEach(el => el.remove());
+    const noRes = document.getElementById('noResults');
+    if (!filtered.length) { noRes.classList.add('show'); document.getElementById('loadMoreWrap').style.display='none'; return; }
+    noRes.classList.remove('show');
+    shownCount = Math.min(CARDS_PER_PAGE, filtered.length);
+    grid.insertAdjacentHTML('afterbegin', filtered.slice(0, shownCount).map(buildCard).join(''));
+    document.getElementById('loadMoreWrap').style.display = filtered.length > shownCount ? 'block' : 'none';
+}
+
+function animateCounters() {
+    [['countPosts', eventsData.length], ['countEvents', eventsData.filter(p=>p.type==='event').length],
+     ['countVideos', eventsData.filter(p=>p.type==='youtube').length], ['countCountries', 12]
+    ].forEach(([id, target]) => {
+        const el = document.getElementById(id);
+        let count = 0;
+        const step = Math.max(1, Math.ceil(target / 40));
+        const t = setInterval(() => { count = Math.min(count+step, target); el.textContent = count; if (count>=target) clearInterval(t); }, 30);
+    });
+}
+
+/* Events */
+document.querySelectorAll('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter;
+        renderGrid();
+    });
+});
+
+document.getElementById('searchInput').addEventListener('input', function() {
+    searchTerm = this.value.toLowerCase().trim(); renderGrid();
+});
+
+document.getElementById('loadMoreBtn').addEventListener('click', () => {
+    const filtered = getFiltered();
+    const next = filtered.slice(shownCount, shownCount + CARDS_PER_PAGE);
+    document.getElementById('eventsGrid').insertAdjacentHTML('beforeend', next.map(buildCard).join(''));
+    shownCount += next.length;
+    if (shownCount >= filtered.length) document.getElementById('loadMoreWrap').style.display = 'none';
+});
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('tag')) {
+        const tag = e.target.textContent.replace('#','').toLowerCase();
+        document.getElementById('searchInput').value = '#'+tag;
+        searchTerm = '#'+tag; activeFilter = 'all';
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+        document.querySelector('[data-filter="all"]').classList.add('active');
+        renderGrid();
+        document.querySelector('.filters-section').scrollIntoView({behavior:'smooth', block:'start'});
+    }
+});
+
+function openVideo(url, externalLink) {
+    // Open directly on YouTube since embedding is disabled
+    window.open(externalLink, '_blank', 'noopener,noreferrer');
+}
+
+function closeModal() {
+    document.getElementById('modalIframe').src = '';
+    document.getElementById('videoModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target===this) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+/* Mobile menu */
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
+});
+
+document.querySelectorAll('.dropdown').forEach(d => {
+    d.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768 && e.target.closest('.dropbtn')) {
+            e.preventDefault(); this.classList.toggle('active');
+        }
+    });
+});
+
+/* Init */
+updateCounts();
+renderGrid();
+setTimeout(animateCounters, 400);
+languageSwitcher.init(eventsTranslations);
+</script>
+</body>
+</html>

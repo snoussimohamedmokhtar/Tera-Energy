@@ -3248,6 +3248,94 @@
         color: var(--secondary) !important;
         }
 
+        /* ========== EVENTS PREVIEW SECTION ========== */
+        .events-preview-section {
+            padding: 100px 0;
+            background: var(--darker);
+            position: relative;
+            overflow: hidden;
+        }
+        .events-preview-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.08) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 50%, rgba(251,191,36,0.05) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .events-grid-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 220px 220px;
+            gap: 16px;
+            margin-bottom: 50px;
+        }
+        .event-preview-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), box-shadow 0.4s ease;
+            border: 1px solid rgba(37,99,235,0.2);
+        }
+        .event-preview-card.tall { grid-row: span 2; }
+        .event-preview-card.wide { grid-column: span 2; }
+        .event-preview-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(37,99,235,0.35), 0 0 0 1px rgba(37,99,235,0.4);
+        }
+        .event-preview-img {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            transition: filter 0.4s ease;
+        }
+        .event-preview-card:hover .event-preview-img { filter: brightness(0.7); }
+        .event-img-placeholder { font-size: 3rem; color: rgba(255,255,255,0.15); }
+        .event-preview-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(2,6,23,0.95) 0%, transparent 100%);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+        }
+        .event-preview-card:hover .event-preview-overlay { transform: translateY(0); opacity: 1; }
+        .event-tag-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: var(--primary); color: white;
+            font-size: 0.7rem; font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; margin-bottom: 8px;
+        }
+        .event-preview-overlay p { color: var(--light); font-size: 0.85rem; font-weight: 600; margin: 0; }
+        .events-cta { text-align: center; }
+        .btn-events-all {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 16px 40px; background: transparent;
+            border: 2px solid var(--primary); color: var(--light);
+            font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+            letter-spacing: 3px; text-decoration: none; text-transform: uppercase;
+            border-radius: 4px; position: relative; overflow: hidden; transition: all 0.4s ease;
+        }
+        .btn-events-all::before {
+            content: ''; position: absolute; inset: 0; background: var(--primary);
+            transform: scaleX(0); transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); z-index: 0;
+        }
+        .btn-events-all:hover::before { transform: scaleX(1); }
+        .btn-events-all span, .btn-events-all i { position: relative; z-index: 1; }
+        .btn-events-all i { transition: transform 0.3s ease; }
+        .btn-events-all:hover i { transform: translateX(6px); }
+        @media (max-width: 768px) {
+            .events-grid-preview { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px 160px; }
+            .event-preview-card.tall { grid-row: span 1; }
+            .event-preview-overlay { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 480px) {
+            .events-grid-preview { grid-template-columns: 1fr; grid-template-rows: repeat(4, 180px); }
+            .event-preview-card.wide { grid-column: span 1; }
+        }
+
     </style>
     <link rel="icon" href="mini-logo.WebP">
     <script type="application/ld+json">
@@ -3284,6 +3372,7 @@
                         </div>
                     </li>
                     <li><a href="retailers.html" data-translate="retailers">Retailers</a></li>
+                    <li><a href="events.html" data-translate="events">Events</a></li>
                     <li><a href="index.html#logo-display" data-translate="about-us">About Us</a></li>
                     <li><a href="index.html#contact" data-translate="contact">Contact</a></li>
                 </ul>
@@ -3651,6 +3740,60 @@
         </div>
     </section>
 
+    <!-- ========== EVENTS PREVIEW SECTION ========== -->
+    <section id="events-preview" class="events-preview-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-translate="events-title">Tera Energy Events</h2>
+                <p data-translate="events-desc">Behind the scenes, on the ground, in the crowd — live the Tera experience</p>
+            </div>
+            <div class="events-grid-preview">
+                <div class="event-preview-card tall">
+                    <div class="event-preview-img" style="background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);">
+                        <div class="event-img-placeholder"><i class="fas fa-bolt"></i></div>
+                    </div>
+                    <div class="event-preview-overlay">
+                        <span class="event-tag-badge"><i class="fab fa-instagram"></i> Launch Event</span>
+                        <p>Tera Energy Vienna Product Launch 2024</p>
+                    </div>
+                </div>
+                <div class="event-preview-card">
+                    <div class="event-preview-img" style="background: linear-gradient(135deg, #0f172a 0%, #1e40af 100%);">
+                        <div class="event-img-placeholder"><i class="fas fa-trophy"></i></div>
+                    </div>
+                    <div class="event-preview-overlay">
+                        <span class="event-tag-badge"><i class="fab fa-facebook"></i> Sponsorship</span>
+                        <p>Tunis Sports Championship</p>
+                    </div>
+                </div>
+                <div class="event-preview-card">
+                    <div class="event-preview-img" style="background: linear-gradient(135deg, #1e3a5f 0%, #7c3aed 100%);">
+                        <div class="event-img-placeholder"><i class="fas fa-music"></i></div>
+                    </div>
+                    <div class="event-preview-overlay">
+                        <span class="event-tag-badge"><i class="fas fa-video"></i> Festival</span>
+                        <p>Summer Energy Festival Highlights</p>
+                    </div>
+                </div>
+                <div class="event-preview-card wide">
+                    <div class="event-preview-img" style="background: linear-gradient(135deg, #0f172a 0%, #2563eb 60%, #fbbf24 100%);">
+                        <div class="event-img-placeholder"><i class="fas fa-star"></i></div>
+                    </div>
+                    <div class="event-preview-overlay">
+                        <span class="event-tag-badge"><i class="fab fa-instagram"></i> Behind the Scenes</span>
+                        <p>Royal Lion Campaign Photoshoot</p>
+                    </div>
+                </div>
+            </div>
+            <div class="events-cta">
+                <a href="events.html" class="btn-events-all">
+                    <span>Explore All Events</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
     <!-- ========== ABOUT US SECTION ========== -->
     <section id="logo-display" class="about-section">
         <div class="container">
@@ -4864,6 +5007,7 @@
                     'contact': 'Contact',
                     'drinks': 'Drinks',
                     'snacks': 'Snacks',
+                    'events': 'Events',
                     
                     // Hero
                     'hero-title': 'TERA ENERGY. ROYAL POWER.',
@@ -4902,6 +5046,8 @@
                     'sparkling-fallback-2': 'Bubbly Refreshment',
                     
                     // Other Products Section
+                    'events-title': 'Tera Energy Events',
+                    'events-desc': 'Behind the scenes, on the ground, in the crowd — live the Tera experience',
                     'more-products': 'More from Tera Energy',
                     'more-products-desc': 'Discover our complete range of premium snacks and beverages',
                     'premium-biscuits': 'Premium Biscuits',
@@ -4997,6 +5143,7 @@
                     'contact': 'اتصل بنا',
                     'drinks': 'المشروبات',
                     'snacks': 'الوجبات الخفيفة',
+                    'events': 'الفعاليات',
                     
                     // Hero
                     'hero-title': 'تيرا إنرجي. قوة ملكية.',
@@ -5035,6 +5182,8 @@
                     'sparkling-fallback-2': 'انتعاش غازي',
                     
                     // Other Products Section
+                    'events-title': 'فعاليات تيرا إنرجي',
+                    'events-desc': 'خلف الكواليس، على أرض الواقع، في قلب الحدث — عش تجربة تيرا',
                     'more-products': 'المزيد من تيرا إنرجي',
                     'more-products-desc': 'اكتشف مجموعتنا الكاملة من الوجبات الخفيفة والمشروبات المميزة',
                     'premium-biscuits': 'بسكويت مميز',
@@ -5130,6 +5279,7 @@
                     'contact': 'Contact',
                     'drinks': 'Boissons',
                     'snacks': 'Collations',
+                    'events': 'Événements',
                     
                     // Hero
                     'hero-title': 'TERA ENERGY. PUISSANCE ROYALE.',
@@ -5168,6 +5318,8 @@
                     'sparkling-fallback-2': 'Rafraîchissement Pétillant',
                     
                     // Other Products Section
+                    'events-title': 'Événements Tera Energy',
+                    'events-desc': 'Dans les coulisses, sur le terrain, dans la foule — vivez l\'expérience Tera',
                     'more-products': 'Plus de Tera Energy',
                     'more-products-desc': 'Découvrez notre gamme complète de collations et boissons premium',
                     'premium-biscuits': 'Biscuits Premium',
@@ -5263,6 +5415,7 @@
                     'contact': 'Kontakt',
                     'drinks': 'Getränke',
                     'snacks': 'Snacks',
+                    'events': 'Events',
                     
                     // Hero
                     'hero-title': 'TERA ENERGY. KÖNIGLICHE KRAFT.',
@@ -5301,6 +5454,8 @@
                     'sparkling-fallback-2': 'Sprudelnde Erfrischung',
                     
                     // Other Products Section
+                    'events-title': 'Tera Energy Events',
+                    'events-desc': 'Hinter den Kulissen, vor Ort, mitten im Geschehen — erlebe Tera hautnah',
                     'more-products': 'Mehr von Tera Energy',
                     'more-products-desc': 'Entdecken Sie unser komplettes Sortiment an Premium-Snacks und Getränken',
                     'premium-biscuits': 'Premium-Kekse',
