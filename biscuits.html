@@ -29,6 +29,7 @@
             --biscuit: #d4a574;
             --cookie: #8b4513;
             --cream: #ffd700;
+            --chips: #f97316;
         }
 
         body {
@@ -706,6 +707,18 @@
 
         .category-cream .product-name {
             color: var(--cream);
+        }
+
+        .category-chips .flip-card-front {
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+
+        .category-chips .flip-card-back {
+            border-color: var(--chips);
+        }
+
+        .category-chips .product-name {
+            color: var(--chips);
         }
 
         /* ========== CATEGORY SECTIONS ========== */
@@ -1821,6 +1834,80 @@
         </div>
     </section>
 
+    <!-- Chips Section -->
+    <section id="chips" class="category-section">
+        <div class="container">
+            <div class="category-title">
+                <h2 data-translate="biscuits-chips-title">Premium Chips</h2>
+                <p data-translate="biscuits-chips-description">Crispy, vacuum soft-fried chips bursting with natural flavor and satisfying crunch</p>
+            </div>
+
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="prev-chips">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="products-carousel" id="carousel-chips">
+
+                    <!-- Chip 1: Sweet Potato Chips -->
+                    <div class="flip-card category-chips">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/biscuits/sweet-potato-chips.WebP" alt="Sweet Potato Chips" class="product-image">
+                                </div>
+                                <h3 class="product-name" data-translate="product-sweet-potato-chips">Sweet Potato Chips</h3>
+                                <p class="product-type" data-translate="product-sweet-potato-chips-type">Vacuum Soft-Fried</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 data-translate="product-sweet-potato-chips">Sweet Potato Chips</h3>
+                                <p data-translate="product-sweet-potato-chips-desc">Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the sweet potato chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chip 2: Beetroot Chips -->
+                    <div class="flip-card category-chips">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/biscuits/beetroot-chips.WebP" alt="Beetroot Chips" class="product-image">
+                                </div>
+                                <h3 class="product-name" data-translate="product-beetroot-chips">Beetroot Chips</h3>
+                                <p class="product-type" data-translate="product-beetroot-chips-type">Vacuum Soft-Fried</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 data-translate="product-beetroot-chips">Beetroot Chips</h3>
+                                <p data-translate="product-beetroot-chips-desc">Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the beetroot chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chip 3: Carrot Chips -->
+                    <div class="flip-card category-chips">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="product-image-container">
+                                    <img src="./assets/biscuits/carrot-chips.WebP" alt="Carrot Chips" class="product-image">
+                                </div>
+                                <h3 class="product-name" data-translate="product-carrot-chips">Carrot Chips</h3>
+                                <p class="product-type" data-translate="product-carrot-chips-type">Vacuum Soft-Fried</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <h3 data-translate="product-carrot-chips">Carrot Chips</h3>
+                                <p data-translate="product-carrot-chips-desc">Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the carrot chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="carousel-nav next" id="next-chips">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="indicators-chips"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -2000,6 +2087,26 @@
                 'product-hazelnut-wafer-cream-type': 'Crunchy Nut Cream',
                 'product-hazelnut-wafer-cream-desc': 'Creamy hazelnut spread with crispy wafer pieces mixed in. The perfect combination of smooth, nutty cream and satisfying crunch for a textural delight.',
                 
+                // ========== CHIPS PRODUCTS ==========
+                // Chips Section
+                'biscuits-chips-title': 'Premium Chips',
+                'biscuits-chips-description': 'Crispy, vacuum soft-fried chips bursting with natural flavor and satisfying crunch',
+
+                // Sweet Potato Chips
+                'product-sweet-potato-chips': 'Sweet Potato Chips',
+                'product-sweet-potato-chips-type': 'Vacuum Soft-Fried',
+                'product-sweet-potato-chips-desc': 'Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the sweet potato chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!',
+
+                // Beetroot Chips
+                'product-beetroot-chips': 'Beetroot Chips',
+                'product-beetroot-chips-type': 'Vacuum Soft-Fried',
+                'product-beetroot-chips-desc': 'Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the beetroot chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!',
+
+                // Carrot Chips
+                'product-carrot-chips': 'Carrot Chips',
+                'product-carrot-chips-type': 'Vacuum Soft-Fried',
+                'product-carrot-chips-desc': 'Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the carrot chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!',
+                
                 // Footer
                 'footer-logo': 'TERA ENERGY'
             },
@@ -2143,6 +2250,26 @@
                 'product-hazelnut-wafer-cream': 'كريم ويفر البندق',
                 'product-hazelnut-wafer-cream-type': 'كريم مكسراتي مقرمش',
                 'product-hazelnut-wafer-cream-desc': 'كريم بندق قابل للدهن ممزوج بقطع ويفر مقرمشة. المزيج المثالي بين الكريم الناعم المكسراتي والقرمشة المرضية لمتعة قوامية.',
+                
+                // ========== CHIPS PRODUCTS ==========
+                // Chips Section
+                'biscuits-chips-title': 'شيبس مميز',
+                'biscuits-chips-description': 'شيبس مقرمش ومقلي بالفراغ ينفجر بالنكهة الطبيعية والقرمشة المرضية',
+
+                // Sweet Potato Chips
+                'product-sweet-potato-chips': 'شيبس البطاطا الحلوة',
+                'product-sweet-potato-chips-type': 'مقلي بالفراغ',
+                'product-sweet-potato-chips-desc': 'هل هي ساعات الشمس الـ 2000 سنوياً التي تمنح التوابل نكهتها الفريدة؟ أم هو الحب والخبرة التي ننتج بها تتبيلنا الذي لا مثيل له؟ شيء واحد مؤكد: فقط شيبس البطاطا الحلوة المصنوع بتقنية القلي الناعم بالفراغ لفريق SNACKS-TEAM يكون مقرمشاً وطازجاً ولذيذاً ببساطة!',
+
+                // Beetroot Chips
+                'product-beetroot-chips': 'شيبس الشمندر',
+                'product-beetroot-chips-type': 'مقلي بالفراغ',
+                'product-beetroot-chips-desc': 'هل هي ساعات الشمس الـ 2000 سنوياً التي تمنح التوابل نكهتها الفريدة؟ أم هو الحب والخبرة التي ننتج بها تتبيلنا الذي لا مثيل له؟ شيء واحد مؤكد: فقط شيبس الشمندر المصنوع بتقنية القلي الناعم بالفراغ لفريق SNACKS-TEAM يكون مقرمشاً وطازجاً ولذيذاً ببساطة!',
+
+                // Carrot Chips
+                'product-carrot-chips': 'شيبس الجزر',
+                'product-carrot-chips-type': 'مقلي بالفراغ',
+                'product-carrot-chips-desc': 'هل هي ساعات الشمس الـ 2000 سنوياً التي تمنح التوابل نكهتها الفريدة؟ أم هو الحب والخبرة التي ننتج بها تتبيلنا الذي لا مثيل له؟ شيء واحد مؤكد: فقط شيبس الجزر المصنوع بتقنية القلي الناعم بالفراغ لفريق SNACKS-TEAM يكون مقرمشاً وطازجاً ولذيذاً ببساطة!',
                 
                 // Footer
                 'footer-logo': 'تيرا إنرجي'
@@ -2288,6 +2415,26 @@
                 'product-hazelnut-wafer-cream-type': 'Crème de Noix Croquante',
                 'product-hazelnut-wafer-cream-desc': 'Tartinade de noisettes crémeuse mélangée à des morceaux de gaufrettes croustillantes. La combinaison parfaite entre la crème de noix lisse et le croquant satisfaisant pour un délice textural.',
                 
+                // ========== CHIPS PRODUCTS ==========
+                // Chips Section
+                'biscuits-chips-title': 'Chips Premium',
+                'biscuits-chips-description': 'Chips croustillantes et frites sous vide, débordant de saveur naturelle et de croquant satisfaisant',
+
+                // Sweet Potato Chips
+                'product-sweet-potato-chips': 'Chips de Patate Douce',
+                'product-sweet-potato-chips-type': 'Frites sous Vide',
+                'product-sweet-potato-chips-desc': 'Est-ce les 2 000 heures de soleil par an qui donnent aux épices une saveur si unique? Ou est-ce l\'amour et l\'expérience avec lesquels nous produisons notre assaisonnement incomparable? Une chose est certaine: seules les chips de patate douce préparées selon le procédé de friture douce sous vide de la SNACKS-TEAM sont croustillantes, fraîches et tout simplement délicieuses!',
+
+                // Beetroot Chips
+                'product-beetroot-chips': 'Chips de Betterave',
+                'product-beetroot-chips-type': 'Frites sous Vide',
+                'product-beetroot-chips-desc': 'Est-ce les 2 000 heures de soleil par an qui donnent aux épices une saveur si unique? Ou est-ce l\'amour et l\'expérience avec lesquels nous produisons notre assaisonnement incomparable? Une chose est certaine: seules les chips de betterave préparées selon le procédé de friture douce sous vide de la SNACKS-TEAM sont croustillantes, fraîches et tout simplement délicieuses!',
+
+                // Carrot Chips
+                'product-carrot-chips': 'Chips de Carotte',
+                'product-carrot-chips-type': 'Frites sous Vide',
+                'product-carrot-chips-desc': 'Est-ce les 2 000 heures de soleil par an qui donnent aux épices une saveur si unique? Ou est-ce l\'amour et l\'expérience avec lesquels nous produisons notre assaisonnement incomparable? Une chose est certaine: seules les chips de carotte préparées selon le procédé de friture douce sous vide de la SNACKS-TEAM sont croustillantes, fraîches et tout simplement délicieuses!',
+                
                 // Footer
                 'footer-logo': 'TERA ENERGY'
             },
@@ -2431,6 +2578,26 @@
                 'product-hazelnut-wafer-cream': 'Haselnuss Waffel Creme',
                 'product-hazelnut-wafer-cream-type': 'Knusprige Nusscreme',
                 'product-hazelnut-wafer-cream-desc': 'Cremiger Haselnussaufstrich gemischt mit knusprigen Waffelstücken. Die perfekte Kombination aus glatter, nussiger Creme und befriedigendem Crunch für einen texturlichen Genuss.',
+                
+                // ========== CHIPS PRODUCTS ==========
+                // Chips Section
+                'biscuits-chips-title': 'Premium Chips',
+                'biscuits-chips-description': 'Knusprige, vakuum-weich-frittierte Chips voller natürlichem Geschmack und befriedigendem Crunch',
+
+                // Sweet Potato Chips
+                'product-sweet-potato-chips': 'Süßkartoffel Chips',
+                'product-sweet-potato-chips-type': 'Vakuum Weich-Frittiert',
+                'product-sweet-potato-chips-desc': 'Sind es die 2.000 Sonnenstunden pro Jahr, die den Gewürzen einen so einzigartigen Geschmack verleihen? Oder ist es die Liebe und Erfahrung, mit der wir unsere unvergleichliche Würzung herstellen? Eines ist sicher: Nur die Süßkartoffel-Chips, die nach dem Vakuum-Weich-Frittier-Verfahren des SNACKS-TEAM hergestellt werden, sind knusprig, frisch und einfach köstlich!',
+
+                // Beetroot Chips
+                'product-beetroot-chips': 'Rote-Bete Chips',
+                'product-beetroot-chips-type': 'Vakuum Weich-Frittiert',
+                'product-beetroot-chips-desc': 'Sind es die 2.000 Sonnenstunden pro Jahr, die den Gewürzen einen so einzigartigen Geschmack verleihen? Oder ist es die Liebe und Erfahrung, mit der wir unsere unvergleichliche Würzung herstellen? Eines ist sicher: Nur die Rote-Bete-Chips, die nach dem Vakuum-Weich-Frittier-Verfahren des SNACKS-TEAM hergestellt werden, sind knusprig, frisch und einfach köstlich!',
+
+                // Carrot Chips
+                'product-carrot-chips': 'Karotten Chips',
+                'product-carrot-chips-type': 'Vakuum Weich-Frittiert',
+                'product-carrot-chips-desc': 'Sind es die 2.000 Sonnenstunden pro Jahr, die den Gewürzen einen so einzigartigen Geschmack verleihen? Oder ist es die Liebe und Erfahrung, mit der wir unsere unvergleichliche Würzung herstellen? Eines ist sicher: Nur die Karotten-Chips, die nach dem Vakuum-Weich-Frittier-Verfahren des SNACKS-TEAM hergestellt werden, sind knusprig, frisch und einfach köstlich!',
                 
                 // Footer
                 'footer-logo': 'TERA ENERGY'
@@ -2623,6 +2790,7 @@
             initCarousel('carousel-biscuits', 'prev-biscuits', 'next-biscuits', 'indicators-biscuits');
             initCarousel('carousel-cookies', 'prev-cookies', 'next-cookies', 'indicators-cookies');
             initCarousel('carousel-cream', 'prev-cream', 'next-cream', 'indicators-cream');
+            initCarousel('carousel-chips', 'prev-chips', 'next-chips', 'indicators-chips');
         });
 
         // Add click event to flip cards for mobile devices

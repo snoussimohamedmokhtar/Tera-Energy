@@ -13,25 +13,77 @@ const languageSwitcher = {
             'home': 'Home', 'products': 'Products', 'retailers': 'Retailers',
             'events': 'Events', 'about-us': 'About Us', 'locations': 'Locations',
             'contact': 'Contact', 'drinks': 'Drinks', 'snacks': 'Snacks',
-            'copyright': '© 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty'
+            'copyright': '© 2013 Tera Energy. All rights reserved. | Tunis & Vienna | Strength of the Lion, Power of Royalty',
+
+            // ========== CHIPS ==========
+            'biscuits-chips-title': 'Premium Chips',
+            'biscuits-chips-description': 'Crispy, vacuum soft-fried chips bursting with natural flavor and satisfying crunch',
+            'product-sweet-potato-chips': 'Sweet Potato Chips',
+            'product-sweet-potato-chips-type': 'Vacuum Soft-Fried',
+            'product-sweet-potato-chips-desc': 'Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the sweet potato chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!',
+            'product-beetroot-chips': 'Beetroot Chips',
+            'product-beetroot-chips-type': 'Vacuum Soft-Fried',
+            'product-beetroot-chips-desc': 'Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the beetroot chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!',
+            'product-carrot-chips': 'Carrot Chips',
+            'product-carrot-chips-type': 'Vacuum Soft-Fried',
+            'product-carrot-chips-desc': 'Is it the 2,000 hours of sunshine per year that give the spices such a unique flavor? Or is it the love and experience with which we produce our incomparable seasoning? One thing is certain: Only the carrot chips made using the SNACKS-TEAM vacuum soft-fried process are crispy, fresh, and simply delicious!'
         },
         ar: {
             'home': 'الرئيسية', 'products': 'المنتجات', 'retailers': 'التجار',
             'events': 'الفعاليات', 'about-us': 'من نحن', 'locations': 'المواقع',
             'contact': 'اتصل بنا', 'drinks': 'المشروبات', 'snacks': 'الوجبات الخفيفة',
-            'copyright': '© 2013 تيرا إنرجي. جميع الحقوق محفوظة. | تونس وفينا | قوة الأسد، قوة الملوك'
+            'copyright': '© 2013 تيرا إنرجي. جميع الحقوق محفوظة. | تونس وفينا | قوة الأسد، قوة الملوك',
+
+            // ========== CHIPS ==========
+            'biscuits-chips-title': 'شيبس مميز',
+            'biscuits-chips-description': 'شيبس مقرمش ومقلي بالفراغ ينفجر بالنكهة الطبيعية والقرمشة المرضية',
+            'product-sweet-potato-chips': 'شيبس البطاطا الحلوة',
+            'product-sweet-potato-chips-type': 'مقلي بالفراغ',
+            'product-sweet-potato-chips-desc': 'هل هي ساعات الشمس الـ 2000 سنوياً التي تمنح التوابل نكهتها الفريدة؟ أم هو الحب والخبرة التي ننتج بها تتبيلنا الذي لا مثيل له؟ شيء واحد مؤكد: فقط شيبس البطاطا الحلوة المصنوع بتقنية القلي الناعم بالفراغ لفريق SNACKS-TEAM يكون مقرمشاً وطازجاً ولذيذاً ببساطة!',
+            'product-beetroot-chips': 'شيبس الشمندر',
+            'product-beetroot-chips-type': 'مقلي بالفراغ',
+            'product-beetroot-chips-desc': 'هل هي ساعات الشمس الـ 2000 سنوياً التي تمنح التوابل نكهتها الفريدة؟ أم هو الحب والخبرة التي ننتج بها تتبيلنا الذي لا مثيل له؟ شيء واحد مؤكد: فقط شيبس الشمندر المصنوع بتقنية القلي الناعم بالفراغ لفريق SNACKS-TEAM يكون مقرمشاً وطازجاً ولذيذاً ببساطة!',
+            'product-carrot-chips': 'شيبس الجزر',
+            'product-carrot-chips-type': 'مقلي بالفراغ',
+            'product-carrot-chips-desc': 'هل هي ساعات الشمس الـ 2000 سنوياً التي تمنح التوابل نكهتها الفريدة؟ أم هو الحب والخبرة التي ننتج بها تتبيلنا الذي لا مثيل له؟ شيء واحد مؤكد: فقط شيبس الجزر المصنوع بتقنية القلي الناعم بالفراغ لفريق SNACKS-TEAM يكون مقرمشاً وطازجاً ولذيذاً ببساطة!'
         },
         fr: {
             'home': 'Accueil', 'products': 'Produits', 'retailers': 'Détaillants',
             'events': 'Événements', 'about-us': 'À propos', 'locations': 'Emplacements',
             'contact': 'Contact', 'drinks': 'Boissons', 'snacks': 'Collations',
-            'copyright': '© 2013 Tera Energy. Tous droits réservés. | Tunis & Vienne | Force du Lion, Puissance Royale'
+            'copyright': '© 2013 Tera Energy. Tous droits réservés. | Tunis & Vienne | Force du Lion, Puissance Royale',
+
+            // ========== CHIPS ==========
+            'biscuits-chips-title': 'Chips Premium',
+            'biscuits-chips-description': 'Chips croustillantes et frites sous vide, débordant de saveur naturelle et de croquant satisfaisant',
+            'product-sweet-potato-chips': 'Chips de Patate Douce',
+            'product-sweet-potato-chips-type': 'Frites sous Vide',
+            'product-sweet-potato-chips-desc': 'Est-ce les 2 000 heures de soleil par an qui donnent aux épices une saveur si unique? Ou est-ce l\'amour et l\'expérience avec lesquels nous produisons notre assaisonnement incomparable? Une chose est certaine: seules les chips de patate douce préparées selon le procédé de friture douce sous vide de la SNACKS-TEAM sont croustillantes, fraîches et tout simplement délicieuses!',
+            'product-beetroot-chips': 'Chips de Betterave',
+            'product-beetroot-chips-type': 'Frites sous Vide',
+            'product-beetroot-chips-desc': 'Est-ce les 2 000 heures de soleil par an qui donnent aux épices une saveur si unique? Ou est-ce l\'amour et l\'expérience avec lesquels nous produisons notre assaisonnement incomparable? Une chose est certaine: seules les chips de betterave préparées selon le procédé de friture douce sous vide de la SNACKS-TEAM sont croustillantes, fraîches et tout simplement délicieuses!',
+            'product-carrot-chips': 'Chips de Carotte',
+            'product-carrot-chips-type': 'Frites sous Vide',
+            'product-carrot-chips-desc': 'Est-ce les 2 000 heures de soleil par an qui donnent aux épices une saveur si unique? Ou est-ce l\'amour et l\'expérience avec lesquels nous produisons notre assaisonnement incomparable? Une chose est certaine: seules les chips de carotte préparées selon le procédé de friture douce sous vide de la SNACKS-TEAM sont croustillantes, fraîches et tout simplement délicieuses!'
         },
         de: {
             'home': 'Startseite', 'products': 'Produkte', 'retailers': 'Händler',
             'events': 'Events', 'about-us': 'Über Uns', 'locations': 'Standorte',
             'contact': 'Kontakt', 'drinks': 'Getränke', 'snacks': 'Snacks',
-            'copyright': '© 2013 Tera Energy. Alle Rechte vorbehalten. | Tunis & Wien | Stärke des Löwen, Kraft der Königlichkeit'
+            'copyright': '© 2013 Tera Energy. Alle Rechte vorbehalten. | Tunis & Wien | Stärke des Löwen, Kraft der Königlichkeit',
+
+            // ========== CHIPS ==========
+            'biscuits-chips-title': 'Premium Chips',
+            'biscuits-chips-description': 'Knusprige, vakuum-weich-frittierte Chips voller natürlichem Geschmack und befriedigendem Crunch',
+            'product-sweet-potato-chips': 'Süßkartoffel Chips',
+            'product-sweet-potato-chips-type': 'Vakuum Weich-Frittiert',
+            'product-sweet-potato-chips-desc': 'Sind es die 2.000 Sonnenstunden pro Jahr, die den Gewürzen einen so einzigartigen Geschmack verleihen? Oder ist es die Liebe und Erfahrung, mit der wir unsere unvergleichliche Würzung herstellen? Eines ist sicher: Nur die Süßkartoffel-Chips, die nach dem Vakuum-Weich-Frittier-Verfahren des SNACKS-TEAM hergestellt werden, sind knusprig, frisch und einfach köstlich!',
+            'product-beetroot-chips': 'Rote-Bete Chips',
+            'product-beetroot-chips-type': 'Vakuum Weich-Frittiert',
+            'product-beetroot-chips-desc': 'Sind es die 2.000 Sonnenstunden pro Jahr, die den Gewürzen einen so einzigartigen Geschmack verleihen? Oder ist es die Liebe und Erfahrung, mit der wir unsere unvergleichliche Würzung herstellen? Eines ist sicher: Nur die Rote-Bete-Chips, die nach dem Vakuum-Weich-Frittier-Verfahren des SNACKS-TEAM hergestellt werden, sind knusprig, frisch und einfach köstlich!',
+            'product-carrot-chips': 'Karotten Chips',
+            'product-carrot-chips-type': 'Vakuum Weich-Frittiert',
+            'product-carrot-chips-desc': 'Sind es die 2.000 Sonnenstunden pro Jahr, die den Gewürzen einen so einzigartigen Geschmack verleihen? Oder ist es die Liebe und Erfahrung, mit der wir unsere unvergleichliche Würzung herstellen? Eines ist sicher: Nur die Karotten-Chips, die nach dem Vakuum-Weich-Frittier-Verfahren des SNACKS-TEAM hergestellt werden, sind knusprig, frisch und einfach köstlich!'
         }
     },
 
